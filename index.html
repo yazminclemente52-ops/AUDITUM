@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Auditum - INSPECCI&#211;N de Calidad de Componentes de Acero</title>
+  <title>Auditum - Inspección de Calidad de Componentes de Acero</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -14,7 +14,7 @@
   <!-- jsPDF & QRCode -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Chart.js para Gr&#225;fica de Barras y Pastel del Gerente -->
+  <!-- Chart.js para Gráfica de Barras y Pastel del Gerente -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     @media print {
@@ -32,16 +32,12 @@
       filter: invert(1) brightness(2);
       opacity: 1;
     }
-    /* Fondo personalizado Caterpillar con overlay industrial */
-    body {
+    /* Fondo personalizado Caterpillar con overlay industrial (compatible con PC y Celular) */
+    html {
       background-color: #0b1120;
-      background-image: 
-        linear-gradient(to bottom, rgba(11, 17, 32, 0.76), rgba(15, 23, 42, 0.82)),
-        url('cat_bg.jpg');
-      background-size: cover;
-      background-position: center 35%;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
+    }
+    body {
+      background-color: transparent !important;
     }
     
     /* Encabezado Principal con Textura Industrial de Franjas de Seguridad */
@@ -81,7 +77,7 @@
       transform: translateY(0) scale(0.98);
     }
 
-    /* 1. Nueva INSPECCI&#211;N - Azul Royal ElÉctrico */
+    /* 1. Nueva Inspección - Azul Royal Eléctrico */
     .nav-tab-nueva {
       background: rgba(10, 20, 42, 0.95) !important;
       border: 2px solid #3b82f6 !important;
@@ -107,7 +103,7 @@
       box-shadow: 0 0 20px rgba(245, 158, 11, 0.75), inset 0 1px 2px rgba(255,255,255,0.4) !important;
     }
 
-    /* 3. Dashboard, Producci&#243;n y Defectos - Cyan / Turquesa TecnolÓgico */
+    /* 3. Dashboard, Producción y Defectos - Cyan / Turquesa Tecnológico */
     .nav-tab-gerente {
       background: rgba(8, 25, 38, 0.95) !important;
       border: 2px solid #06b6d4 !important;
@@ -133,7 +129,7 @@
       box-shadow: 0 0 20px rgba(129, 140, 248, 0.75), inset 0 1px 2px rgba(255,255,255,0.4) !important;
     }
 
-    /* 5. L&#237;neas que Requieren QG - Rojo Escarlata Alerta */
+    /* 5. Líneas que Requieren QG - Rojo Escarlata Alerta */
     .nav-tab-cabinas {
       background: rgba(35, 10, 15, 0.95) !important;
       border: 2px solid #ef4444 !important;
@@ -146,7 +142,7 @@
       box-shadow: 0 0 22px rgba(239, 68, 68, 0.85), inset 0 1px 2px rgba(255,255,255,0.4) !important;
     }
 
-    /* 6. Mapa de Planta (Sensores) - Verde Esmeralda NeÓn */
+    /* 6. Mapa de Planta (Sensores) - Verde Esmeralda Neón */
     .nav-tab-mapa {
       background: rgba(6, 28, 20, 0.95) !important;
       border: 2px solid #10b981 !important;
@@ -278,8 +274,8 @@
 
   <!-- ==================== FONDO FIJO CATERPILLAR INDUSTRIAL ==================== -->
   <div id="app-cat-bg" class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden" aria-hidden="true">
-    <div class="absolute inset-0 bg-cover bg-no-repeat" style="background-image: url('cat_bg.jpg'); background-position: center 35%; background-attachment: fixed;"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-900/70 to-slate-950/85 backdrop-blur-[0.5px]"></div>
+    <img src="cat_bg.jpg" alt="" class="w-full h-full object-cover select-none" style="object-position: center 35%;" />
+    <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(11, 17, 32, 0.74), rgba(15, 23, 42, 0.81));"></div>
   </div>
 
   <!-- ==================== PANTALLA DE INICIO DE SESIÓN OBLIGATORIA (LOGIN) ==================== -->
@@ -292,7 +288,7 @@
           <i class="fa-solid fa-shield-halved text-white text-xl"></i>
         </div>
         <h1 class="text-xl font-black tracking-tight text-white">AUDITUM</h1>
-        <p class="text-[11px] text-cyan-400 font-semibold uppercase tracking-wider">Sistema de Calidad e INSPECCI&#211;N Inmutable</p>
+        <p class="text-[11px] text-cyan-400 font-semibold uppercase tracking-wider">Sistema de Calidad e Inspección Inmutable</p>
       </div>
 
       <!-- Placeholder oculto para compatibilidad con scripts existentes -->
@@ -301,10 +297,10 @@
 
       <!-- Formulario de Acceso Directo por Nómina y Contraseña -->
       <form id="login-form" onsubmit="handleLoginSubmit(event); return false;" class="space-y-3">
-        <!-- N&#250;mero de Nómina -->
+        <!-- Número de Nómina -->
         <div>
           <label for="login-nomina" class="block text-xs font-bold text-slate-300 uppercase tracking-wide mb-1 flex justify-between items-center">
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-id-badge text-blue-400"></i> N&#250;mero de Nómina</span>
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-id-badge text-blue-400"></i> Número de Nómina</span>
             <span class="text-[10px] text-cyan-400 font-normal">Escribe tu número de nómina</span>
           </label>
           <div class="relative">
@@ -339,7 +335,7 @@
               <option value="Turno 1 (Matutino)">🌅 Turno 1 (Matutino • 06:00 a 14:00)</option>
               <option value="Turno 2 (Vespertino)">☀️ Turno 2 (Vespertino • 14:00 a 21:30)</option>
               <option value="Turno 3 (Nocturno)">🌙 Turno 3 (Nocturno • 21:30 a 06:00)</option>
-              <option value="Mixto">🛡️ Turno Mixto (Supervisi&#243;n / Flexible)</option>
+              <option value="Mixto">🛡️ Turno Mixto (Supervisión / Flexible)</option>
               <option value="Tiempo Extra">⏱️ Horario Especial / Tiempo Extra</option>
             </select>
             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-amber-400">
@@ -354,7 +350,7 @@
           <span id="login-error-text">Nómina requerida.</span>
         </div>
 
-        <!-- BOTÓN de Iniciar Turno de Trabajo -->
+        <!-- Botón de Iniciar Turno de Trabajo -->
         <div class="pt-1">
           
           <button type="button" id="btn-login-submit" onclick="handleLoginSubmit(event)" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition active:scale-[0.98] cursor-pointer">
@@ -363,7 +359,7 @@
           </button>
           <button type="button" onclick="quickLoginUser(1042, '1042')" class="w-full mt-2 py-2 px-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs border border-cyan-500/40 flex items-center justify-center gap-1.5 transition active:scale-[0.98] cursor-pointer">
             <i class="fa-solid fa-bolt text-amber-400"></i>
-            <span>Ingreso RÃ¡pido Directo (Juan PÃ©rez #1042)</span>
+            <span>Ingreso Rápido Directo (Juan Pérez #1042)</span>
           </button>
         </div>
       </form>
@@ -404,7 +400,7 @@
             <span class="text-xl font-black tracking-tight text-white drop-shadow-md">AUDITUM</span>
             <span class="px-2 py-0.5 text-xs font-black rounded-lg bg-blue-600/90 text-white border border-blue-400/60 shadow-sm">Acero & Calidad</span>
           </div>
-          <p class="text-xs text-amber-300 font-bold hidden sm:block drop-shadow">Control e INSPECCI&#211;N Inmutable de Componentes</p>
+          <p class="text-xs text-amber-300 font-bold hidden sm:block drop-shadow">Control e Inspección Inmutable de Componentes</p>
         </div>
       </div>
 
@@ -431,7 +427,7 @@
               </button>
             </div>
 
-            <!-- Filtros RÁpidos de VisualizaciÓn -->
+            <!-- Filtros RÁpidos de Visualización -->
             <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-950/80 rounded-xl border border-slate-800 text-[11px] font-bold text-center">
               <button id="presence-tab-coordinadores" onclick="setPresenceFilter('coordinadores')" class="py-1 px-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition flex items-center justify-center gap-1">
                 <i class="fa-solid fa-shield-halved text-[10px]"></i> QG Calidad
@@ -451,7 +447,7 @@
             </div>
 
             <div id="presence-users-list" class="space-y-2 max-h-72 overflow-y-auto pr-1 custom-scrollbar">
-              <!-- Renderizado dinÁmico de usuarios con lucecitas -->
+              <!-- Renderizado dinámico de usuarios con lucecitas -->
             </div>
           </div>
         </div>
@@ -475,8 +471,8 @@
           <i class="fa-solid fa-chevron-down text-xs text-amber-400"></i>
         </div>
 
-        <!-- BOTÓN de Cerrar Sesión / Salir (Alta Visibilidad Rojo Escarlata) -->
-        <button onclick="logoutUser()" title="Cerrar SesiÓn / Bloquear Turno" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black border-2 border-rose-300 text-xs flex items-center gap-1.5 transition shadow-xl shadow-rose-600/40 cursor-pointer active:scale-95">
+        <!-- Botón de Cerrar Sesión / Salir (Alta Visibilidad Rojo Escarlata) -->
+        <button onclick="logoutUser()" title="Cerrar Sesión / Bloquear Turno" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-600 text-white font-black border-2 border-rose-300 text-xs flex items-center gap-1.5 transition shadow-xl shadow-rose-600/40 cursor-pointer active:scale-95">
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
           <span>Salir</span>
         </button>
@@ -487,10 +483,10 @@
     <div class="w-full px-2 sm:px-4 lg:px-6 border-t border-amber-400/30">
       <div class="w-full overflow-x-auto overflow-y-hidden py-1.5 scroll-smooth custom-scrollbar" style="scrollbar-width: thin; -webkit-overflow-scrolling: touch;">
         <nav class="flex items-center space-x-1.5 sm:space-x-2 min-w-max pb-0.5" aria-label="Tabs">
-          <!-- 1. Pestaña Nueva INSPECCI&#211;N (Azul Royal Eléctrico) -->
+          <!-- 1. Pestaña Nueva Inspección (Azul Royal Eléctrico) -->
           <button onclick="switchTab('nueva')" id="tab-btn-nueva" class="tab-btn nav-tab-btn nav-tab-nueva px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-clipboard-check text-sm"></i>
-            <span>Nueva INSPECCI&#211;N</span>
+            <span>Nueva Inspección</span>
           </button>
 
           <!-- 2. Pestaña MAPA DE PLANTA Y SENSORES (Verde Esmeralda Neón) - Visible inmediatamente para QG y Supervisores -->
@@ -522,10 +518,10 @@
             <span id="badge-incompletas" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-amber-400 text-slate-950 border border-slate-950 shadow-sm">0</span>
           </button>
 
-          <!-- 5. Pestaña Unificada: Dashboard, Producci&#243;n y Defectos (Cyan / Turquesa Tecnológico) -->
+          <!-- 5. Pestaña Unificada: Dashboard, Producción y Defectos (Cyan / Turquesa Tecnológico) -->
           <button onclick="switchTab('gerente')" id="tab-btn-gerente" class="tab-btn nav-tab-btn nav-tab-gerente px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
             <i class="fa-solid fa-chart-line text-sm"></i>
-            <span>Dashboard, Producci&#243;n y Defectos</span>
+            <span>Dashboard, Producción y Defectos</span>
             <span id="badge-total-defectos" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-rose-500 text-white border border-white font-mono shadow-sm">0</span>
           </button>
           <!-- Aliases ocultos para compatibilidad -->
@@ -547,7 +543,7 @@
   <!-- ==================== MAIN CONTENT AREA ==================== -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
 
-    <!-- ==================== TAB 1: NUEVA INSPECCI&#211;N ==================== -->
+    <!-- ==================== TAB 1: NUEVA INSPECCIÓN ==================== -->
     <section id="tab-nueva" class="tab-content">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
@@ -561,9 +557,9 @@
               </div>
               <div>
                 <h2 class="text-base sm:text-lg font-black tracking-wide text-slate-950 uppercase flex items-center gap-2">
-                  Registro de INSPECCI&#211;N en Piso
+                  Registro de Inspección en Piso
                 </h2>
-                <p class="text-xs font-bold text-slate-900">Completa los datos t&#233;cnicos del componente de acero y captura evidencia fotográfica.</p>
+                <p class="text-xs font-bold text-slate-900">Completa los datos técnicos del componente de acero y captura evidencia fotográfica.</p>
               </div>
             </div>
             <div class="text-right bg-slate-950 px-3.5 py-1.5 rounded-xl border border-amber-500/50 shadow">
@@ -578,7 +574,7 @@
             <div class="flex items-center gap-2.5">
               <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
               <span class="text-slate-300">
-                <strong class="text-amber-300 font-bold" id="nueva-cabinas-count-text">3 L&#237;neas</strong> tienen una cabina terminada esperando coordinador de calidad.
+                <strong class="text-amber-300 font-bold" id="nueva-cabinas-count-text">3 Líneas</strong> tienen una cabina terminada esperando coordinador de calidad.
               </span>
             </div>
             <div class="flex items-center gap-2 shrink-0">
@@ -586,12 +582,12 @@
                 <i class="fa-solid fa-map-location-dot"></i> Ver en Mapa
               </button>
               <button type="button" onclick="openCabinasCoordinadorModal()" class="px-3 py-1 rounded-lg bg-amber-600/80 hover:bg-amber-600 text-white font-bold text-[11px] flex items-center gap-1 transition cursor-pointer shadow-sm">
-                <i class="fa-solid fa-truck-pickup"></i> Ver L&#237;neas
+                <i class="fa-solid fa-truck-pickup"></i> Ver Líneas
               </button>
             </div>
           </div>
 
-          <!-- Cronómetro de INSPECCI&#211;N en Piso -->
+          <!-- Cronómetro de Inspección en Piso -->
           <div class="mb-6 p-4 rounded-xl bg-slate-900 border border-blue-500/40 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-3.5 w-full sm:w-auto">
               <div id="timer-icon-container" class="w-14 h-14 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-amber-400 text-2xl shadow-inner transition-all">
@@ -599,7 +595,7 @@
               </div>
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Cronómetro de INSPECCI&#211;N</span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Cronómetro de Inspección</span>
                   <span id="timer-badge" class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-slate-800 text-slate-400 border border-slate-700">
                     ⏹ Detenido
                   </span>
@@ -618,7 +614,7 @@
             <!-- Botones de Control del Cronómetro -->
             <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
               <button type="button" id="btn-timer-toggle" onclick="toggleInspectionTimer()" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition active:scale-95">
-                <i class="fa-solid fa-play" id="btn-timer-icon"></i> <span id="btn-timer-text">Iniciar INSPECCI&#211;N</span>
+                <i class="fa-solid fa-play" id="btn-timer-icon"></i> <span id="btn-timer-text">Iniciar Inspección</span>
               </button>
               <button type="button" onclick="resetInspectionTimer()" class="px-3.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-semibold transition" title="Reiniciar Cronómetro a 00:00:00">
                 <i class="fa-solid fa-rotate-left"></i>
@@ -630,16 +626,16 @@
             <!-- Grid de datos del componente -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-                            <!-- N&#250;mero de Parte (Escritura Manual por Cabina) -->
+                            <!-- Número de Parte (Escritura Manual por Cabina) -->
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
-                  N&#250;mero de Parte <span class="text-red-400">*</span>
+                  Número de Parte <span class="text-red-400">*</span>
                 </label>
                 <div class="relative">
                   <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                     <i class="fa-solid fa-hashtag text-sm"></i>
                   </span>
-                  <input type="text" id="input-parte" list="list-partes-sugeridas" required placeholder="Ingresar n&#250;mero de parte manual de la cabina" class="w-full bg-slate-900 border border-slate-600 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                  <input type="text" id="input-parte" list="list-partes-sugeridas" required placeholder="Ingresar número de parte manual de la cabina" class="w-full bg-slate-900 border border-slate-600 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white font-mono focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <datalist id="list-partes-sugeridas"></datalist>
                 </div>
               </div>
@@ -651,7 +647,7 @@
                 </label>
                 <select id="input-modelo" onchange="handleModeloChange()" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="">-- Seleccionar Modelo --</option>
-                  <optgroup label="Nave FABS (10 L&#237;neas)">
+                  <optgroup label="Nave FABS (10 Líneas)">
                     <option value="LTTT">LTTT</option>
                     <option value="MTTT">MTTT</option>
                     <option value="MG">MG</option>
@@ -663,12 +659,12 @@
                     <option value="OHT">OHT</option>
                     <option value="LMT">LMT</option>
                   </optgroup>
-                  <optgroup label="Nave EDIFICIO K (3 L&#237;neas)">
+                  <optgroup label="Nave EDIFICIO K (3 Líneas)">
                     <option value="LOW VOLUME">LOW VOLUME</option>
                     <option value="LMT K">LMT K</option>
                     <option value="COBOT">COBOT</option>
                   </optgroup>
-                  <optgroup label="&#193;rea PINTURA (3 L&#237;neas)">
+                  <optgroup label="Área PINTURA (3 Líneas)">
                     <option value="Carga Paint">Carga Paint</option>
                     <option value="Sellado Paint">Sellado Paint</option>
                     <option value="Preparacion Paint">Preparacion Paint</option>
@@ -676,10 +672,10 @@
                 </select>
               </div>
 
-              <!-- N&#250;mero de Serie F&#237;sico -->
+              <!-- Número de Serie Físico -->
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
-                  N&#250;mero de Serie Estampado <span class="text-red-400">*</span>
+                  Número de Serie Estampado <span class="text-red-400">*</span>
                 </label>
                 <div class="relative">
                   <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -689,35 +685,35 @@
                 </div>
               </div>
 
-              <!-- &#193;rea / Ubicaci&#243;n en Planta (2 Opciones: EDIFICIO K y FABS) -->
+              <!-- Área / Ubicación en Planta (2 Opciones: EDIFICIO K y FABS) -->
               <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
-                  &#193;rea / Ubicaci&#243;n <span class="text-red-400">*</span>
+                  Área / Ubicación <span class="text-red-400">*</span>
                 </label>
                 <select id="input-area" onchange="handleAreaChange()" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                  <option value="">-- Seleccionar &#193;rea / Ubicaci&#243;n --</option>
-                  <optgroup label="&#128293; SOLDADURA">
+                  <option value="">-- Seleccionar Área / Ubicación --</option>
+                  <optgroup label="🔥 SOLDADURA">
                     <option value="SOLDADURA">SOLDADURA (General)</option>
                     <option value="FABS">FABS</option>
                     <option value="EDIFICIO K">EDIFICIO K</option>
                   </optgroup>
-                  <optgroup label="&#127912; PINTURA">
+                  <optgroup label="🎨 PINTURA">
                     <option value="PINTURA">PINTURA (General)</option>
                                         <option value="Carga Paint">Carga Paint</option>
                     <option value="Sellado Paint">Sellado Paint</option>
                     <option value="Preparacion Paint">Preparacion Paint</option>
                   </optgroup>
-                  <optgroup label="&#128297; ENSAMBLE">
+                  <optgroup label="🔩 ENSAMBLE">
                     <option value="ENSAMBLE">ENSAMBLE</option>
                   </optgroup>
-                  <optgroup label="&#128230; FOS">
+                  <optgroup label="📦 FOS">
                     <option value="FOS">FOS</option>
                   </optgroup>
                 </select>
               </div>
             </div>
 
-            <!-- Criterio T&#233;cnico Info Box -->
+            <!-- Criterio Técnico Info Box -->
             <div id="criterio-box" class="hidden p-3 rounded-lg bg-blue-950/40 border border-blue-800/60 text-xs text-blue-200">
               <i class="fa-solid fa-circle-info text-blue-400 mr-1.5"></i>
               <span class="font-bold">Criterio de Calidad para esta pieza:</span>
@@ -739,11 +735,11 @@
 
               <div id="faltantes-container" class="hidden pt-2 border-t border-slate-800">
                 <label class="block text-xs font-medium text-amber-300 mb-1">Descripción detallada de faltantes:</label>
-                <textarea id="input-descripcion-faltantes" rows="2" placeholder="Especificar qué pieza, cantidad o accesorio falta para su LIBERACIÓN..." class="w-full bg-slate-800 border border-amber-500/40 rounded-lg p-2.5 text-xs text-white focus:ring-1 focus:ring-amber-500 focus:outline-none"></textarea>
+                <textarea id="input-descripcion-faltantes" rows="2" placeholder="Especificar qué pieza, cantidad o accesorio falta para su liberación..." class="w-full bg-slate-800 border border-amber-500/40 rounded-lg p-2.5 text-xs text-white focus:ring-1 focus:ring-amber-500 focus:outline-none"></textarea>
               </div>
             </div>
 
-            <!-- ==================== EVIDENCIA FOTOGR&#193;FICAS DUAL ==================== -->
+            <!-- ==================== EVIDENCIA FOTOGRÁFICA DUAL ==================== -->
             <div class="space-y-4">
               <div class="flex items-center justify-between pb-1 border-b border-slate-700/80">
                 <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
@@ -767,7 +763,7 @@
                         </div>
                       </div>
                       <span id="badge-status-producto" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        INSPECCI&#211;N General
+                        Inspección General
                       </span>
                     </div>
 
@@ -832,10 +828,10 @@
                       </label>
                       <input type="file" id="camera-defecto-input" accept="image/*" capture="environment" class="hidden" onchange="handleDefectPhotoCapture(event)">
                       
-                      <!-- Banner Bloqueado si la INSPECCI&#211;N está bien -->
+                      <!-- Banner Bloqueado si la inspección está bien -->
                       <div id="defecto-blocked-banner" class="hidden mt-2.5 p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-[11px] text-emerald-300 flex items-center gap-2">
                         <i class="fa-solid fa-lock text-emerald-400 text-sm shrink-0"></i>
-                        <span><strong>Lado Bloqueado:</strong> Se subió foto de que la INSPECCI&#211;N está conforme (OK). Para reportar defectos, elimina la foto de pieza checada.</span>
+                        <span><strong>Lado Bloqueado:</strong> Se subió foto de que la inspección está conforme (OK). Para reportar defectos, elimina la foto de pieza checada.</span>
                       </div>
                     </div>
                   </div>
@@ -862,13 +858,13 @@
                   </div>
                   <div>
                     <h4 class="text-xs sm:text-sm font-black text-amber-300 uppercase tracking-wide flex items-center gap-1.5">
-                      Personal Involucrado en el Defecto & Causa RaÍz (Retroalimentaci&#243;n)
+                      Personal Involucrado en el Defecto & Causa Raíz (Retroalimentación)
                     </h4>
-                    <p class="text-[11px] text-slate-300">Registra al colaborador y el motivo raíz para que la supervisión y COORDINACIÓN de lÍnea imparta coaching o reentrenamiento.</p>
+                    <p class="text-[11px] text-slate-300">Registra al colaborador y el motivo raíz para que la supervisión y coordinación de línea imparta coaching o reentrenamiento.</p>
                   </div>
                 </div>
                 <span class="px-2.5 py-0.5 rounded text-[10px] font-black uppercase bg-amber-400 text-slate-950 border border-slate-950 shadow-sm font-mono">
-                  Supervisi&#243;n & Mejora
+                  Supervisión & Mejora
                 </span>
               </div>
 
@@ -889,19 +885,19 @@
                   <input type="text" id="in-defecto-responsable-nomina" placeholder="Ej. 5012" class="w-full bg-slate-800 border border-amber-500/50 rounded-lg p-2 text-xs text-white font-mono placeholder-slate-500 focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
 
-                <!-- Motivo / Causa RaÍz Humana -->
+                <!-- Motivo / Causa Raíz Humana -->
                 <div>
                   <label class="block text-[11px] font-bold uppercase text-amber-200 mb-1 flex items-center gap-1.5">
-                    <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Motivo / Causa RaÍz:
+                    <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Motivo / Causa Raíz:
                   </label>
                   <select id="sel-defecto-responsable-motivo" class="w-full bg-slate-800 border border-amber-500/50 rounded-lg p-2 text-xs text-white focus:ring-2 focus:ring-amber-400 focus:outline-none">
-                    <option value="">-- Seleccionar Causa RaÍz --</option>
+                    <option value="">-- Seleccionar Causa Raíz --</option>
                     <option value="Nuevo ingreso">Nuevo ingreso (Curva de aprendizaje)</option>
                     <option value="En entrenamiento / Sin certificar">En entrenamiento / Sin certificar</option>
                     <option value="Falta de compromiso / Desinterés">Falta de compromiso / Ya no le interesa / No sigue estándar</option>
                     <option value="Falta de herramienta o utillaje">Falta de herramienta / Utillaje inadecuado</option>
                     <option value="Fatiga / Distracción">Fatiga / Distracción en turno</option>
-                    <option value="Prisa / PRESIÓN de ciclo">Prisa / PRESIÓN de tiempo de ciclo</option>
+                    <option value="Prisa / Presión de ciclo">Prisa / Presión de tiempo de ciclo</option>
                     <option value="Instrucción SOP no clara">Instrucción de trabajo (SOP) poco clara</option>
                     <option value="Relevo de turno incompleto">Relevo o cambio de turno incompleto</option>
                     <option value="Desgaste de consumibles / Insumo">Desgaste de consumibles / Insumo defectuoso</option>
@@ -910,38 +906,38 @@
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1">
-                <!-- Observaciones de Retroalimentaci&#243;n -->
+                <!-- Observaciones de Retroalimentación -->
                 <div class="sm:col-span-2">
                   <label class="block text-[11px] font-bold uppercase text-amber-200 mb-1 flex items-center gap-1.5">
-                    <i class="fa-solid fa-comments text-amber-400"></i> Acción Recomendada / Detalle para Retroalimentaci&#243;n:
+                    <i class="fa-solid fa-comments text-amber-400"></i> Acción Recomendada / Detalle para Retroalimentación:
                   </label>
                   <input type="text" id="in-defecto-retroalimentacion-notas" placeholder="Ej. Acompañamiento en ensamble de soporte y calibración con galga de holgura..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-400 focus:outline-none">
                 </div>
 
-                <!-- Estatus de la Retroalimentaci&#243;n -->
+                <!-- Estatus de la Retroalimentación -->
                 <div>
                   <label class="block text-[11px] font-bold uppercase text-amber-200 mb-1 flex items-center gap-1.5">
-                    <i class="fa-solid fa-clipboard-check text-amber-400"></i> Estatus de Retroalimentaci&#243;n:
+                    <i class="fa-solid fa-clipboard-check text-amber-400"></i> Estatus de Retroalimentación:
                   </label>
                   <select id="sel-defecto-retroalimentacion-estatus" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-xs text-amber-300 font-bold focus:ring-2 focus:ring-amber-400 focus:outline-none">
-                    <option value="Pendiente" selected>🟡 Pendiente de Retroalimentaci&#243;n</option>
-                    <option value="Realizada">🟢 Retroalimentaci&#243;n Impartida</option>
+                    <option value="Pendiente" selected>🟡 Pendiente de Retroalimentación</option>
+                    <option value="Realizada">🟢 Retroalimentación Impartida</option>
                   </select>
                 </div>
               </div>
 
               <!-- Datalist de operadores sugeridos -->
               <datalist id="lista-operadores-sugeridos">
-                <option value="José Hernández Rivera (5012) - L&#237;nea LTTT"></option>
-                <option value="Ramón Soto Valdez (5028) - L&#237;nea OHT"></option>
-                <option value="Brandon Alexis Luna (5034) - L&#237;nea MTTT"></option>
-                <option value="Esteban Morales Silva (5041) - L&#237;nea PUERTAS"></option>
-                <option value="Javier Méndez Rocha (5018) - L&#237;nea MG"></option>
-                <option value="Gerardo Téllez Prado (5019) - L&#237;nea LWL 988"></option>
-                <option value="Ulises Carranza Gómez (5055) - L&#237;nea COBOT"></option>
-                <option value="Francisco G. Peinado (5062) - L&#237;nea LOW VOLUME"></option>
-                <option value="Edgar Rivas Saldaña (5073) - L&#237;nea LMT K"></option>
-                <option value="Mauricio Zavala Ortiz (5088) - L&#237;nea WTS"></option>
+                <option value="José Hernández Rivera (5012) - Línea LTTT"></option>
+                <option value="Ramón Soto Valdez (5028) - Línea OHT"></option>
+                <option value="Brandon Alexis Luna (5034) - Línea MTTT"></option>
+                <option value="Esteban Morales Silva (5041) - Línea PUERTAS"></option>
+                <option value="Javier Méndez Rocha (5018) - Línea MG"></option>
+                <option value="Gerardo Téllez Prado (5019) - Línea LWL 988"></option>
+                <option value="Ulises Carranza Gómez (5055) - Línea COBOT"></option>
+                <option value="Francisco G. Peinado (5062) - Línea LOW VOLUME"></option>
+                <option value="Edgar Rivas Saldaña (5073) - Línea LMT K"></option>
+                <option value="Mauricio Zavala Ortiz (5088) - Línea WTS"></option>
               </datalist>
             </div>
 
@@ -950,10 +946,10 @@
               <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">
                 Notas iniciales del inspector
               </label>
-              <textarea id="input-notas-iniciales" rows="2" placeholder="Observaciones preliminares del tramo de INSPECCI&#211;N..." class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+              <textarea id="input-notas-iniciales" rows="2" placeholder="Observaciones preliminares del tramo de inspección..." class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
             </div>
 
-            <!-- Selector de Destino / Estatus de la INSPECCI&#211;N -->
+            <!-- Selector de Destino / Estatus de la Inspección -->
             <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700 space-y-3">
               <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                 <i class="fa-solid fa-flag-checkered text-blue-400"></i> ¿Deseas Finalizar o Enviar a Traspaso de Turno?
@@ -1007,7 +1003,7 @@
                 <i class="fa-solid fa-arrow-right-arrow-left"></i> Enviar a Traspaso de Turno
               </button>
               <button id="btn-submit-finalizar-insp" type="button" onclick="openOpcionesFinalizarModal('nueva')" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer">
-                <i class="fa-solid fa-flag-checkered"></i> Finalizar INSPECCI&#211;N
+                <i class="fa-solid fa-flag-checkered"></i> Finalizar Inspección
               </button>
             </div>
           </form>
@@ -1026,7 +1022,7 @@
                 </div>
                 <div>
                   <h3 class="text-xs font-black text-slate-950 uppercase tracking-wider">Inspector Responsable</h3>
-                  <p class="text-[10px] text-slate-900 font-extrabold">Sesión activa de INSPECCI&#211;N</p>
+                  <p class="text-[10px] text-slate-900 font-extrabold">Sesión activa de inspección</p>
                 </div>
               </div>
               <div class="flex items-center gap-2">
@@ -1062,7 +1058,7 @@
             </div>
           </div>
 
-          <!-- 2. Notificaciones de L&#237;neas Solicitando QG (Amarillo con Negro Elegante) -->
+          <!-- 2. Notificaciones de Líneas Solicitando QG (Amarillo con Negro Elegante) -->
           <div id="side-card-cabinas" class="bg-slate-900 rounded-2xl border-2 border-amber-400 shadow-xl overflow-hidden transition-all duration-200">
             <button type="button" onclick="toggleSidebarCard('side-body-cabinas', 'side-icon-cabinas')" class="w-full bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 p-3.5 flex items-center justify-between text-left border-b-2 border-slate-950 transition cursor-pointer select-none">
               <div class="flex items-center gap-2.5">
@@ -1075,13 +1071,13 @@
                 </div>
                 <div>
                   <h3 class="text-xs font-black text-slate-950 uppercase tracking-wider flex items-center gap-1.5">
-                    L&#237;neas Solicitando QG
+                    Líneas Solicitando QG
                   </h3>
                   <p class="text-[10px] text-slate-900 font-extrabold">Notificaciones y alertas en piso</p>
                 </div>
               </div>
               <div class="flex items-center gap-2">
-                <span id="side-notif-count-badge" class="px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-950 text-amber-300 border border-slate-900 font-mono">0 L&#237;neas</span>
+                <span id="side-notif-count-badge" class="px-2.5 py-0.5 rounded-full text-xs font-black bg-slate-950 text-amber-300 border border-slate-900 font-mono">0 Líneas</span>
                 <i id="side-icon-cabinas" class="fa-solid fa-chevron-down text-slate-950 text-xs transition-transform duration-200"></i>
               </div>
             </button>
@@ -1183,11 +1179,11 @@
           <div class="flex items-center gap-2">
             <span class="text-xs font-bold text-slate-950">Filtrar por Área:</span>
             <select id="filter-traspaso-area" onchange="renderTraspasoList()" class="bg-slate-950 border-2 border-slate-950 text-amber-300 rounded-lg px-2.5 py-1.5 text-xs font-bold focus:outline-none shadow">
-              <option value="">Todas las &#193;reas</option>
-              <optgroup label="&#128293; SOLDADURA">
+              <option value="">Todas las Áreas</option>
+              <optgroup label="🔥 SOLDADURA">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
-                  <option value="FABS">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                  <option value="EDIFICIO K">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                  <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                  <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
               <option value="PINTURA">PINTURA</option>
               <option value="ENSAMBLE">ENSAMBLE</option>
@@ -1220,7 +1216,7 @@
               <h2 class="text-base sm:text-lg font-black tracking-wide text-slate-950 uppercase">
                 Registro de Modificaciones (TBL_AUDITORIA)
               </h2>
-              <p class="text-xs font-bold text-slate-900">Historial transparente de modificaciones realizadas por supervisores. JustificaciÓn obligatoria.</p>
+              <p class="text-xs font-bold text-slate-900">Historial transparente de modificaciones realizadas por supervisores. Justificación obligatoria.</p>
             </div>
           </div>
           <span class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-amber-500/50 text-xs font-mono text-amber-300 font-black shadow">
@@ -1235,7 +1231,7 @@
               <thead class="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-black uppercase text-[11px] tracking-wider border-b-2 border-slate-950">
               <tr>
                 <th class="px-4 py-3">ID Modificación</th>
-                <th class="px-4 py-3">Folio INSPECCI&#211;N</th>
+                <th class="px-4 py-3">Folio Inspección</th>
                 <th class="px-4 py-3">Nómina Editor</th>
                 <th class="px-4 py-3">Fecha y Hora</th>
                 <th class="px-4 py-3 text-slate-300">Status Anterior</th>
@@ -1251,7 +1247,7 @@
       </div>
     </section>
 
-    <!-- ==================== PANEL INTEGRAL: DASHBOARD, PRODUCCI&#211;N Y DEFECTOS ==================== -->
+    <!-- ==================== PANEL INTEGRAL: DASHBOARD, PRODUCCIÓN Y DEFECTOS ==================== -->
     <section id="tab-gerente" class="tab-content hidden space-y-6">
       
       <!-- ==================== 1. FILA SUPERIOR (RECTÁNGULO VERDE): PANEL DE AVANCE Y MÉTRICAS DE CALIDAD ==================== -->
@@ -1265,9 +1261,9 @@
               <span class="text-xs text-slate-400">Modo Solo Seguimiento y Toma de Decisiones</span>
             </div>
             <h2 class="text-base sm:text-lg font-bold text-white mt-0.5 flex items-center gap-2">
-              <i class="fa-solid fa-chart-line text-cyan-400"></i> Panel de Avance y M&#233;tricas de Calidad
+              <i class="fa-solid fa-chart-line text-cyan-400"></i> Panel de Avance y Métricas de Calidad
             </h2>
-            <p class="text-xs text-slate-300">Supervisi&#243;n estratégica de producción diaria, DISTRIBUCIÓN por modelos, cuellos de botella y calidad de componentes.</p>
+            <p class="text-xs text-slate-300">Supervisión estratégica de producción diaria, distribución por modelos, cuellos de botella y calidad de componentes.</p>
           </div>
 
           <!-- Filtro Avanzado de Fechas y Turno -->
@@ -1281,22 +1277,22 @@
             <div class="flex items-center gap-1.5 bg-slate-800 border border-slate-700 hover:border-cyan-400/70 rounded-lg px-2 py-1 transition">
               <i class="fa-solid fa-business-time text-cyan-400 text-xs"></i>
               <span class="text-[10px] uppercase font-bold text-slate-400">Turno:</span>
-              <!-- Selector Global de Ãrea -->
+              <!-- Selector Global de Área -->
             <div class="flex items-center gap-1.5 bg-slate-800 border-2 border-cyan-500/70 hover:border-cyan-400 rounded-lg px-2 py-1 transition shadow-sm">
               <i class="fa-solid fa-layer-group text-cyan-400 text-xs"></i>
-              <span class="text-[10px] uppercase font-bold text-cyan-300">&#193;rea:</span>
+              <span class="text-[10px] uppercase font-bold text-cyan-300">Área:</span>
               <select id="gerente-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-                <option value="all" class="bg-slate-900 text-white" selected>Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <option value="all" class="bg-slate-900 text-white" selected>Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="&#127912; PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
-                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
                 <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
@@ -1335,13 +1331,13 @@
                 <input type="date" id="gerente-fecha-fin" onchange="handleGerenteDateFilterChange()" class="bg-transparent text-xs text-white font-mono focus:outline-none cursor-pointer w-28">
               </div>
 
-              <!-- BOTÓN Restablecer / Ver Todo -->
+              <!-- Botón Restablecer / Ver Todo -->
               <button type="button" onclick="resetGerenteDateFilter()" title="Restablecer fechas y ver todo el histórico" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow cursor-pointer">
                 <i class="fa-solid fa-rotate-left text-amber-400"></i>
                 <span class="text-[11px] whitespace-nowrap">Ver Todo</span>
               </button>
 
-              <!-- BOTÓN Maestro Contraer / Expandir Todas las Tablas -->
+              <!-- Botón Maestro Contraer / Expandir Todas las Tablas -->
               <button type="button" onclick="toggleAllGerenteSections()" id="btn-toggle-all-gerente" title="Contraer o expandir todas las tablas de este panel" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow cursor-pointer">
                 <i class="fa-solid fa-arrows-up-down text-cyan-400" id="icon-toggle-all-gerente"></i>
                 <span class="text-[11px] whitespace-nowrap" id="label-toggle-all-gerente">Expandir Todo</span>
@@ -1422,11 +1418,11 @@
           </div>
         </div>
 
-        <!-- CUADRO DERECHO (CUADRO VERDE MENTA): UNA SOLA TABLA COMPACTA DE PANEL DE CONTROL / GR&#193;FICAS (8/8) -->
+        <!-- CUADRO DERECHO (CUADRO VERDE MENTA): UNA SOLA TABLA COMPACTA DE PANEL DE CONTROL / GRÁFICAS (8/8) -->
         <div class="lg:col-span-6">
           <div class="bg-slate-950/95 backdrop-blur-md border-2 border-emerald-500/60 rounded-2xl p-4 shadow-[0_10px_35px_rgba(16,185,129,0.22)] space-y-3 w-full transition-all">
             
-            <!-- Encabezado estilo tabla de esquina con contador (8/8) y BOTÓN de contraer/expandir -->
+            <!-- Encabezado estilo tabla de esquina con contador (8/8) y botón de contraer/expandir -->
             <div class="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-800">
               <div class="flex items-center gap-2 cursor-pointer select-none" onclick="toggleGerenteControlPanelGrid()">
                 <span class="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-inner">
@@ -1435,7 +1431,7 @@
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400" id="gerente-corner-style-count-label">
-                      GR&#193;FICAS (8/8)
+                      GRÁFICAS (8/8)
                     </span>
                     <span class="text-[10px] text-slate-400 font-mono hidden sm:inline">• Panel de Control Visual</span>
                   </div>
@@ -1461,8 +1457,8 @@
             <!-- Malla de 8 Íconos estilo Esquina (4x2) -->
             <div class="grid grid-cols-3 gap-2 sm:gap-2.5 pt-0.5" id="gerente-apps-grid">
               
-              <!-- 1. Dashboard & LIBERACIÓN -->
-              <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('dashboard')" id="tile-nav-dashboard" title="Clic para expandir o contraer Dashboard y LIBERACIÓN">
+              <!-- 1. Dashboard & Liberación -->
+              <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('dashboard')" id="tile-nav-dashboard" title="Clic para expandir o contraer Dashboard y Liberación">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-green-400 flex items-center justify-center text-white text-base shadow-md shadow-emerald-500/30">
                   <i class="fa-solid fa-chart-pie"></i>
                 </div>
@@ -1470,8 +1466,8 @@
                 <span class="text-[10px] text-emerald-400 font-mono mt-0.5" id="app-micro-dashboard">LIBERACIÓN</span>
               </div>
 
-              <!-- 2. Producci&#243;n Diaria (Lun-Sáb) -->
-              <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('diaria')" id="tile-nav-diaria" title="Clic para expandir o contraer Producci&#243;n Diaria">
+              <!-- 2. Producción Diaria (Lun-Sáb) -->
+              <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('diaria')" id="tile-nav-diaria" title="Clic para expandir o contraer Producción Diaria">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white text-base shadow-md shadow-indigo-500/30">
                   <i class="fa-solid fa-chart-column"></i>
                 </div>
@@ -1515,7 +1511,7 @@
                 <span class="text-[10px] text-cyan-400 font-mono mt-0.5" id="app-micro-naves">K vs FABS</span>
               </div>
 
-              <!-- 7. Calidad & LIBERACIÓN -->
+              <!-- 7. Calidad & Liberación -->
               <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('calidad')" id="tile-nav-calidad" title="Clic para expandir o contraer Calidad">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-green-400 flex items-center justify-center text-white text-base shadow-md shadow-emerald-500/30">
                   <i class="fa-solid fa-circle-check"></i>
@@ -1524,7 +1520,7 @@
                 <span class="text-[10px] text-teal-400 font-mono mt-0.5" id="app-micro-calidad">Conformidad</span>
               </div>
 
-              <!-- 8. Gr&#225;fica de Defectos -->
+              <!-- 8. Gráfica de Defectos -->
               <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-emerald-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('defectos')" id="tile-nav-defectos" title="Clic para expandir o contraer Defectos">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 via-red-500 to-orange-500 flex items-center justify-center text-white text-base shadow-md shadow-rose-500/30">
                   <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1532,8 +1528,8 @@
                 <span class="text-xs font-bold text-slate-200 mt-1.5 tracking-tight">Defectos</span>
                 <span class="text-[10px] text-rose-400 font-mono mt-0.5" id="app-micro-defectos">Fallas</span>
               </div>
-              <!-- 9. Personal Operativo & Retroalimentaci&#243;n -->
-              <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('personal')" id="tile-nav-personal" title="Clic para expandir o contraer Gr&#225;fica del Personal Operativo">
+              <!-- 9. Personal Operativo & Retroalimentación -->
+              <div class="app-tile flex flex-col items-center justify-center text-center p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/60 transition-all group cursor-pointer active:scale-95" onclick="navigateToModule('personal')" id="tile-nav-personal" title="Clic para expandir o contraer Gráfica del Personal Operativo">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-orange-500 to-yellow-400 flex items-center justify-center text-white text-base shadow-md shadow-orange-500/30">
                   <i class="fa-solid fa-chalkboard-user"></i>
                 </div>
@@ -1612,7 +1608,7 @@
         <div class="bg-slate-800 rounded-xl border border-cyan-500/30 p-4 shadow-lg">
           <span class="text-xs text-cyan-400 font-semibold uppercase">Tiempo Promedio</span>
           <div class="text-2xl font-bold text-cyan-400 mt-1 font-mono" id="kpi-tiempo-prom">0 min</div>
-          <div class="text-[11px] text-cyan-500/80 mt-1">Por INSPECCI&#211;N</div>
+          <div class="text-[11px] text-cyan-500/80 mt-1">Por Inspección</div>
         </div>
       </div>
 
@@ -1643,17 +1639,17 @@
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1">Área / Nave</label>
             <select id="dash-filter-area" onchange="syncModuleAreaFilter(this.value)" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
-                <option value="">Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA">
+                <option value="">Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
-                  <option value="FABS">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                  <option value="EDIFICIO K">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                  <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                  <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
-                <optgroup label="&#127912; PINTURA">
+                <optgroup label="🎨 PINTURA">
                   <option value="PINTURA">PINTURA (Completa)</option>
-                  <option value="Carga Paint">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE">ENSAMBLE</option>
                 <option value="FOS">FOS</option>
@@ -1711,7 +1707,7 @@
               <input type="date" id="dash-fecha-fin" onchange="handleDashDateFilterChange()" class="bg-transparent text-xs text-white font-mono focus:outline-none cursor-pointer w-28">
             </div>
 
-            <!-- BOTÓN Restablecer Fechas -->
+            <!-- Botón Restablecer Fechas -->
             <button type="button" onclick="resetDashDateFilter()" title="Restablecer fechas del dashboard" class="px-2.5 py-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white border border-slate-600 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow">
               <i class="fa-solid fa-rotate-left text-cyan-400"></i>
               <span class="text-[11px] whitespace-nowrap">Restablecer Fechas</span>
@@ -1729,7 +1725,7 @@
             </div>
             <div>
               <h3 class="text-base font-black tracking-wide text-slate-950 uppercase">Catálogo Maestro de Inspecciones en Piso</h3>
-              <p class="text-xs font-bold text-slate-900">Trazabilidad completa con autoría inmutable, fotos duales y cron&#243;metro de turno.</p>
+              <p class="text-xs font-bold text-slate-900">Trazabilidad completa con autoría inmutable, fotos duales y cronómetro de turno.</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
@@ -1747,7 +1743,7 @@
                 <th class="px-4 py-3">No. Serie</th>
                 <th class="px-4 py-3">Área</th>
                 <th class="px-4 py-3">Coordinador (Nómina)</th>
-                <th class="px-4 py-3 text-cyan-400 whitespace-nowrap"><i class="fa-solid fa-stopwatch mr-1 text-amber-400"></i>Tiempo INSPECCI&#211;N</th>
+                <th class="px-4 py-3 text-cyan-400 whitespace-nowrap"><i class="fa-solid fa-stopwatch mr-1 text-amber-400"></i>Tiempo Inspección</th>
                 <th class="px-4 py-3 text-slate-300 whitespace-nowrap"><i class="fa-solid fa-camera text-blue-400 mr-1"></i>Evidencia Fotos</th>
                 <th class="px-4 py-3">Faltantes</th>
                 <th class="px-4 py-3">Estatus</th>
@@ -1762,7 +1758,7 @@
       </div>
       </div>
       </div>
-      <!-- ==================== MÓDULO 2: PRODUCCI&#211;N DIARIA Y MATRIZ SEMANAL ==================== -->
+      <!-- ==================== MÓDULO 2: PRODUCCIÓN DIARIA Y MATRIZ SEMANAL ==================== -->
       <div id="mod-diaria" class="module-section hidden space-y-6">
         <div class="lg:col-span-2 bg-slate-800/90 rounded-2xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between" id="gerente-card-produccion-diaria">
           <div>
@@ -1774,27 +1770,27 @@
                 <div>
                   <div class="flex items-center gap-2">
                     <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">Lunes a Sábado</span>
-                    <span class="text-[11px] text-slate-400 hidden sm:inline">Matriz & Gr&#225;fica</span>
+                    <span class="text-[11px] text-slate-400 hidden sm:inline">Matriz & Gráfica</span>
                   </div>
-                  <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-chart-column text-blue-400 mr-1.5"></i> Producci&#243;n y Avance por Día (Lunes a Sábado)</h3>
+                  <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-chart-column text-blue-400 mr-1.5"></i> Producción y Avance por Día (Lunes a Sábado)</h3>
                 </div>
               </div>
               <div class="flex items-center gap-2">
                 <button type="button" class="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-semibold px-2.5 py-1 rounded bg-slate-900/60 hover:bg-slate-700 border border-slate-700 transition cursor-pointer">
                   <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-lg px-2 py-1 shadow-sm mr-1" onclick="event.stopPropagation()">
-                <span class="text-[10px] font-bold text-slate-400 uppercase">&#193;rea:</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
                 <select id="diaria-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-                  <option value="all" class="bg-slate-900">Todas las &#193;reas</option>
-                  <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                  <option value="all" class="bg-slate-900">Todas las Áreas</option>
+                  <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                  <optgroup label="&#127912; PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                  <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
                     <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
-                    <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                    <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                    <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                    <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
+                    <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
+                    <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                   </optgroup>
                   <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
                   <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
@@ -1807,7 +1803,7 @@
             </div>
 
             <div id="gerente-content-produccion-diaria">
-              <!-- Leyenda Visual de Turnos para la Gr&#225;fica de Producci&#243;n Diaria -->
+              <!-- Leyenda Visual de Turnos para la Gráfica de Producción Diaria -->
               <div class="flex flex-wrap items-center gap-2 mb-3 px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-700/60 text-xs">
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Turnos:</span>
                 <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[11px] font-bold">
@@ -1829,7 +1825,7 @@
               <!-- Tabla de Desglose Diario Semanal por Turno: LUNES, MARTES, MIÉRCOLES, JUEVES, VIERNES, SÁBADO -->
               <div class="mt-4 pt-3 border-t border-slate-700/60">
                 <div class="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
-                  <span class="flex items-center gap-1.5"><i class="fa-solid fa-table-cells text-blue-400"></i> Matriz de Producci&#243;n Semanal por Turno (Lunes a Sábado)</span>
+                  <span class="flex items-center gap-1.5"><i class="fa-solid fa-table-cells text-blue-400"></i> Matriz de Producción Semanal por Turno (Lunes a Sábado)</span>
                   <span class="text-[10px] text-slate-400 font-normal">Desglose Detallado por Día y Turno</span>
                 </div>
                 <div class="overflow-x-auto rounded-lg border border-slate-700/80">
@@ -1877,7 +1873,7 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">Módulo Metas</span>
                 <span class="text-xs text-slate-400 font-mono" id="metas-global-summary">Calculando cumplimiento global...</span>
               </div>
-              <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-bullseye text-amber-400 mr-1.5"></i> Metas de Piezas por L&#237;nea de Producci&#243;n</h3>
+              <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-bullseye text-amber-400 mr-1.5"></i> Metas de Piezas por Línea de Producción</h3>
             </div>
           </div>
 
@@ -1888,19 +1884,19 @@
             </button>
             <button type="button" onclick="toggleGenericSection('gerente-content-metas', 'icon-toggle-gerente-metas', 'label-toggle-gerente-metas')" class="px-2.5 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-700 text-amber-400 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition shadow cursor-pointer">
               <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-lg px-2 py-1 shadow-sm mr-1" onclick="event.stopPropagation()">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">&#193;rea:</span>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
               <select id="metas-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-                <option value="all" class="bg-slate-900">Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <option value="all" class="bg-slate-900">Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="&#127912; PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
-                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
                 <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
@@ -1913,16 +1909,16 @@
         </div>
 
         <div id="gerente-content-metas" class="space-y-4">
-          <!-- Tarjetas de Metas por L&#237;nea Principal (EDIFICIO K vs FABS con contracción independiente) -->
+          <!-- Tarjetas de Metas por Línea Principal (EDIFICIO K vs FABS con contracción independiente) -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="metas-areas-cards-container">
             <!-- Generado dinámicamente -->
           </div>
 
-          <!-- Desglose de Metas por L&#237;nea de Modelo (12 Modelos) -->
+          <!-- Desglose de Metas por Línea de Modelo (12 Modelos) -->
           <div class="pt-3 border-t border-slate-700/80">
             <div class="flex items-center justify-between mb-3 cursor-pointer select-none hover:bg-slate-700/30 p-1 rounded transition" onclick="toggleModelosMetasCollapse()">
               <span class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-                <i class="fa-solid fa-cubes-stacked text-cyan-400"></i> Metas por L&#237;nea de Modelo (12 Familias)
+                <i class="fa-solid fa-cubes-stacked text-cyan-400"></i> Metas por Línea de Modelo (12 Familias)
               </span>
               <button type="button" id="btn-toggle-modelos-metas" class="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold cursor-pointer">
                 <span id="label-toggle-modelos-metas">Ocultar Desglose</span>
@@ -1953,25 +1949,25 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-sky-500/20 text-sky-300 border border-sky-500/30">Módulo Turnos</span>
                 <span class="text-[11px] text-slate-400 font-mono hidden sm:inline">3 Turnos Operativos</span>
               </div>
-              <h4 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-users-gear text-sky-400 mr-1.5"></i> Avance y Producci&#243;n Lograda por Turno de Trabajo</h4>
+              <h4 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-users-gear text-sky-400 mr-1.5"></i> Avance y Producción Lograda por Turno de Trabajo</h4>
             </div>
           </div>
           <div class="flex items-center gap-3">
             <button type="button" class="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 font-semibold px-2.5 py-1 rounded bg-slate-900/60 hover:bg-slate-700 border border-slate-700 transition cursor-pointer">
               <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-lg px-2 py-1 shadow-sm mr-1" onclick="event.stopPropagation()">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">&#193;rea:</span>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
               <select id="turnos-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-                <option value="all" class="bg-slate-900">Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <option value="all" class="bg-slate-900">Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="&#127912; PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
-                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
                 <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
@@ -2055,25 +2051,25 @@
                     <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-fuchsia-500/20 text-fuchsia-300 border border-fuchsia-500/30">Pastel</span>
                     <span class="text-[11px] text-slate-400 hidden sm:inline">12 Familias</span>
                   </div>
-                  <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-chart-pie text-fuchsia-400 mr-1"></i> DISTRIBUCIÓN por Modelo</h3>
+                  <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-chart-pie text-fuchsia-400 mr-1"></i> Distribución por Modelo</h3>
                 </div>
               </div>
               <div class="flex items-center gap-2">
                 <button type="button" class="text-xs text-fuchsia-400 hover:text-fuchsia-300 flex items-center gap-1 font-semibold px-2.5 py-1 rounded bg-slate-900/60 hover:bg-slate-700 border border-slate-700 transition cursor-pointer">
                   <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-lg px-2 py-1 shadow-sm mr-1" onclick="event.stopPropagation()">
-                <span class="text-[10px] font-bold text-slate-400 uppercase">&#193;rea:</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
                 <select id="modelos-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-                  <option value="all" class="bg-slate-900">Todas las &#193;reas</option>
-                  <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                  <option value="all" class="bg-slate-900">Todas las Áreas</option>
+                  <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                  <optgroup label="&#127912; PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                  <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
                     <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
-                    <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                    <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                    <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                    <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
+                    <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
+                    <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                   </optgroup>
                   <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
                   <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
@@ -2089,14 +2085,14 @@
                 <canvas id="chart-modelos-donut"></canvas>
               </div>
               <div class="mt-3 pt-3 border-t border-slate-700/80 text-[11px] text-slate-400 text-center" id="gerente-donut-summary">
-                DISTRIBUCIÓN proporcional de modelos
+                Distribución proporcional de modelos
               </div>
             </div>
           </div>
         </div>
 
       </div>
-      <!-- ==================== MÓDULO 6: NAVES DE PRODUCCI&#211;N ==================== -->
+      <!-- ==================== MÓDULO 6: NAVES DE PRODUCCIÓN ==================== -->
       <div id="mod-naves" class="module-section hidden space-y-6">
         <div class="bg-slate-800/90 rounded-2xl border border-slate-700 p-5 shadow-xl" id="gerente-card-areas-bar">
           <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4 cursor-pointer select-none hover:bg-slate-700/30 p-1.5 rounded transition" onclick="toggleGenericSection('gerente-content-areas-bar', 'icon-toggle-gerente-naves', 'label-toggle-gerente-naves')">
@@ -2109,25 +2105,25 @@
                   <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Naves</span>
                   <span class="text-[11px] text-slate-400 hidden sm:inline">Planta Principal</span>
                 </div>
-                <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-industry text-cyan-400 mr-1.5"></i> Producci&#243;n por Nave / Área</h3>
+                <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-industry text-cyan-400 mr-1.5"></i> Producción por Nave / Área</h3>
               </div>
             </div>
             <div class="flex items-center gap-2">
               <button type="button" class="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold px-2.5 py-1 rounded bg-slate-900/60 hover:bg-slate-700 border border-slate-700 transition cursor-pointer">
                 <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-lg px-2 py-1 shadow-sm mr-1" onclick="event.stopPropagation()">
-              <span class="text-[10px] font-bold text-slate-400 uppercase">&#193;rea:</span>
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
               <select id="naves-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-                <option value="all" class="bg-slate-900">Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <option value="all" class="bg-slate-900">Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="&#127912; PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
-                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
                 <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
@@ -2156,18 +2152,18 @@
             </div>
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-slate-200">Indicadores Clave de Desempeño (KPIs)</span>
-              <p class="text-[11px] text-slate-400">Resumen consolidado del per&#237;odo seleccionado</p>
+              <p class="text-[11px] text-slate-400">Resumen consolidado del período seleccionado</p>
             </div>
           </div>
           <button type="button" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 font-semibold px-2.5 py-1 rounded bg-slate-900/60 hover:bg-slate-700 border border-slate-700 transition cursor-pointer">
             <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-lg px-2 py-1 shadow-sm mr-1" onclick="event.stopPropagation()">
-            <span class="text-[10px] font-bold text-slate-400 uppercase">&#193;rea:</span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
             <select id="calidad-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
-              <option value="all" class="bg-slate-900">Todas las &#193;reas</option>
-              <optgroup label="&#128293; SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+              <option value="all" class="bg-slate-900">Todas las Áreas</option>
+              <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
-                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                    <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                    <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
               <option value="PINTURA" class="bg-slate-900 text-cyan-300">PINTURA</option>
               <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
@@ -2186,7 +2182,7 @@
             <div class="text-[11px] text-slate-400 mt-1">Componentes registrados</div>
           </div>
 
-          <!-- 2. Día de Mayor Producci&#243;n -->
+          <!-- 2. Día de Mayor Producción -->
           <div class="bg-slate-900/90 rounded-xl border border-amber-500/40 p-4 shadow-lg">
             <span class="text-xs text-amber-400 font-bold uppercase tracking-wider flex items-center gap-1">
               <i class="fa-solid fa-trophy text-amber-400"></i> Día Récord
@@ -2213,7 +2209,7 @@
             <div class="text-[11px] text-rose-400/80 mt-1">Requieren atención</div>
           </div>
 
-          <!-- 5. Tiempo Promedio de INSPECCI&#211;N -->
+          <!-- 5. Tiempo Promedio de Inspección -->
           <div class="bg-slate-900/90 rounded-xl border border-cyan-500/40 p-4 shadow-lg col-span-2 lg:col-span-1">
             <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1">
               <i class="fa-solid fa-stopwatch text-cyan-400"></i> Tiempo Ciclo Prom.
@@ -2235,7 +2231,7 @@
                   <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Avance</span>
                   <span class="text-[11px] text-slate-400 hidden sm:inline">Calidad Conforme</span>
                 </div>
-                <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Estatus del Proceso de INSPECCI&#211;N</h3>
+                <h3 class="text-sm sm:text-base font-bold text-white tracking-wide mt-0.5"><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Estatus del Proceso de Inspección</h3>
               </div>
             </div>
             <div class="flex items-center gap-2">
@@ -2253,7 +2249,7 @@
         </div>
 
       </div>
-      <!-- ==================== MÓDULO 8: GR&#193;FICAS Y CATÁLOGO DE DEFECTOS ==================== -->
+      <!-- ==================== MÓDULO 8: GRÁFICAS Y CATÁLOGO DE DEFECTOS ==================== -->
       <div id="mod-defectos" class="module-section hidden space-y-6">
       
       <!-- Encabezado de la pestaña y Barra de Controles y Filtros -->
@@ -2268,7 +2264,7 @@
               <span class="text-xs text-slate-400 font-mono" id="defectos-header-count">Cargando incidencias...</span>
             </div>
             <h2 class="text-xl font-bold text-white mt-1 flex items-center gap-2">
-              <i class="fa-solid fa-chart-pie text-rose-400"></i> Análisis Gráfico de Defectos por L&#237;nea de Producci&#243;n
+              <i class="fa-solid fa-chart-pie text-rose-400"></i> Análisis Gráfico de Defectos por Línea de Producción
             </h2>
             <p class="text-xs text-slate-400 mt-0.5">Seguimiento visual de defectos clasificados por: <strong>Soldadura</strong>, <strong>Golpe</strong>, <strong>Scrap</strong> y <strong>Falta de Componente</strong>.</p>
           </div>
@@ -2288,13 +2284,13 @@
               <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Scrap
             </span>
 
-            <!-- BOTÓN para Contraer/Expandir Filtros -->
+            <!-- Botón para Contraer/Expandir Filtros -->
             <button type="button" onclick="toggleGenericSection('defectos-content-filtros', 'icon-toggle-defectos-filtros', 'label-toggle-defectos-filtros', 'Expandir Filtros', 'Contraer Filtros')" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow cursor-pointer">
               <span class="text-[11px] whitespace-nowrap" id="label-toggle-defectos-filtros">Contraer Filtros</span>
               <i class="fa-solid fa-chevron-up transition-transform text-xs" id="icon-toggle-defectos-filtros"></i>
             </button>
 
-            <!-- BOTÓN Maestro Contraer / Expandir Todos los Flujos de Defectos -->
+            <!-- Botón Maestro Contraer / Expandir Todos los Flujos de Defectos -->
             <button type="button" onclick="toggleAllDefectosSections()" id="btn-toggle-all-defectos" title="Contraer o expandir todos los flujos de este panel" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition active:scale-95 shadow cursor-pointer">
               <i class="fa-solid fa-arrows-up-down text-rose-400" id="icon-toggle-all-defectos"></i>
               <span class="text-[11px] whitespace-nowrap" id="label-toggle-all-defectos">Contraer Todo</span>
@@ -2303,32 +2299,32 @@
         </div>
 
         <div id="defectos-content-filtros" class="space-y-4">
-          <!-- Barra de Filtros: Área/L&#237;nea, Modelo, Tipo de Defecto, Turno y Fechas -->
+          <!-- Barra de Filtros: Área/Línea, Modelo, Tipo de Defecto, Turno y Fechas -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             <!-- Filtro Área / Nave -->
             <div>
               <label class="block text-xs font-semibold text-slate-400 mb-1">Área / Nave Principal</label>
               <select id="defectos-filter-area" onchange="syncModuleAreaFilter(this.value)" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
-                <option value="">Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA">
+                <option value="">Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
-                  <option value="FABS">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                  <option value="EDIFICIO K">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                  <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                  <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
-                <optgroup label="&#127912; PINTURA">
+                <optgroup label="🎨 PINTURA">
                   <option value="PINTURA">PINTURA (Completa)</option>
-                  <option value="Carga Paint">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE">ENSAMBLE</option>
                 <option value="FOS">FOS</option>
               </select>
             </div>
 
-            <!-- Filtro Modelo / L&#237;nea Específica -->
+            <!-- Filtro Modelo / Línea Específica -->
             <div>
-              <label class="block text-xs font-semibold text-slate-400 mb-1">L&#237;nea / Modelo</label>
+              <label class="block text-xs font-semibold text-slate-400 mb-1">Línea / Modelo</label>
               <select id="defectos-filter-modelo" onchange="applyDefectosFilters()" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none cursor-pointer">
                 <option value="">Todos los 12 Modelos</option>
               </select>
@@ -2348,7 +2344,7 @@
 
             <!-- Filtro Turno de Trabajo -->
             <div>
-              <label class="block text-xs font-semibold text-slate-400 mb-1">Turno de INSPECCI&#211;N</label>
+              <label class="block text-xs font-semibold text-slate-400 mb-1">Turno de Inspección</label>
               <select id="defectos-filter-turno" onchange="applyDefectosFilters()" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none cursor-pointer">
                 <option value="">Todos los Turnos (T1, T2, T3)</option>
                 <option value="Turno 1">Turno 1 (06:00 - 14:00)</option>
@@ -2461,10 +2457,10 @@
             <div class="text-[11px] text-slate-400 mt-1" id="kpi-defectos-scrap-pct">0% del total</div>
           </div>
 
-          <!-- 6. L&#237;nea Más Afectada -->
+          <!-- 6. Línea Más Afectada -->
           <div class="bg-slate-800 rounded-xl border border-slate-700 p-4 shadow-lg">
             <span class="text-xs text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1">
-              <i class="fa-solid fa-flag text-amber-400"></i> L&#237;nea Crítica
+              <i class="fa-solid fa-flag text-amber-400"></i> Línea Crítica
             </span>
             <div class="text-lg font-black text-amber-400 mt-1 truncate" id="kpi-defectos-linea-critica">--</div>
             <div class="text-[11px] text-slate-400 mt-1" id="kpi-defectos-linea-critica-desc">Mayor no conformidad</div>
@@ -2537,16 +2533,16 @@
         </div>
       </div>
 
-      <!-- Fila 1 de Gr&#225;fica: Defectos por L&#237;nea / Área (Barras Apiladas) y DISTRIBUCIÓN Global (Donut) -->
+      <!-- Fila 1 de Gráfica: Defectos por Línea / Área (Barras Apiladas) y Distribución Global (Donut) -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- Gr&#225;fica 1: Defectos por Área / L&#237;nea Principal (Barras Apiladas) -->
+        <!-- Gráfica 1: Defectos por Área / Línea Principal (Barras Apiladas) -->
         <div class="lg:col-span-2 bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4 cursor-pointer select-none hover:bg-slate-700/30 p-1 rounded transition" onclick="toggleGenericSection('defectos-content-areas-bar', 'icon-toggle-defectos-areas', 'label-toggle-defectos-areas')">
               <div>
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <i class="fa-solid fa-chart-column text-rose-400"></i> Defectos por Área de Producci&#243;n (EDIFICIO K vs FABS)
+                  <i class="fa-solid fa-chart-column text-rose-400"></i> Defectos por Área de Producción (EDIFICIO K vs FABS)
                 </h3>
                 <p class="text-xs text-slate-400 mt-0.5">Comparativa acumulada por tipo de defecto: Soldadura, Golpe, Faltantes y Scrap.</p>
               </div>
@@ -2570,7 +2566,7 @@
           </div>
         </div>
 
-        <!-- Gr&#225;fica 2: Donut DISTRIBUCIÓN de Tipos de Defectos -->
+        <!-- Gráfica 2: Donut Distribución de Tipos de Defectos -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4 cursor-pointer select-none hover:bg-slate-700/30 p-1 rounded transition" onclick="toggleGenericSection('defectos-content-donut', 'icon-toggle-defectos-donut', 'label-toggle-defectos-donut')">
@@ -2593,7 +2589,7 @@
                 <canvas id="chart-defectos-donut"></canvas>
               </div>
               <div class="mt-3 pt-3 border-t border-slate-700/80 text-[11px] text-slate-400 text-center" id="defectos-donut-summary">
-                DISTRIBUCIÓN general
+                Distribución general
               </div>
             </div>
           </div>
@@ -2601,16 +2597,16 @@
 
       </div>
 
-      <!-- Fila 2 de Gr&#225;fica: Defectos por Modelo/L&#237;nea (Horizontal) y Tendencia Semanal -->
+      <!-- Fila 2 de Gráfica: Defectos por Modelo/Línea (Horizontal) y Tendencia Semanal -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-        <!-- Gr&#225;fica 3: Defectos por Modelo / L&#237;nea (Barras Horizontales Apiladas) -->
+        <!-- Gráfica 3: Defectos por Modelo / Línea (Barras Horizontales Apiladas) -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-3 cursor-pointer select-none hover:bg-slate-700/30 p-1 rounded transition" onclick="toggleGenericSection('defectos-content-modelos-bar', 'icon-toggle-defectos-modelos', 'label-toggle-defectos-modelos')">
               <div>
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <i class="fa-solid fa-layer-group text-cyan-400"></i> Defectos por L&#237;nea / Modelo (12 L&#237;neas)
+                  <i class="fa-solid fa-layer-group text-cyan-400"></i> Defectos por Línea / Modelo (12 Líneas)
                 </h3>
                 <p class="text-xs text-slate-400 mt-0.5">Desglose exacto de no conformidades por tipo de causa en cada modelo.</p>
               </div>
@@ -2640,13 +2636,13 @@
               </div>
 
               <div class="mt-3 pt-3 border-t border-slate-700/80 text-[11px] text-slate-400" id="defectos-modelos-summary">
-                Identificación de lÍneas con mayor requerimiento de ajuste
+                Identificación de líneas con mayor requerimiento de ajuste
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Gr&#225;fica 4: Tendencia Diaria de Defectos (Lunes a Sábado) -->
+        <!-- Gráfica 4: Tendencia Diaria de Defectos (Lunes a Sábado) -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-3 cursor-pointer select-none hover:bg-slate-700/30 p-1 rounded transition" onclick="toggleGenericSection('defectos-content-tendencia-bar', 'icon-toggle-defectos-tendencia', 'label-toggle-defectos-tendencia')">
@@ -2667,7 +2663,7 @@
             </div>
 
             <div id="defectos-content-tendencia-bar">
-              <!-- Leyenda Visual de Turnos para la Gr&#225;fica de Tendencia de Defectos -->
+              <!-- Leyenda Visual de Turnos para la Gráfica de Tendencia de Defectos -->
               <div class="flex flex-wrap items-center gap-2 mb-3 px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-700/60 text-xs">
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mr-1">Turnos con Defectos:</span>
                 <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[11px] font-bold">
@@ -2747,38 +2743,38 @@
                 <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
                   <i class="fa-solid fa-chalkboard-user text-amber-400"></i> Piso Operativo & Factores Humanos
                 </span>
-                <span class="text-xs text-slate-400 font-mono">DiagnÓstico de Cuadrillas & Coaching</span>
+                <span class="text-xs text-slate-400 font-mono">Diagnóstico de Cuadrillas & Coaching</span>
               </div>
               <h2 class="text-xl font-black text-white mt-1 flex items-center gap-2">
-                <i class="fa-solid fa-users text-amber-400"></i> Gr&#225;fica del Personal Operativo & Causa RaÍz
+                <i class="fa-solid fa-users text-amber-400"></i> Gráfica del Personal Operativo & Causa Raíz
               </h2>
               <p class="text-xs text-slate-400 mt-0.5">
-                DISTRIBUCIÓN de motivos humanos de no conformidad (Entrenamiento, Fatiga, Prisa, Utillaje) y plan de retroalimentaciÓn en lÍnea.
+                Distribución de motivos humanos de no conformidad (Entrenamiento, Fatiga, Prisa, Utillaje) y plan de retroalimentación en línea.
               </p>
             </div>
             <div class="flex items-center gap-2 shrink-0">
               <span class="px-3 py-1.5 rounded-lg bg-slate-900 border border-amber-500/40 text-xs text-amber-300 font-mono font-bold flex items-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-user-gear text-amber-400"></i> Supervisi&#243;n & Coaching
+                <i class="fa-solid fa-user-gear text-amber-400"></i> Supervisión & Coaching
               </span>
             </div>
           </div>
         </div>
 
-<!-- Fila 3 de Gr&#225;fica: Causas RaÍz del Personal & FormaciÓn (Motivos del Defecto) -->
+<!-- Fila 3 de Gráfica: Causas Raíz del Personal & Formación (Motivos del Defecto) -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        <!-- Gr&#225;fica 5: Causa RaÍz Humana y FormaciÓn (Doughnut / Polar) -->
+        <!-- Gráfica 5: Causa Raíz Humana y Formación (Doughnut / Polar) -->
         <div class="lg:col-span-2 bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4 cursor-pointer select-none hover:bg-slate-700/30 p-1 rounded transition" onclick="toggleGenericSection('defectos-content-motivos', 'icon-toggle-defectos-motivos', 'label-toggle-defectos-motivos')">
               <div>
                 <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                  <i class="fa-solid fa-users-gear text-amber-400"></i> Causas RaÍz del Personal & Factores Humanos (Â¿Por quÉ ocurriÓ el defecto?)
+                  <i class="fa-solid fa-users-gear text-amber-400"></i> Causas Raíz del Personal & Factores Humanos (¿Por qué ocurrió el defecto?)
                 </h3>
-                <p class="text-xs text-slate-400 mt-0.5">DISTRIBUCIÓN de incidencias: Nuevo ingreso, En entrenamiento, Falta de compromiso, Herramienta inadecuada, Fatiga y Prisa.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Distribución de incidencias: Nuevo ingreso, En entrenamiento, Falta de compromiso, Herramienta inadecuada, Fatiga y Prisa.</p>
               </div>
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Causa RaÍz</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Causa Raíz</span>
                 <button type="button" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 font-semibold px-2 py-0.5 rounded bg-slate-900/60 hover:bg-slate-700 border border-slate-700 transition cursor-pointer">
                   <span class="text-[10px]" id="label-toggle-defectos-motivos">Contraer</span>
                   <i class="fa-solid fa-chevron-up transition-transform text-xs" id="icon-toggle-defectos-motivos"></i>
@@ -2791,19 +2787,19 @@
                 <canvas id="chart-defectos-motivos"></canvas>
               </div>
               <div class="mt-3 pt-3 border-t border-slate-700/80 flex flex-wrap items-center justify-between text-[11px] text-slate-400 gap-2" id="defectos-motivos-summary">
-                <span>Calculando desglose de causas raÍz humanas...</span>
-                <span class="text-amber-400 font-mono"><i class="fa-solid fa-circle-info"></i> Base para Plan de Retroalimentaci&#243;n y Certificaciones</span>
+                <span>Calculando desglose de causas raíz humanas...</span>
+                <span class="text-amber-400 font-mono"><i class="fa-solid fa-circle-info"></i> Base para Plan de Retroalimentación y Certificaciones</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Tarjeta Resumen: DiagnÓstico de Retroalimentaci&#243;n y Coaching -->
+        <!-- Tarjeta Resumen: Diagnóstico de Retroalimentación y Coaching -->
         <div class="bg-slate-800 rounded-xl border border-slate-700 p-5 shadow-xl flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
               <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-bullseye text-cyan-400"></i> DiagnÓstico de Cuadrillas
+                <i class="fa-solid fa-bullseye text-cyan-400"></i> Diagnóstico de Cuadrillas
               </h3>
               <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-amber-400 text-slate-950 font-mono">Piso Operativo</span>
             </div>
@@ -2841,7 +2837,7 @@
 
               <div class="p-3 rounded-xl bg-amber-950/30 border border-amber-500/40 text-xs space-y-1">
                 <span class="text-amber-300 font-bold flex items-center gap-1.5">
-                  <i class="fa-solid fa-triangle-exclamation"></i> Causa RaÍz Predominante:
+                  <i class="fa-solid fa-triangle-exclamation"></i> Causa Raíz Predominante:
                 </span>
                 <p id="kpi-personal-top-causa" class="text-slate-200 font-semibold">
                   Analizando registros...
@@ -2858,53 +2854,53 @@
         <div class="px-6 py-4 border-b border-slate-700 flex flex-wrap items-center justify-between gap-3 bg-slate-900/60">
           <div>
             <h3 class="font-bold text-white text-base flex items-center gap-2">
-              <i class="fa-solid fa-chalkboard-user text-amber-400"></i> Personal que Requiere Retroalimentaci&#243;n en L&#237;nea (Supervisi&#243;n & Coaching)
+              <i class="fa-solid fa-chalkboard-user text-amber-400"></i> Personal que Requiere Retroalimentación en Línea (Supervisión & Coaching)
             </h3>
-            <p class="text-xs text-slate-400 mt-0.5">Control de colaboradores que tuvieron defectos, diagnÓstico de motivo y registro de retroalimentaciÓn impartida.</p>
+            <p class="text-xs text-slate-400 mt-0.5">Control de colaboradores que tuvieron defectos, diagnóstico de motivo y registro de retroalimentación impartida.</p>
           </div>
           
           <div class="flex flex-wrap items-center gap-2.5">
             <!-- Filtro de Estatus -->
             <select id="filtro-personal-estatus" onchange="applyPersonalRetroalimentacionFilters()" class="bg-slate-800 border border-amber-500/40 rounded-lg px-2.5 py-1 text-xs text-amber-300 font-bold focus:outline-none">
               <option value="TODOS">Todos los Registros</option>
-              <option value="Pendiente" selected>&#9888; S&#243;lo Pendientes de Retroalimentaci&#243;n</option>
-              <option value="Realizada">&#10004; S&#243;lo Retroalimentados</option>
+              <option value="Pendiente" selected>⚠ Sólo Pendientes de Retroalimentación</option>
+              <option value="Realizada">✔ Sólo Retroalimentados</option>
             </select>
 
-            <!-- Filtro de L&#237;nea -->
-            <!-- Filtro de Ãrea -->
+            <!-- Filtro de Línea -->
+            <!-- Filtro de Área -->
               <select id="personal-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-amber-300 font-bold focus:outline-none">
-                <option value="all">Todas las &#193;reas</option>
-                <optgroup label="&#128293; SOLDADURA">
+                <option value="all">Todas las Áreas</option>
+                <optgroup label="🔥 SOLDADURA">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
-                  <option value="FABS">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                  <option value="EDIFICIO K">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                  <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                  <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
-                <optgroup label="&#127912; PINTURA">
+                <optgroup label="🎨 PINTURA">
                   <option value="PINTURA">PINTURA (Completa)</option>
-                  <option value="Carga Paint">&nbsp;&nbsp;&#8627; Carga Paint</option>
-                  <option value="Sellado Paint">&nbsp;&nbsp;&#8627; Sellado Paint</option>
-                  <option value="Preparacion Paint">&nbsp;&nbsp;&#8627; Preparacion Paint</option>
+                  <option value="Carga Paint">&nbsp;&nbsp;↳ Carga Paint</option>
+                  <option value="Sellado Paint">&nbsp;&nbsp;↳ Sellado Paint</option>
+                  <option value="Preparacion Paint">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
                 <option value="ENSAMBLE">ENSAMBLE</option>
                 <option value="FOS">FOS</option>
               </select>
 
               <select id="filtro-personal-linea" onchange="applyPersonalRetroalimentacionFilters()" class="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:outline-none">
-              <option value="">Todas las L&#237;neas (13)</option>
-              <option value="OHT">L&#237;nea OHT</option>
-              <option value="MG">L&#237;nea MG</option>
-              <option value="PUERTAS">L&#237;nea PUERTAS</option>
-              <option value="LTTT">L&#237;nea LTTT</option>
-              <option value="MTTT">L&#237;nea MTTT</option>
-              <option value="WTS">L&#237;nea WTS</option>
-              <option value="LWL 988">L&#237;nea LWL 988</option>
-              <option value="LWL 990">L&#237;nea LWL 990</option>
-              <option value="MWL">L&#237;nea MWL</option>
-              <option value="LMT">L&#237;nea LMT (FABS)</option>
-              <option value="LOW VOLUME">L&#237;nea LOW VOLUME (Edif K)</option>
-              <option value="LMT K">L&#237;nea LMT K (Edif K)</option>
-              <option value="COBOT">L&#237;nea COBOT (Edif K)</option>
+              <option value="">Todas las Líneas (13)</option>
+              <option value="OHT">Línea OHT</option>
+              <option value="MG">Línea MG</option>
+              <option value="PUERTAS">Línea PUERTAS</option>
+              <option value="LTTT">Línea LTTT</option>
+              <option value="MTTT">Línea MTTT</option>
+              <option value="WTS">Línea WTS</option>
+              <option value="LWL 988">Línea LWL 988</option>
+              <option value="LWL 990">Línea LWL 990</option>
+              <option value="MWL">Línea MWL</option>
+              <option value="LMT">Línea LMT (FABS)</option>
+              <option value="LOW VOLUME">Línea LOW VOLUME (Edif K)</option>
+              <option value="LMT K">Línea LMT K (Edif K)</option>
+              <option value="COBOT">Línea COBOT (Edif K)</option>
             </select>
 
             <span class="text-xs text-amber-400 font-mono font-bold" id="personal-retro-table-count">Mostrando 0 colaboradores</span>
@@ -2917,17 +2913,17 @@
               <tr>
                 <th class="px-4 py-3 text-slate-950 font-black">NÓmina</th>
                 <th class="px-4 py-3 text-slate-950 font-black">Nombre del Colaborador</th>
-                <th class="px-4 py-3 text-slate-950 font-black">L&#237;nea / Área</th>
+                <th class="px-4 py-3 text-slate-950 font-black">Línea / Área</th>
                 <th class="px-4 py-3 text-slate-950 font-black">Pieza / Folio</th>
                 <th class="px-4 py-3 text-slate-950 font-black">Defecto Observado</th>
-                <th class="px-4 py-3 text-slate-950 font-black">Motivo / Causa RaÍz</th>
-                <th class="px-4 py-3 text-slate-950 font-black">AcciÓn Sugerida / ObservaciÓn</th>
-                <th class="px-4 py-3 text-slate-950 font-black text-center">Estatus Retroalimentaci&#243;n</th>
-                <th class="px-4 py-3 text-slate-950 font-black text-right">AcciÓn</th>
+                <th class="px-4 py-3 text-slate-950 font-black">Motivo / Causa Raíz</th>
+                <th class="px-4 py-3 text-slate-950 font-black">Acción Sugerida / Observación</th>
+                <th class="px-4 py-3 text-slate-950 font-black text-center">Estatus Retroalimentación</th>
+                <th class="px-4 py-3 text-slate-950 font-black text-right">Acción</th>
               </tr>
             </thead>
             <tbody id="personal-retro-table-body" class="divide-y divide-slate-700/60 font-medium">
-              <!-- Renderizado dinÁmico en JS -->
+              <!-- Renderizado dinámico en JS -->
             </tbody>
           </table>
         </div>
@@ -2954,10 +2950,10 @@
                   LINEAS QUE REQUIEREN QG
                 </h2>
                 <span id="modal-cabinas-badge-header" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">
-                  3 L&#237;neas en Espera
+                  3 Líneas en Espera
                 </span>
               </div>
-              <p class="text-sm text-slate-400 mt-0.5" id="qg-modal-footer-hint">Monitoreo en tiempo real de cabinas terminadas y lÍneas que requieren apoyo de Coordinador / QG.</p>
+              <p class="text-sm text-slate-400 mt-0.5" id="qg-modal-footer-hint">Monitoreo en tiempo real de cabinas terminadas y líneas que requieren apoyo de Coordinador / QG.</p>
             </div>
           </div>
 
@@ -2972,11 +2968,11 @@
                 <div class="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-1.5">
                   <span>Urgencias por Checar</span>
                 </div>
-                <div class="text-[10px] font-bold text-amber-300">Haz clic para ver lÍneas en espera</div>
+                <div class="text-[10px] font-bold text-amber-300">Haz clic para ver líneas en espera</div>
               </div>
             </button>
 
-            <!-- Opción 2: Icono de Subir Información (Supervisor de L&#237;nea) -->
+            <!-- Opción 2: Icono de Subir Información (Supervisor de Línea) -->
             <button type="button" id="btn-toggle-form-cabina" onclick="cambiarSeccionModalQG('formulario')" class="group flex-1 sm:flex-initial flex items-center gap-3 px-4 py-2.5 rounded-2xl border-2 border-slate-700 bg-slate-950/90 hover:border-cyan-400 hover:bg-slate-900 transition-all cursor-pointer active:scale-95 text-left">
               <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-400 via-teal-500 to-emerald-500 flex items-center justify-center text-slate-950 text-lg shadow-lg shadow-cyan-500/40 group-hover:scale-110 transition-transform shrink-0">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -2985,7 +2981,7 @@
                 <div class="text-xs sm:text-sm font-black text-white uppercase tracking-wide flex items-center gap-1.5">
                   <span>Subir Información</span>
                 </div>
-                <div class="text-[10px] font-bold text-cyan-300">Supervisor de L&#237;nea → QG</div>
+                <div class="text-[10px] font-bold text-cyan-300">Supervisor de Línea → QG</div>
               </div>
             </button>
           </div>
@@ -3036,27 +3032,27 @@
             </div>
 
             <div class="flex items-center gap-2">
-              <label for="filter-cabinas-linea-select" class="text-[11px] font-bold text-amber-300 uppercase whitespace-nowrap">L&#237;nea:</label>
+              <label for="filter-cabinas-linea-select" class="text-[11px] font-bold text-amber-300 uppercase whitespace-nowrap">Línea:</label>
               <select id="filter-cabinas-linea-select" onchange="filtrarPorLineaQG(this.value)" class="bg-slate-950 border border-amber-500/50 rounded-lg px-3 py-1.5 text-xs font-bold text-amber-300 focus:outline-none focus:border-amber-400 cursor-pointer">
-                <option value="all">🔍 Todas las L&#237;neas</option>
-                <optgroup label="🏭 FABS (10 L&#237;neas)">
-                  <option value="PUERTAS">🏭 L&#237;nea PUERTAS</option>
-                  <option value="OHT">🏭 L&#237;nea OHT</option>
-                  <option value="LWL 988">🏭 L&#237;nea LWL 988</option>
-                  <option value="LWL 990">🏭 L&#237;nea LWL 990</option>
-                  <option value="MWL">🏭 L&#237;nea MWL</option>
-                  <option value="LTTT">🏭 L&#237;nea LTTT</option>
-                  <option value="MTTT">🏭 L&#237;nea MTTT</option>
-                  <option value="MG">🏭 L&#237;nea MG</option>
-                  <option value="WTS">🏭 L&#237;nea WTS</option>
-                  <option value="LMT">🏭 L&#237;nea LMT</option>
+                <option value="all">🔍 Todas las Líneas</option>
+                <optgroup label="🏭 FABS (10 Líneas)">
+                  <option value="PUERTAS">🏭 Línea PUERTAS</option>
+                  <option value="OHT">🏭 Línea OHT</option>
+                  <option value="LWL 988">🏭 Línea LWL 988</option>
+                  <option value="LWL 990">🏭 Línea LWL 990</option>
+                  <option value="MWL">🏭 Línea MWL</option>
+                  <option value="LTTT">🏭 Línea LTTT</option>
+                  <option value="MTTT">🏭 Línea MTTT</option>
+                  <option value="MG">🏭 Línea MG</option>
+                  <option value="WTS">🏭 Línea WTS</option>
+                  <option value="LMT">🏭 Línea LMT</option>
                 </optgroup>
-                                  <optgroup label="âš¡ Nave EDIFICIO K (3 L&#237;neas)">
+                                  <optgroup label="⚡ Nave EDIFICIO K (3 Líneas)">
                     <option value="LOW VOLUME">LOW VOLUME</option>
                     <option value="LMT K">LMT K</option>
                     <option value="COBOT">COBOT</option>
                   </optgroup>
-                  <optgroup label="ðŸŽ¨ Ãrea PINTURA (4 L&#237;neas)">
+                  <optgroup label="🎨 Área PINTURA (4 Líneas)">
                                         <option value="Carga Paint">Carga Paint</option>
                     <option value="Sellado Paint">Sellado Paint</option>
                     <option value="Preparacion Paint">Preparacion Paint</option>
@@ -3065,7 +3061,7 @@
             </div>
           </div>
 
-          <!-- Detalle en Tarjetas de L&#237;neas por Checar -->
+          <!-- Detalle en Tarjetas de Líneas por Checar -->
           <div id="cabinas-coordinador-list" class="space-y-3.5 pt-1">
             <!-- Renderizado dinámico vía renderCabinasCoordinadorList() -->
           </div>
@@ -3076,9 +3072,9 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
             <div>
               <h4 class="text-sm font-black text-amber-300 uppercase tracking-wider flex items-center gap-2">
-                <i class="fa-solid fa-paper-plane text-amber-400"></i> Subir Información de Supervisor de L&#237;nea para Coordinador / QG
+                <i class="fa-solid fa-paper-plane text-amber-400"></i> Subir Información de Supervisor de Línea para Coordinador / QG
               </h4>
-              <p class="text-xs text-slate-400 mt-0.5">Selecciona tu lÍnea, el Coordinador / QG requerido y describe la información para liberar la cabina.</p>
+              <p class="text-xs text-slate-400 mt-0.5">Selecciona tu línea, el Coordinador / QG requerido y describe la información para liberar la cabina.</p>
             </div>
             <button type="button" onclick="cambiarSeccionModalQG('lista')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 self-start sm:self-auto cursor-pointer">
               <i class="fa-solid fa-arrow-left"></i> Volver a Lista de Urgencias
@@ -3087,30 +3083,30 @@
 
           <form id="form-enviar-info-qg" onsubmit="handleSolicitarCoordinadorCabina(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
             <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
-              <label class="block text-amber-300 font-extrabold uppercase tracking-wide">1. Supervisor de L&#237;nea (Todas las L&#237;neas):</label>
+              <label class="block text-amber-300 font-extrabold uppercase tracking-wide">1. Supervisor de Línea (Todas las Líneas):</label>
               <select id="solicitar-cabina-linea" onchange="handleChangeSupervisorLineaSelect()" class="w-full bg-slate-950 border border-amber-500/50 rounded-lg p-2.5 text-white font-bold focus:border-amber-400 focus:outline-none">
-                <optgroup label="🏭 Nave FABS (10 L&#237;neas)">
-                  <option value="PUERTAS" data-area="FABS" data-sup="Sup. L&#237;nea PUERTAS - Ing. Arturo Méndez (4008)">🏭 L&#237;nea PUERTAS — Sup. Ing. Arturo Méndez (4008)</option>
-                  <option value="OHT" data-area="FABS" data-sup="Sup. L&#237;nea OHT - Ing. Sergio Navarro (4009)">🏭 L&#237;nea OHT — Sup. Ing. Sergio Navarro (4009)</option>
-                  <option value="LWL 988" data-area="FABS" data-sup="Sup. L&#237;nea LWL 988 - Ing. Daniel Ortega (4005)">🏭 L&#237;nea LWL 988 — Sup. Ing. Daniel Ortega (4005)</option>
-                  <option value="LWL 990" data-area="FABS" data-sup="Sup. L&#237;nea LWL 990 - Ing. Jorge Domínguez (4006)">🏭 L&#237;nea LWL 990 — Sup. Ing. Jorge Domínguez (4006)</option>
-                  <option value="MWL" data-area="FABS" data-sup="Sup. L&#237;nea MWL - Ing. Eduardo Ríos (4007)">🏭 L&#237;nea MWL — Sup. Ing. Eduardo Ríos (4007)</option>
-                  <option value="LTTT" data-area="FABS" data-sup="Sup. L&#237;nea LTTT - Ing. Héctor Morales (4001)">🏭 L&#237;nea LTTT — Sup. Ing. Héctor Morales (4001)</option>
-                  <option value="MTTT" data-area="FABS" data-sup="Sup. L&#237;nea MTTT - Ing. Ricardo Silva (4002)">🏭 L&#237;nea MTTT — Sup. Ing. Ricardo Silva (4002)</option>
-                  <option value="MG" data-area="FABS" data-sup="Sup. L&#237;nea MG - Ing. Fernando Castro (4003)">🏭 L&#237;nea MG — Sup. Ing. Fernando Castro (4003)</option>
-                  <option value="WTS" data-area="FABS" data-sup="Sup. L&#237;nea WTS - Ing. Alejandro Vargas (4004)">🏭 L&#237;nea WTS — Sup. Ing. Alejandro Vargas (4004)</option>
-                  <option value="LMT" data-area="FABS" data-sup="Sup. L&#237;nea LMT - Ing. Raúl Herrera (4010)">🏭 L&#237;nea LMT — Sup. Ing. Raúl Herrera (4010)</option>
+                <optgroup label="🏭 Nave FABS (10 Líneas)">
+                  <option value="PUERTAS" data-area="FABS" data-sup="Sup. Línea PUERTAS - Ing. Arturo Méndez (4008)">🏭 Línea PUERTAS — Sup. Ing. Arturo Méndez (4008)</option>
+                  <option value="OHT" data-area="FABS" data-sup="Sup. Línea OHT - Ing. Sergio Navarro (4009)">🏭 Línea OHT — Sup. Ing. Sergio Navarro (4009)</option>
+                  <option value="LWL 988" data-area="FABS" data-sup="Sup. Línea LWL 988 - Ing. Daniel Ortega (4005)">🏭 Línea LWL 988 — Sup. Ing. Daniel Ortega (4005)</option>
+                  <option value="LWL 990" data-area="FABS" data-sup="Sup. Línea LWL 990 - Ing. Jorge Domínguez (4006)">🏭 Línea LWL 990 — Sup. Ing. Jorge Domínguez (4006)</option>
+                  <option value="MWL" data-area="FABS" data-sup="Sup. Línea MWL - Ing. Eduardo Ríos (4007)">🏭 Línea MWL — Sup. Ing. Eduardo Ríos (4007)</option>
+                  <option value="LTTT" data-area="FABS" data-sup="Sup. Línea LTTT - Ing. Héctor Morales (4001)">🏭 Línea LTTT — Sup. Ing. Héctor Morales (4001)</option>
+                  <option value="MTTT" data-area="FABS" data-sup="Sup. Línea MTTT - Ing. Ricardo Silva (4002)">🏭 Línea MTTT — Sup. Ing. Ricardo Silva (4002)</option>
+                  <option value="MG" data-area="FABS" data-sup="Sup. Línea MG - Ing. Fernando Castro (4003)">🏭 Línea MG — Sup. Ing. Fernando Castro (4003)</option>
+                  <option value="WTS" data-area="FABS" data-sup="Sup. Línea WTS - Ing. Alejandro Vargas (4004)">🏭 Línea WTS — Sup. Ing. Alejandro Vargas (4004)</option>
+                  <option value="LMT" data-area="FABS" data-sup="Sup. Línea LMT - Ing. Raúl Herrera (4010)">🏭 Línea LMT — Sup. Ing. Raúl Herrera (4010)</option>
                 </optgroup>
-                <optgroup label="🏢 Nave EDIFICIO K (3 L&#237;neas)">
-                  <option value="LOW VOLUME" data-area="EDIFICIO K" data-sup="Sup. L&#237;nea LOW VOLUME - Ing. Víctor Hugo Cruz (4011)">🏢 L&#237;nea LOW VOLUME — Sup. Ing. Víctor Hugo Cruz (4011)</option>
-                  <option value="LMT K" data-area="EDIFICIO K" data-sup="Sup. L&#237;nea LMT K - Ing. Óscar Delgado (4012)">🏢 L&#237;nea LMT K — Sup. Ing. Óscar Delgado (4012)</option>
-                  <option value="COBOT" data-area="EDIFICIO K" data-sup="Sup. L&#237;nea COBOT - Ing. Mario Alberto Treviño (4013)">🏢 L&#237;nea COBOT — Sup. Ing. Mario Alberto Treviño (4013)</option>
+                <optgroup label="🏢 Nave EDIFICIO K (3 Líneas)">
+                  <option value="LOW VOLUME" data-area="EDIFICIO K" data-sup="Sup. Línea LOW VOLUME - Ing. Víctor Hugo Cruz (4011)">🏢 Línea LOW VOLUME — Sup. Ing. Víctor Hugo Cruz (4011)</option>
+                  <option value="LMT K" data-area="EDIFICIO K" data-sup="Sup. Línea LMT K - Ing. Óscar Delgado (4012)">🏢 Línea LMT K — Sup. Ing. Óscar Delgado (4012)</option>
+                  <option value="COBOT" data-area="EDIFICIO K" data-sup="Sup. Línea COBOT - Ing. Mario Alberto Treviño (4013)">🏢 Línea COBOT — Sup. Ing. Mario Alberto Treviño (4013)</option>
                 </optgroup>
               </select>
             </div>
 
             <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
-              <label class="block text-cyan-300 font-extrabold uppercase tracking-wide">2. Coordinador / QG Requerido en L&#237;nea:</label>
+              <label class="block text-cyan-300 font-extrabold uppercase tracking-wide">2. Coordinador / QG Requerido en Línea:</label>
               <select id="solicitar-cabina-coordinador" class="w-full bg-slate-950 border border-cyan-500/50 rounded-lg p-2.5 text-white font-bold focus:border-cyan-400 focus:outline-none">
                 <option value="Juan Pérez Martínez - Coordinador / QG (1042)">🛡️ Juan Pérez Martínez — Coordinador / QG T1 (1042)</option>
                 <option value="Miguel Ángel Rojas - Coordinador / QG (1150)">🛡️ Miguel Ángel Rojas — Coordinador / QG T2 (1150)</option>
@@ -3123,7 +3119,7 @@
             <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
               <label class="block text-slate-200 font-extrabold uppercase tracking-wide">3. Nivel de Urgencia del Apoyo QG:</label>
               <select id="solicitar-cabina-urgencia" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-white font-bold focus:border-amber-400 focus:outline-none">
-                <option value="critica">🔴 CRÍTICA (Luz Roja — Urgente en L&#237;nea)</option>
+                <option value="critica">🔴 CRÍTICA (Luz Roja — Urgente en Línea)</option>
                 <option value="media" selected>🟡 MEDIO URGENTE (Luz Amarilla — Lista para QG)</option>
                 <option value="baja">🔵 BAJA URGENCIA (Luz Azul — Programada / Sin Paro)</option>
               </select>
@@ -3135,7 +3131,7 @@
             </div>
 
             <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
-              <label class="block text-slate-300 font-bold">Estación / Bahía de la L&#237;nea:</label>
+              <label class="block text-slate-300 font-bold">Estación / Bahía de la Línea:</label>
               <input type="text" id="solicitar-cabina-estacion" placeholder="Ej. Estación 4 - Salida de Cabina" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-white focus:border-cyan-400 focus:outline-none">
             </div>
 
@@ -3145,13 +3141,13 @@
                 <option value="LIBERACIÓN Final de Cabina Terminada">✅ LIBERACIÓN Final de Cabina Terminada</option>
                 <option value="Validación de Soldadura AWS D1.1 y Dimensional">📐 Validación de Soldadura AWS D1.1 y Dimensional</option>
                 <option value="Revisión de Sellos, Bisagras y Empaques">🔧 Revisión de Sellos, Bisagras y Empaques</option>
-                <option value="LIBERACIÓN tras Corrección de Detalle en L&#237;nea">🛠️ LIBERACIÓN tras Corrección de Detalle en L&#237;nea</option>
+                <option value="Liberación tras Corrección de Detalle en Línea">🛠️ Liberación tras Corrección de Detalle en Línea</option>
               </select>
             </div>
 
             <div class="sm:col-span-2 lg:col-span-3 bg-slate-900/70 p-3.5 rounded-xl border border-amber-500/30 space-y-1.5">
-              <label class="block text-amber-300 font-extrabold uppercase tracking-wide">Información que el Supervisor de L&#237;nea Manda al Coordinador / QG:</label>
-              <textarea id="solicitar-cabina-notas" rows="3" placeholder="Escribe detalladamente qué información o apoyo necesita el Coordinador / QG en tu lÍnea para liberar la cabina..." class="w-full bg-slate-950 border border-amber-500/40 rounded-lg p-3 text-white focus:border-amber-400 focus:outline-none"></textarea>
+              <label class="block text-amber-300 font-extrabold uppercase tracking-wide">Información que el Supervisor de Línea Manda al Coordinador / QG:</label>
+              <textarea id="solicitar-cabina-notas" rows="3" placeholder="Escribe detalladamente qué información o apoyo necesita el Coordinador / QG en tu línea para liberar la cabina..." class="w-full bg-slate-950 border border-amber-500/40 rounded-lg p-3 text-white focus:border-amber-400 focus:outline-none"></textarea>
             </div>
 
             <div class="sm:col-span-2 lg:col-span-3 flex items-center justify-end gap-3 pt-2">
@@ -3197,7 +3193,7 @@
                 </span>
               </div>
               <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-                Supervisi&#243;n geoespacial de 13 lÍneas de producción, sensores de cabina terminada y solicitudes activas para Coordinadores / QG.
+                Supervisión geoespacial de 13 líneas de producción, sensores de cabina terminada y solicitudes activas para Coordinadores / QG.
               </p>
             </div>
           </div>
@@ -3207,12 +3203,12 @@
             <button type="button" id="btn-nave-fabs" onclick="setNaveMapa('fabs')" class="px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer bg-blue-600 text-white shadow-md shadow-blue-600/30">
               <i class="fa-solid fa-industry"></i>
               <span>Planta 3 (Nave FABS)</span>
-              <span id="badge-nave-count-fabs" class="px-1.5 py-0.2 rounded-full bg-slate-900/60 text-[10px] font-mono">10 L&#237;neas</span>
+              <span id="badge-nave-count-fabs" class="px-1.5 py-0.2 rounded-full bg-slate-900/60 text-[10px] font-mono">10 Líneas</span>
             </button>
             <button type="button" id="btn-nave-k" onclick="setNaveMapa('k')" class="px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800">
               <i class="fa-solid fa-robot"></i>
-              <span>Edificio K (ROBÓTICA y Especiales)</span>
-              <span id="badge-nave-count-k" class="px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px] font-mono text-cyan-300">3 L&#237;neas</span>
+              <span>Edificio K (Robótica y Especiales)</span>
+              <span id="badge-nave-count-k" class="px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px] font-mono text-cyan-300">3 Líneas</span>
             </button>
           </div>
 
@@ -3243,11 +3239,11 @@
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
               <span>Liberadas / OK</span>
             </button>
-            <!-- Selector de L&#237;nea Específica -->
+            <!-- Selector de Línea Específica -->
             <div class="flex items-center gap-1.5 ml-2 pl-2 border-l border-slate-700">
-              <span class="text-slate-400 text-[11px] font-bold uppercase hidden md:inline">L&#237;nea:</span>
+              <span class="text-slate-400 text-[11px] font-bold uppercase hidden md:inline">Línea:</span>
               <select id="mapa-filter-linea-select" onchange="filtrarPorLineaMapa(this.value)" class="bg-slate-900 text-amber-300 border border-amber-500/40 rounded-lg px-2.5 py-1 text-xs font-bold focus:ring-1 focus:ring-amber-400 cursor-pointer">
-                <option value="all">-- Todas las L&#237;neas (13) --</option>
+                <option value="all">-- Todas las Líneas (13) --</option>
                 <optgroup label="Planta 3 (FABS)">
                   <option value="PUERTAS">PUERTAS</option>
                   <option value="OHT">OHT</option>
@@ -3299,7 +3295,7 @@
                 <i class="fa-solid fa-industry"></i> SISTEMA CAD SCADA FABS
               </span>
               <span class="text-slate-300 text-xs font-semibold hidden sm:inline">
-                Plano Digital ARQUITECTÓNICO de Planta 3  -  Supervisi&#243;n SCADA en Tiempo Real
+                Plano Digital Arquitectónico de Planta 3  -  Supervisión SCADA en Tiempo Real
               </span>
             </div>
             
@@ -3391,7 +3387,7 @@
                 <rect x="395" y="40" width="150" height="110" fill="#0f172a" stroke="#475569" stroke-width="1.5" rx="6"/>
                 <text x="470" y="65" fill="#94a3b8" font-size="13" font-family="monospace" font-weight="bold" text-anchor="middle">RECIBOS</text>
                 <rect x="410" y="80" width="120" height="55" fill="#1e293b" stroke="#334155" rx="4"/>
-                <text x="470" y="112" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">INSPECCI&#211;N INBOUND</text>
+                <text x="470" y="112" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">INSPECCIÓN INBOUND</text>
               </g>
 
               <!-- Almacén Central de Acero / Racks 500 - 505 -->
@@ -3425,17 +3421,17 @@
                 <text x="82" y="380" fill="#94a3b8" font-size="13" font-family="monospace" font-weight="bold" text-anchor="middle" transform="rotate(-90 82 380)">WHEEL LOADERS</text>
               </g>
 
-              <!-- Bahía TRUCKS (L&#237;nea Azul) -->
+              <!-- Bahía TRUCKS (Línea Azul) -->
               <g id="zone-trucks">
                 <rect id="cad-bay-rect-TRUCKS" x="135" y="160" width="270" height="100" fill="#0b172a" stroke="#3b82f6" stroke-width="2.5" rx="6" class="transition-all"/><rect x="135" y="160" width="270" height="28" fill="#1e3a8a" rx="6" opacity="0.9"/>
                 <text x="270" y="185" fill="#93c5fd" font-size="14" font-family="monospace" font-weight="black" text-anchor="middle">TRUCKS</text>
-                <!-- L&#237;nea doble de ensamble -->
+                <!-- Línea doble de ensamble -->
                 <line x1="145" y1="210" x2="395" y2="210" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="6,4"/>
                 <line x1="145" y1="235" x2="395" y2="235" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="6,4"/>
                 <text x="270" y="252" fill="#bfdbfe" font-size="9.5" font-family="monospace" text-anchor="middle">LÍNEA ENSAMBLE DE CHASIS TRUCKS</text>
               </g>
 
-              <!-- Bahía TRACTORS (L&#237;nea Gris) -->
+              <!-- Bahía TRACTORS (Línea Gris) -->
               <g id="zone-tractors">
                 <rect id="cad-bay-rect-TRACTORS" x="135" y="270" width="270" height="65" fill="#0f172a" stroke="#94a3b8" stroke-width="2.5" rx="6" class="transition-all"/><rect x="135" y="270" width="270" height="26" fill="#334155" rx="6" opacity="0.9"/>
                 <text x="270" y="292" fill="#cbd5e1" font-size="13" font-family="monospace" font-weight="black" text-anchor="middle">TRACTORS</text>
@@ -3443,7 +3439,7 @@
                 <text x="270" y="325" fill="#94a3b8" font-size="9.5" font-family="monospace" text-anchor="middle">ESTRUCTURAS TRACTOR AGRICOLA / CONSTRUCCIÓN</text>
               </g>
 
-              <!-- Bahía MIX LINE (L&#237;nea Verde) -->
+              <!-- Bahía MIX LINE (Línea Verde) -->
               <g id="zone-mix-line">
                 <rect id="cad-bay-rect-MIX-LINE" x="135" y="345" width="270" height="75" fill="#052814" stroke="#22c55e" stroke-width="2.5" rx="6" class="transition-all"/><rect x="135" y="345" width="270" height="26" fill="#14532d" rx="6" opacity="0.9"/>
                 <text x="270" y="370" fill="#86efac" font-size="14" font-family="monospace" font-weight="black" text-anchor="middle">MIX LINE</text>
@@ -3487,7 +3483,7 @@
 
               <!-- ==================== ZONA CENTRAL: BAHÍAS PRINCIPALES ==================== -->
               
-              <!-- 1. BAHÍA VERTICAL: MG / WTS (L&#237;neas 4003 y 4004) -->
+              <!-- 1. BAHÍA VERTICAL: MG / WTS (Líneas 4003 y 4004) -->
               <g id="cad-bay-MG-WTS" class="transition-all duration-300">
                 <rect id="cad-bay-rect-MG-WTS" x="420" y="160" width="105" height="600" rx="8" fill="#022c22" stroke="#10b981" stroke-width="2.5" class="transition-all"/><rect x="420" y="160" width="105" height="32" fill="#064e3b" rx="8" opacity="0.95"/>
                 <text x="472" y="188" fill="#a7f3d0" font-size="14" font-family="monospace" font-weight="black" text-anchor="middle">MG / WTS</text>
@@ -3523,7 +3519,7 @@
                 <line x1="551" y1="630" x2="535" y2="650" stroke="#334155" stroke-width="1.2"/>
               </g>
 
-              <!-- 2. BAHÍA VERTICAL: MWL (L&#237;nea 4007) -->
+              <!-- 2. BAHÍA VERTICAL: MWL (Línea 4007) -->
               <g id="cad-bay-MWL" class="transition-all duration-300">
                 <rect id="cad-bay-rect-MWL" x="560" y="160" width="75" height="600" rx="8" fill="#380815" stroke="#ef4444" stroke-width="2.5" class="transition-all"/><rect x="560" y="160" width="75" height="32" fill="#881337" rx="8" opacity="0.95"/>
                 <text x="597" y="188" fill="#fecdd3" font-size="14" font-family="monospace" font-weight="black" text-anchor="middle">MWL</text>
@@ -3537,7 +3533,7 @@
                 <circle cx="597" cy="620" r="18" fill="#4c0519" stroke="#b91c1c" stroke-width="2"/>
               </g>
 
-              <!-- 3. BAHÍA VERTICAL: LWL (LWL 988 y LWL 990 - L&#237;neas 4005 y 4006) -->
+              <!-- 3. BAHÍA VERTICAL: LWL (LWL 988 y LWL 990 - Líneas 4005 y 4006) -->
               <g id="cad-bay-LWL" class="transition-all duration-300">
                 <rect id="cad-bay-rect-LWL" x="643" y="160" width="95" height="600" rx="8" fill="#2d1703" stroke="#eab308" stroke-width="2.5" class="transition-all"/><rect x="643" y="160" width="95" height="32" fill="#713f12" rx="8" opacity="0.95"/>
                 <text x="690" y="188" fill="#fef08a" font-size="14" font-family="monospace" font-weight="black" text-anchor="middle">LWL</text>
@@ -3559,7 +3555,7 @@
                 <text x="690" y="520" fill="#94a3b8" font-size="8.5" font-family="monospace" text-anchor="middle">BRAZOS / PERÍMETRO</text>
               </g>
 
-              <!-- 4. BAHÍA VERTICAL: OHT, LTTT Y PUERTAS (L&#237;neas 4009, 4001, 4008) -->
+              <!-- 4. BAHÍA VERTICAL: OHT, LTTT Y PUERTAS (Líneas 4009, 4001, 4008) -->
               <g id="cad-bay-OHT-LTTT-PUERTAS" class="transition-all duration-300">
                 <rect id="cad-bay-rect-OHT-COLUMN" x="746" y="160" width="125" height="600" rx="8" fill="#091220" stroke="#334155" stroke-width="2.5" class="transition-all"/>
                 
@@ -3784,7 +3780,7 @@
             </div>
             </div>
 
-            <!-- BOTÓN INTERACTIVO PORTAL HACIA EDIFICIO K (Esquina inferior izquierda) -->
+            <!-- Botón INTERACTIVO PORTAL HACIA EDIFICIO K (Esquina inferior izquierda) -->
             <div onclick="setNaveMapa('k')" style="top: 89%; left: 7.2%;" class="absolute z-30 cursor-pointer -translate-x-1/2 -translate-y-1/2 group transition-transform hover:scale-105" title="Hacer clic para ingresar al Plano de Edificio K">
               <div class="relative p-2 rounded-xl bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-900 border-2 border-indigo-400 shadow-xl shadow-indigo-500/40 text-white flex items-center gap-2 group-hover:border-cyan-300">
                 <span class="relative flex h-3 w-3">
@@ -3862,7 +3858,7 @@
           </div>
         </div>
 
-        <!-- Escenario ARQUITECTÓNICO CAD Vectorial de EDIFICIO K -->
+        <!-- Escenario Arquitectónico CAD Vectorial de EDIFICIO K -->
         <div class="bg-slate-950 rounded-2xl border-2 border-amber-400/40 p-4 shadow-2xl relative overflow-hidden space-y-3">
           
           <!-- Barra TÉcnica de Control SCADA -->
@@ -3872,7 +3868,7 @@
                 <i class="fa-solid fa-industry"></i> SISTEMA CAD SCADA EDIFICIO K
               </span>
               <span class="text-slate-300 text-xs font-semibold hidden sm:inline">
-                Plano Digital ARQUITECTÓNICO de Edificio K â€” Supervisi&#243;n SCADA en Tiempo Real
+                Plano Digital Arquitectónico de Edificio K — Supervisión SCADA en Tiempo Real
               </span>
             </div>
             
@@ -3889,7 +3885,7 @@
             <!-- SVG CAD SCADA de Edificio K -->
             <svg id="svg-edificio-k" viewBox="0 0 1200 480" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <!-- RetÍcula milimÉtrica CAD -->
+                <!-- Retícula milimétrica CAD -->
                 <pattern id="cadGridK" width="20" height="20" patternUnits="userSpaceOnUse">
                   <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#14213d" stroke-width="0.5" opacity="0.6"/>
                   <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#1d2d50" stroke-width="1" opacity="0.8"/>
@@ -3911,7 +3907,7 @@
                 </linearGradient>
               </defs>
 
-              <!-- Fondo y RetÍcula CAD -->
+              <!-- Fondo y Retícula CAD -->
               <rect width="1200" height="480" fill="#080e1a"/>
               <rect width="1200" height="480" fill="url(#cadGridK)"/>
 
@@ -3937,7 +3933,7 @@
                 <line x1="60" y1="195" x2="205" y2="195" stroke="#334155" stroke-width="1" stroke-dasharray="3,3"/>
                 <text x="132" y="210" fill="#475569" font-size="8.5" font-family="monospace" text-anchor="middle">GABINETES BLOQUEADOS</text>
 
-                <!-- Compresores y Red NeumÁtica -->
+                <!-- Compresores y Red Neumática -->
                 <rect x="50" y="235" width="165" height="75" fill="#0f172a" stroke="#475569" stroke-width="1"/>
                 <text x="132" y="262" fill="#94a3b8" font-size="10" font-family="monospace" font-weight="bold" text-anchor="middle">RED NEUMÁTICA</text>
                 <text x="132" y="280" fill="#64748b" font-size="9" font-family="monospace" text-anchor="middle">LÍNEA AIRE 120 PSI</text>
@@ -3970,16 +3966,16 @@
                 <line x1="380" y1="150" x2="470" y2="150" stroke="#1e3a8a" stroke-width="1"/>
                 <circle cx="425" cy="135" r="14" fill="none" stroke="#60a5fa" stroke-dasharray="2,2"/>
 
-                <!-- Banco HidrÁulico y Tablero de Control -->
+                <!-- Banco Hidráulico y Tablero de Control -->
                 <rect x="260" y="180" width="215" height="45" fill="#0f172a" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="367" y="200" fill="#cbd5e1" font-size="9.5" font-family="monospace" font-weight="bold" text-anchor="middle">BANCO DE SUJECIÓN HIDRÁULICA</text>
                 <text x="367" y="215" fill="#64748b" font-size="8.5" font-family="monospace" text-anchor="middle">PRESIÓN DE AMARRE 180 BAR</text>
 
-                <!-- Zona de INSPECCI&#211;N Calidad QG LMT D -->
+                <!-- Zona de Inspección Calidad QG LMT D -->
                 <rect x="260" y="235" width="215" height="70" fill="#132238" stroke="#eab308" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
                 <text x="367" y="258" fill="#fde047" font-size="10" font-family="monospace" font-weight="bold" text-anchor="middle">ESTACIÓN DE LIBERACIÓN LMT D</text>
-                <text x="367" y="278" fill="#94a3b8" font-size="8.5" font-family="monospace" text-anchor="middle">INSPECCI&#211;N GEOMÉTRICA & SOLDADURA</text>
-                <text x="367" y="293" fill="#38bdf8" font-size="8" font-family="monospace" text-anchor="middle">TOLERANCIA PERMISIBLE Â±±1.0 mm</text>
+                <text x="367" y="278" fill="#94a3b8" font-size="8.5" font-family="monospace" text-anchor="middle">INSPECCIÓN GEOMÉTRICA & SOLDADURA</text>
+                <text x="367" y="293" fill="#38bdf8" font-size="8" font-family="monospace" text-anchor="middle">TOLERANCIA PERMISIBLE ±1.0 mm</text>
               </g>
 
               <!-- ==================== BAHÍA 2: LOW VOLUME (CABINAS Y ROBÓTICA) ==================== -->
@@ -3992,32 +3988,32 @@
                 <text x="775" y="65" fill="#ffffff" font-size="15" font-family="monospace" font-weight="black" text-anchor="middle" letter-spacing="2">LOW VOLUME</text>
 
                 <!-- Hilera Superior: 6 Estaciones de Ensamble y Soldadura -->
-                <!-- EstaciÓn 1 -->
+                <!-- Estación 1 -->
                 <rect x="525" y="85" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="562" y="105" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-01</text>
                 <circle cx="562" cy="125" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 2 -->
+                <!-- Estación 2 -->
                 <rect x="610" y="85" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="647" y="105" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-02</text>
                 <circle cx="647" cy="125" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 3 -->
+                <!-- Estación 3 -->
                 <rect x="695" y="85" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="732" y="105" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-03</text>
                 <circle cx="732" cy="125" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 4 -->
+                <!-- Estación 4 -->
                 <rect x="780" y="85" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="817" y="105" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-04</text>
                 <circle cx="817" cy="125" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 5 -->
+                <!-- Estación 5 -->
                 <rect x="865" y="85" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="902" y="105" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-05</text>
                 <circle cx="902" cy="125" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 6 (CÉlula COBOT) -->
+                <!-- Estación 6 (CÉlula COBOT) -->
                 <rect id="cad-bay-rect-COBOT" x="950" y="85" width="75" height="60" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.5" rx="3"/>
                 <text x="987" y="102" fill="#c7d2fe" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">COBOT</text>
                 <text x="987" y="115" fill="#a5b4fc" font-size="7.5" font-family="monospace" text-anchor="middle">ROBÓTICA</text>
@@ -4029,39 +4025,39 @@
                 <text x="775" y="176" fill="#64748b" font-size="9" font-family="monospace" font-weight="bold" text-anchor="middle">PASILLO CENTRAL DE TRABAJO & DISTRIBUCIÓN K-LV</text>
 
                 <!-- Hilera Inferior: 6 Estaciones de Ensamble y Ajuste -->
-                <!-- EstaciÓn 7 -->
+                <!-- Estación 7 -->
                 <rect x="525" y="200" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="562" y="220" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-07</text>
                 <circle cx="562" cy="240" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 8 -->
+                <!-- Estación 8 -->
                 <rect x="610" y="200" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="647" y="220" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-08</text>
                 <circle cx="647" cy="240" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 9 -->
+                <!-- Estación 9 -->
                 <rect x="695" y="200" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="732" y="220" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-09</text>
                 <circle cx="732" cy="240" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 10 -->
+                <!-- Estación 10 -->
                 <rect x="780" y="200" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="817" y="220" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-10</text>
                 <circle cx="817" cy="240" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 11 -->
+                <!-- Estación 11 -->
                 <rect x="865" y="200" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="902" y="220" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-11</text>
                 <circle cx="902" cy="240" r="10" fill="none" stroke="#334155"/>
 
-                <!-- EstaciÓn 12 -->
+                <!-- Estación 12 -->
                 <rect x="950" y="200" width="75" height="60" fill="#132238" stroke="#475569" stroke-width="1" rx="3"/>
                 <text x="987" y="220" fill="#94a3b8" font-size="8.5" font-family="monospace" font-weight="bold" text-anchor="middle">EST-12</text>
                 <circle cx="987" cy="240" r="10" fill="none" stroke="#334155"/>
 
-                <!-- Área Inferior de LIBERACIÓN LOW VOLUME -->
+                <!-- Área Inferior de Liberación LOW VOLUME -->
                 <rect x="525" y="270" width="500" height="40" fill="#0b172a" stroke="#10b981" stroke-width="1" stroke-dasharray="3,3" rx="3"/>
-                <text x="775" y="295" fill="#6ee7b7" font-size="9.5" font-family="monospace" font-weight="bold" text-anchor="middle">INSPECCI&#211;N FINAL & LIBERACIÓN LOW VOLUME</text>
+                <text x="775" y="295" fill="#6ee7b7" font-size="9.5" font-family="monospace" font-weight="bold" text-anchor="middle">INSPECCIÓN FINAL & LIBERACIÓN LOW VOLUME</text>
               </g>
 
               <!-- ==================== ZONA ESTE: CASETA QG K, METROLOGÍA Y DOCK ==================== -->
@@ -4073,7 +4069,7 @@
                 <text x="1107" y="98" fill="#64748b" font-size="8.5" font-family="monospace" text-anchor="middle">COORDINACIÓN</text>
                 <text x="1107" y="115" fill="#94a3b8" font-size="8" font-family="monospace" text-anchor="middle">CALIDAD K</text>
 
-                <!-- MetrologÍa 3D -->
+                <!-- Metrología 3D -->
                 <rect x="1063" y="140" width="89" height="85" fill="#0f172a" stroke="#475569" stroke-width="1"/>
                 <text x="1107" y="165" fill="#94a3b8" font-size="9.5" font-family="monospace" font-weight="bold" text-anchor="middle">METROLOGÍA</text>
                 <text x="1107" y="180" fill="#38bdf8" font-size="8.5" font-family="monospace" text-anchor="middle">ESCÁNER 3D</text>
@@ -4089,7 +4085,7 @@
               <!-- ==================== PASILLO MONTACARGAS (FRANJA COMPLETA INFERIOR) ==================== -->
               <g id="zone-pasillo-montacargas">
                 <rect x="40" y="340" width="1120" height="55" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" rx="5"/>
-                <!-- Rayado amarillo de precauciÓn en los bordes -->
+                <!-- Rayado amarillo de precaución en los bordes -->
                 <rect x="40" y="340" width="1120" height="8" fill="url(#hazardStripesK)"/>
                 <rect x="40" y="387" width="1120" height="8" fill="url(#hazardStripesK)"/>
                 <!-- Texto central del pasillo montacargas -->
@@ -4101,7 +4097,7 @@
             <div id="scada-sensors-overlay-k" class="absolute inset-0 pointer-events-none">
               
               <!-- 1. SENSOR LÍNEA LMT K (DENTRO DE LMT D) -->
-              <div id="sensor-node-LMT K" onclick="abrirDetalleSensorPlanta('LMT K')" style="top: 36%; left: 30.5%;" class="sensor-node absolute z-30 cursor-pointer group -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 pointer-events-auto" title="L&#237;nea LMT D (LMT K) - Clic para ver estatus de calidad">
+              <div id="sensor-node-LMT K" onclick="abrirDetalleSensorPlanta('LMT K')" style="top: 36%; left: 30.5%;" class="sensor-node absolute z-30 cursor-pointer group -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 pointer-events-auto" title="Línea LMT D (LMT K) - Clic para ver estatus de calidad">
                 <div id="sensor-pulse-LMT K" class="sensor-pin-pulse-green absolute w-11 h-11 rounded-full border-2 border-emerald-400"></div>
                 <div id="sensor-beacon-LMT K" class="relative w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-emerald-600 border-2 border-white text-slate-950 flex items-center justify-center font-black text-xs shadow-xl shadow-emerald-500/80">
                   <i class="fa-solid fa-hard-hat text-xs"></i>
@@ -4112,7 +4108,7 @@
               </div>
 
               <!-- 2. SENSOR LÍNEA LOW VOLUME (LADO IZQUIERDO DE LOW VOLUME) -->
-              <div id="sensor-node-LOW VOLUME" onclick="abrirDetalleSensorPlanta('LOW VOLUME')" style="top: 36%; left: 56.5%;" class="sensor-node absolute z-30 cursor-pointer group -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 pointer-events-auto" title="L&#237;nea LOW VOLUME - Clic para ver estatus de calidad">
+              <div id="sensor-node-LOW VOLUME" onclick="abrirDetalleSensorPlanta('LOW VOLUME')" style="top: 36%; left: 56.5%;" class="sensor-node absolute z-30 cursor-pointer group -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 pointer-events-auto" title="Línea LOW VOLUME - Clic para ver estatus de calidad">
                 <div id="sensor-pulse-LOW VOLUME" class="sensor-pin-pulse-green absolute w-11 h-11 rounded-full border-2 border-emerald-400"></div>
                 <div id="sensor-beacon-LOW VOLUME" class="relative w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 via-green-500 to-emerald-600 border-2 border-white text-slate-950 flex items-center justify-center font-black text-xs shadow-xl shadow-emerald-500/80">
                   <i class="fa-solid fa-truck-pickup text-xs"></i>
@@ -4123,7 +4119,7 @@
               </div>
 
               <!-- 3. SENSOR LÍNEA COBOT (LADO DERECHO ROBÓTICA DE LOW VOLUME) -->
-              <div id="sensor-node-COBOT" onclick="abrirDetalleSensorPlanta('COBOT')" style="top: 36%; left: 74.5%;" class="sensor-node absolute z-30 cursor-pointer group -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 pointer-events-auto" title="L&#237;nea COBOT (ROBÓTICA K) - Clic para ver estatus de calidad">
+              <div id="sensor-node-COBOT" onclick="abrirDetalleSensorPlanta('COBOT')" style="top: 36%; left: 74.5%;" class="sensor-node absolute z-30 cursor-pointer group -translate-x-1/2 -translate-y-1/2 transition-transform hover:scale-110 pointer-events-auto" title="Línea COBOT (ROBÓTICA K) - Clic para ver estatus de calidad">
                 <div id="sensor-pulse-COBOT" class="sensor-pin-pulse-blue absolute w-11 h-11 rounded-full border-2 border-indigo-400"></div>
                 <div id="sensor-beacon-COBOT" class="relative w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-700 border-2 border-white text-white flex items-center justify-center font-black text-xs shadow-xl shadow-indigo-500/80">
                   <i class="fa-solid fa-robot text-xs"></i>
@@ -4135,7 +4131,7 @@
 
             </div>
 
-            <!-- BOTÓN PLANTA 3 (ESQUINA INFERIOR IZQUIERDA - FIEL A LA IMAGEN) -->
+            <!-- Botón PLANTA 3 (ESQUINA INFERIOR IZQUIERDA - FIEL A LA IMAGEN) -->
             <button type="button" onclick="setNaveMapa('fabs')" style="bottom: 14px; left: 24px;" class="absolute z-30 px-4 py-2 rounded-xl bg-slate-900/95 hover:bg-slate-800 text-amber-400 hover:text-white border-2 border-slate-700 hover:border-amber-400 font-black text-xs shadow-2xl flex items-center gap-2 transition cursor-pointer" title="Hacer clic para regresar al Plano de Planta 3 (FABS)">
               <i class="fa-solid fa-arrow-left"></i> Planta 3
             </button>
@@ -4156,15 +4152,15 @@
               </span>
               <span class="flex items-center gap-1.5 text-emerald-300">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                <span>Verde: OperaciÓn Normal / Liberada</span>
+                <span>Verde: Operación Normal / Liberada</span>
               </span>
               <span class="flex items-center gap-1.5 text-indigo-300">
                 <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
-                <span>Azul / Morado: CÉlula Automatizada ROBÓTICA</span>
+                <span>Azul / Morado: CÉlula Automatizada Robótica</span>
               </span>
             </div>
             <span class="text-slate-400 text-[11px]">
-              <i class="fa-solid fa-hand-pointer text-cyan-400"></i> Clic en LMT D o LOW VOLUME para INSPECCI&#211;N y LIBERACIÓN de cabina.
+              <i class="fa-solid fa-hand-pointer text-cyan-400"></i> Clic en LMT D o LOW VOLUME para inspección y liberación de cabina.
             </span>
           </div>
 
@@ -4202,12 +4198,12 @@
           
           <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-700/80 space-y-2">
             <div class="flex justify-between border-b border-slate-800 pb-1.5">
-              <span class="text-slate-400">N&#250;mero de Parte & Modelo:</span>
+              <span class="text-slate-400">Número de Parte & Modelo:</span>
               <span id="modal-sensor-pn" class="font-mono font-bold text-cyan-400">PN-7200-PTS (PUERTAS)</span>
             </div>
             <div class="flex justify-between border-b border-slate-800 pb-1.5">
-              <span class="text-slate-400">Supervisor de L&#237;nea:</span>
-              <span id="modal-sensor-supervisor" class="font-semibold text-slate-200">Sup. L&#237;nea PUERTAS - Ing. Arturo Méndez (4008)</span>
+              <span class="text-slate-400">Supervisor de Línea:</span>
+              <span id="modal-sensor-supervisor" class="font-semibold text-slate-200">Sup. Línea PUERTAS - Ing. Arturo Méndez (4008)</span>
             </div>
             <div class="flex justify-between border-b border-slate-800 pb-1.5">
               <span class="text-slate-400">Coordinador Solicitado:</span>
@@ -4221,7 +4217,7 @@
 
           <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-700/60 space-y-1">
             <span class="text-slate-400 text-[10.5px] uppercase font-bold flex items-center gap-1.5">
-              <i class="fa-solid fa-certificate text-cyan-400"></i> Criterio de Calidad para esta L&#237;nea:
+              <i class="fa-solid fa-certificate text-cyan-400"></i> Criterio de Calidad para esta Línea:
             </span>
             <p id="modal-sensor-criterio" class="text-slate-200 font-medium leading-relaxed">
               Holgura perimetral uniforme y ajuste de bisagras. Sellado hermético y burletes.
@@ -4236,7 +4232,7 @@
                   <i class="fa-solid fa-users-gear"></i>
                 </div>
                 <span class="text-xs font-black text-amber-300 uppercase tracking-wide">
-                  Personal con Defectos en esta L&#237;nea (Requiere Retroalimentaci&#243;n)
+                  Personal con Defectos en esta Línea (Requiere Retroalimentación)
                 </span>
               </div>
               <span id="modal-sensor-personal-count-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">
@@ -4249,7 +4245,7 @@
             </p>
 
             <div id="modal-sensor-personal-lista" class="space-y-2 max-h-52 overflow-y-auto pr-1">
-              <!-- Renderizado dinÁmico en JS -->
+              <!-- Renderizado dinámico en JS -->
             </div>
           </div>
 
@@ -4270,10 +4266,10 @@
             Cerrar
           </button>
           <button type="button" id="modal-sensor-btn-inspeccion-nueva" onclick="iniciarNuevaInspeccionDesdeSensor()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer shadow-md shadow-blue-600/30">
-            <i class="fa-solid fa-clipboard-plus"></i> Nueva INSPECCI&#211;N
+            <i class="fa-solid fa-clipboard-plus"></i> Nueva Inspección
           </button>
           <button type="button" id="modal-sensor-btn-atender-qg" onclick="atenderQGDesdeSensor()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer shadow-lg shadow-emerald-600/40 active:scale-95">
-            <i class="fa-solid fa-clipboard-check"></i> Atender L&#237;nea Ahora
+            <i class="fa-solid fa-clipboard-check"></i> Atender Línea Ahora
           </button>
         </div>
 
@@ -4289,7 +4285,7 @@
       <!-- Header -->
       <div class="flex items-center justify-between pb-4 border-b border-slate-700">
         <div>
-          <span class="text-xs uppercase tracking-wider text-slate-400 font-bold" id="detail-modal-type">Detalle de INSPECCI&#211;N</span>
+          <span class="text-xs uppercase tracking-wider text-slate-400 font-bold" id="detail-modal-type">Detalle de Inspección</span>
           <h3 class="text-2xl font-bold text-white font-mono" id="detail-folio">INSP-2026-0001</h3>
         </div>
         <button onclick="closeDetailModal()" class="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-300 flex items-center justify-center transition">
@@ -4300,7 +4296,7 @@
       <!-- Info Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-900/80 p-4 rounded-xl border border-slate-700/80 text-xs">
         <div>
-          <span class="text-slate-400 block">N&#250;mero de Parte:</span>
+          <span class="text-slate-400 block">Número de Parte:</span>
           <span class="font-bold text-white text-sm" id="detail-parte">-</span>
         </div>
         <div>
@@ -4308,7 +4304,7 @@
           <span class="font-bold text-white text-sm" id="detail-modelo">-</span>
         </div>
         <div>
-          <span class="text-slate-400 block">N&#250;mero de Serie:</span>
+          <span class="text-slate-400 block">Número de Serie:</span>
           <span class="font-bold font-mono text-cyan-400 text-sm" id="detail-serie">-</span>
         </div>
         <div>
@@ -4397,28 +4393,28 @@
       <!-- Acciones de Calidad (Liberar / Rechazar / Modificar con Auditoría / PDF) -->
       <div class="pt-4 border-t border-slate-700 flex flex-wrap items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-2">
-          <!-- BOTÓN Generar PDF -->
+          <!-- Botón Generar PDF -->
           <button onclick="generatePDFFromDetail()" class="px-3.5 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold flex items-center gap-1.5 transition">
             <i class="fa-solid fa-file-pdf text-red-400"></i> Descargar Reporte PDF
           </button>
           
-          <!-- BOTÓN Corrección por Supervisor / Coordinador Desbloqueado -->
+          <!-- Botón Corrección por Supervisor / Coordinador Desbloqueado -->
           <button onclick="openSupervisorEditModalFromDetail()" id="btn-detail-supervisor-edit" class="px-3.5 py-2 rounded-lg bg-amber-600/90 hover:bg-amber-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow">
-            <i class="fa-solid fa-pen-to-square"></i> Corregir INSPECCI&#211;N / Faltante
+            <i class="fa-solid fa-pen-to-square"></i> Corregir Inspección / Faltante
           </button>
 
-          <!-- BOTÓN Desbloquear para Coordinador (Solo Visible para Supervisor) -->
+          <!-- Botón Desbloquear para Coordinador (Solo Visible para Supervisor) -->
           <button onclick="unlockCurrentInspectionForCoordinator()" id="btn-detail-unlock" class="px-3.5 py-2 rounded-lg bg-indigo-600/90 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow">
             <i class="fa-solid fa-lock-open"></i> Desbloquear para Coordinador
           </button>
 
-          <!-- BOTÓN Modificar con Auditoría -->
+          <!-- Botón Modificar con Auditoría -->
           <button onclick="openAuditEditModal()" class="px-3.5 py-2 rounded-lg border border-slate-600 hover:bg-slate-700 text-slate-300 text-xs font-semibold flex items-center gap-1.5 transition">
             <i class="fa-solid fa-pen-nib text-cyan-400"></i> Auditoría de Campo
           </button>
         </div>
 
-        <!-- Botones de LIBERACIÓN / Rechazo (Solo si no está liberada) -->
+        <!-- Botones de Liberación / Rechazo (Solo si no está liberada) -->
         <div id="decision-actions" class="flex items-center gap-2">
           <button onclick="handleDecision('rechazado')" class="px-4 py-2 rounded-lg bg-red-600/80 hover:bg-red-600 text-white text-xs font-bold flex items-center gap-1.5 transition">
             <i class="fa-solid fa-ban"></i> Rechazar
@@ -4439,7 +4435,7 @@
       <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-700 bg-slate-800 shrink-0">
         <div>
           <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-play text-emerald-400"></i> Continuar INSPECCI&#211;N (Traspaso)
+            <i class="fa-solid fa-play text-emerald-400"></i> Continuar Inspección (Traspaso)
           </h3>
           <p class="text-xs text-slate-400 mt-0.5">Registrar la intervención del inspector de turno entrante</p>
         </div>
@@ -4456,7 +4452,7 @@
         <!-- Selector del Colaborador / Nómina que continúa -->
         <div>
           <label class="block text-slate-300 font-semibold mb-1">
-            Inspector que continuará la INSPECCI&#211;N <span class="text-red-400">*</span>:
+            Inspector que continuará la inspección <span class="text-red-400">*</span>:
           </label>
           <select id="resume-inspector-select" onchange="handleResumeInspectorChange()" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
             <!-- Llenado dinámico -->
@@ -4467,7 +4463,7 @@
         <div id="resume-custom-box" class="hidden p-3 rounded-lg bg-blue-950/40 border border-blue-800/60 space-y-2">
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-slate-300 text-[11px] mb-1">N&#250;mero de Nómina:</label>
+              <label class="block text-slate-300 text-[11px] mb-1">Número de Nómina:</label>
               <input type="number" id="resume-custom-nomina" placeholder="Ej. 1350" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white font-mono">
             </div>
             <div>
@@ -4516,7 +4512,7 @@
 
           <div id="resume-faltantes-container" class="hidden pt-2 border-t border-slate-800">
             <label class="block text-[11px] font-medium text-amber-300 mb-1">Descripción detallada de faltantes:</label>
-            <textarea id="resume-input-faltantes" rows="2" placeholder="Especificar qué pieza, cantidad o accesorio falta para su LIBERACIÓN..." class="w-full bg-slate-800 border border-amber-500/40 rounded-lg p-2 text-xs text-white focus:outline-none"></textarea>
+            <textarea id="resume-input-faltantes" rows="2" placeholder="Especificar qué pieza, cantidad o accesorio falta para su liberación..." class="w-full bg-slate-800 border border-amber-500/40 rounded-lg p-2 text-xs text-white focus:outline-none"></textarea>
           </div>
         </div>
 
@@ -4553,10 +4549,10 @@
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Estatus al concluir esta intervención:</label>
           <select id="resume-estatus-entrega" onchange="handleResumeEstatusEntregaChange()" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:outline-none">
-            <option value="Liberado">Finalizar INSPECCI&#211;N - Liberado (100% Conforme)</option>
-            <option value="Con Faltantes">Finalizar INSPECCI&#211;N - Con Faltantes (Pendiente de Surtimiento)</option>
-            <option value="En Espera de Retrabajo">Finalizar INSPECCI&#211;N - En Espera de Retrabajo</option>
-            <option value="Scrap">Finalizar INSPECCI&#211;N - Rechazado / Scrap</option>
+            <option value="Liberado">Finalizar Inspección - Liberado (100% Conforme)</option>
+            <option value="Con Faltantes">Finalizar Inspección - Con Faltantes (Pendiente de Surtimiento)</option>
+            <option value="En Espera de Retrabajo">Finalizar Inspección - En Espera de Retrabajo</option>
+            <option value="Scrap">Finalizar Inspección - Rechazado / Scrap</option>
             <option value="Pausado">Traspaso de Turno (Pausado para relevo del siguiente turno)</option>
             <option value="En Proceso">En Proceso (Continuará otro turno)</option>
           </select>
@@ -4578,13 +4574,13 @@
           <i class="fa-solid fa-arrow-right-arrow-left"></i> Traspaso de Turno
         </button>
         <button id="btn-resume-finalizar" type="button" onclick="openOpcionesFinalizarModal('resume')" class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center gap-1.5 transition active:scale-95 cursor-pointer">
-          <i class="fa-solid fa-flag-checkered"></i> Finalizar INSPECCI&#211;N
+          <i class="fa-solid fa-flag-checkered"></i> Finalizar Inspección
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL: OPCIONES DE FINALIZAR INSPECCI&#211;N ==================== -->
+  <!-- ==================== MODAL: OPCIONES DE FINALIZAR INSPECCIÓN ==================== -->
   <div id="modal-opciones-finalizar" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
     <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden my-auto animate-fade-in flex flex-col">
       
@@ -4596,7 +4592,7 @@
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h3 class="text-base sm:text-lg font-bold text-white">Opciones para Finalizar INSPECCI&#211;N</h3>
+              <h3 class="text-base sm:text-lg font-bold text-white">Opciones para Finalizar Inspección</h3>
               <span id="finalizar-opciones-folio" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-slate-800 text-amber-400 border border-slate-700"></span>
             </div>
             <p class="text-xs text-slate-400 mt-0.5">Selecciona la condición formal para concluir y registrar la pieza:</p>
@@ -4616,7 +4612,7 @@
           <div>
             <strong class="font-bold text-amber-300 block">Atención: Componente con Faltantes Reportados</strong>
             <span id="finalizar-banner-faltantes-desc" class="text-slate-200 font-semibold block mt-0.5"></span>
-            <span class="text-[11px] text-amber-200/80 mt-1 block">Puedes concluir la INSPECCI&#211;N formalmente con la opción <strong>"Finalizar con Faltantes"</strong> para dar seguimiento a su surtimiento o autorizar su LIBERACIÓN condicional.</span>
+            <span class="text-[11px] text-amber-200/80 mt-1 block">Puedes concluir la inspección formalmente con la opción <strong>"Finalizar con Faltantes"</strong> para dar seguimiento a su surtimiento o autorizar su liberación condicional.</span>
           </div>
         </div>
 
@@ -4641,7 +4637,7 @@
                 <span id="badge-opcion-liberado" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">100% Conforme</span>
               </div>
               <h4 class="text-sm font-bold text-white group-hover:text-emerald-300 transition">1. Liberado (100% Conforme)</h4>
-              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">Pieza completa y aprobada. Cumple con todos los barrenos, accesorios y dimensiones. Se emite fecha y sello de LIBERACIÓN.</p>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">Pieza completa y aprobada. Cumple con todos los barrenos, accesorios y dimensiones. Se emite fecha y sello de liberación.</p>
             </div>
             <button type="button" class="mt-3 w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow">
               <i class="fa-solid fa-check-double"></i> Concluir como Liberado
@@ -4658,7 +4654,7 @@
                 <span id="badge-opcion-faltantes" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">⭐ Sugerido si hay faltantes</span>
               </div>
               <h4 class="text-sm font-bold text-white group-hover:text-amber-300 transition">2. Finalizar con Faltantes</h4>
-              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">INSPECCI&#211;N concluida formalmente documentando las piezas/barreras pendientes. Queda registrada en historial con estatus oficial "Con Faltantes".</p>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">Inspección concluida formalmente documentando las piezas/barreras pendientes. Queda registrada en historial con estatus oficial "Con Faltantes".</p>
             </div>
             <button type="button" class="mt-3 w-full py-2 px-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow">
               <i class="fa-solid fa-clock-rotate-left"></i> Concluir con Faltantes
@@ -4675,7 +4671,7 @@
                 <span id="badge-opcion-retrabajo" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">Corrección en Taller</span>
               </div>
               <h4 class="text-sm font-bold text-white group-hover:text-blue-300 transition">3. Enviar a Retrabajo</h4>
-              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">INSPECCI&#211;N concluida detectando anomalía de soldadura, golpe o ensamble. Se canaliza al taller de soldadura/retrabajo para su corrección.</p>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">Inspección concluida detectando anomalía de soldadura, golpe o ensamble. Se canaliza al taller de soldadura/retrabajo para su corrección.</p>
             </div>
             <button type="button" class="mt-3 w-full py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow">
               <i class="fa-solid fa-hammer"></i> Concluir para Retrabajo
@@ -4692,7 +4688,7 @@
                 <span id="badge-opcion-scrap" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">Baja Definitiva</span>
               </div>
               <h4 class="text-sm font-bold text-white group-hover:text-rose-300 transition">4. Rechazado / Scrap</h4>
-              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">INSPECCI&#211;N terminada con baja definitiva por daño irreparable o crítico. Se documenta como Scrap de producción en los indicadores.</p>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">Inspección terminada con baja definitiva por daño irreparable o crítico. Se documenta como Scrap de producción en los indicadores.</p>
             </div>
             <button type="button" class="mt-3 w-full py-2 px-3 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow">
               <i class="fa-solid fa-trash-can"></i> Concluir como Scrap
@@ -4732,8 +4728,8 @@
         <div>
           <label class="block text-slate-300 mb-1">Campo a Modificar:</label>
           <select id="audit-field" onchange="handleAuditFieldChange()" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white">
-            <option value="Numero_Serie">N&#250;mero de Serie</option>
-            <option value="Area_Ubicacion">&#193;rea / Ubicaci&#243;n</option>
+            <option value="Numero_Serie">Número de Serie</option>
+            <option value="Area_Ubicacion">Área / Ubicación</option>
             <option value="Descripcion_Faltantes">Descripción de Faltantes</option>
             <option value="Tiene_Faltantes">Tiene Faltantes (SÍ / NO)</option>
           </select>
@@ -4768,7 +4764,7 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-amber-500/20 text-amber-400 border border-amber-500/30">
-              <i class="fa-solid fa-user-shield"></i> Control de Supervisi&#243;n
+              <i class="fa-solid fa-user-shield"></i> Control de Supervisión
             </span>
             <span class="text-xs font-mono text-cyan-400 font-bold" id="super-edit-folio">INSP-2026-0001</span>
           </div>
@@ -4790,7 +4786,7 @@
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Modelo de Componente <span class="text-red-400">*</span>:</label>
             <select id="super-input-modelo" onchange="handleSuperModeloChange()" required class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:outline-none">
-              <optgroup label="Nave FABS (10 L&#237;neas)">
+              <optgroup label="Nave FABS (10 Líneas)">
                 <option value="LTTT">LTTT</option>
                 <option value="MTTT">MTTT</option>
                 <option value="MG">MG</option>
@@ -4802,12 +4798,12 @@
                 <option value="OHT">OHT</option>
                 <option value="LMT">LMT</option>
               </optgroup>
-              <optgroup label="Nave EDIFICIO K (3 L&#237;neas)">
+              <optgroup label="Nave EDIFICIO K (3 Líneas)">
                 <option value="LOW VOLUME">LOW VOLUME</option>
                 <option value="LMT K">LMT K</option>
                 <option value="COBOT">COBOT</option>
               </optgroup>
-              <optgroup label="&#193;rea PINTURA (3 L&#237;neas)">
+              <optgroup label="Área PINTURA (3 Líneas)">
                 <option value="Carga Paint">Carga Paint</option>
                 <option value="Sellado Paint">Sellado Paint</option>
                 <option value="Preparacion Paint">Preparacion Paint</option>
@@ -4815,20 +4811,20 @@
             </select>
           </div>
 
-          <!-- N&#250;mero de Serie -->
+          <!-- Número de Serie -->
           <div>
-            <label class="block text-slate-300 font-semibold mb-1">N&#250;mero de Serie Estampado <span class="text-red-400">*</span>:</label>
+            <label class="block text-slate-300 font-semibold mb-1">Número de Serie Estampado <span class="text-red-400">*</span>:</label>
             <input type="text" id="super-input-serie" required class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white font-mono focus:outline-none">
           </div>
 
-          <!-- &#193;rea / Ubicaci&#243;n (2 opciones) -->
+          <!-- Área / Ubicación (2 opciones) -->
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Área / Nave <span class="text-red-400">*</span>:</label>
             <select id="super-input-area" onchange="handleSuperAreaChange()" required class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:outline-none">
-              <optgroup label="&#128293; SOLDADURA">
+              <optgroup label="🔥 SOLDADURA">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
-                  <option value="FABS">&nbsp;&nbsp;&#8627; FABS (10 L&#237;neas)</option>
-                  <option value="EDIFICIO K">&nbsp;&nbsp;&#8627; EDIFICIO K (3 L&#237;neas)</option>
+                  <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
+                  <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
               <option value="PINTURA">PINTURA</option>
               <option value="ENSAMBLE">ENSAMBLE</option>
@@ -4836,9 +4832,9 @@
             </select>
           </div>
 
-          <!-- N&#250;mero de Parte -->
+          <!-- Número de Parte -->
           <div>
-            <label class="block text-slate-300 font-semibold mb-1">N&#250;mero de Parte:</label>
+            <label class="block text-slate-300 font-semibold mb-1">Número de Parte:</label>
             <input type="text" id="super-input-parte" class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white font-mono focus:outline-none">
           </div>
         </div>
@@ -4997,14 +4993,14 @@
             <i class="fa-solid fa-bolt"></i> Probar Conexión
           </button>
           <button onclick="saveSyncSettings()" class="px-4 py-1.5 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold">
-            Guardar Configuraci&#243;n
+            Guardar Configuración
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL: CONFIGURAR METAS DE PRODUCCI&#211;N ==================== -->
+  <!-- ==================== MODAL: CONFIGURAR METAS DE PRODUCCIÓN ==================== -->
   <div id="modal-metas" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-slate-800 border border-amber-500/40 rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 space-y-4">
       
@@ -5016,7 +5012,7 @@
               <i class="fa-solid fa-sliders"></i> Parámetros de Planta
             </span>
           </div>
-          <h3 class="text-base font-bold text-white mt-1">Configurar Metas de Piezas por L&#237;nea</h3>
+          <h3 class="text-base font-bold text-white mt-1">Configurar Metas de Piezas por Línea</h3>
         </div>
         <button onclick="closeMetasModal()" class="text-slate-400 hover:text-white transition">
           <i class="fa-solid fa-xmark text-lg"></i>
@@ -5024,29 +5020,29 @@
       </div>
 
       <p class="text-xs text-slate-300">
-        Establece la cantidad objetivo de piezas programadas para inspeccionar por lÍnea o nave. Estas metas se comparan automáticamente contra la producción real.
+        Establece la cantidad objetivo de piezas programadas para inspeccionar por línea o nave. Estas metas se comparan automáticamente contra la producción real.
       </p>
 
       <form id="metas-config-form" onsubmit="handleSaveMetas(event)" class="space-y-4 text-xs">
         
-        <!-- Metas por L&#237;nea / Nave Principal -->
+        <!-- Metas por Línea / Nave Principal -->
         <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-700 space-y-3">
           <h4 class="font-bold text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
-            <i class="fa-solid fa-industry text-blue-400"></i> Metas por L&#237;nea / Nave Principal
+            <i class="fa-solid fa-industry text-blue-400"></i> Metas por Línea / Nave Principal
           </h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label class="block text-slate-300 font-semibold mb-1">Meta L&#237;nea EDIFICIO K (Piezas):</label>
+              <label class="block text-slate-300 font-semibold mb-1">Meta Línea EDIFICIO K (Piezas):</label>
               <input type="number" min="1" max="500" id="meta-input-edificio-k" required class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-xs text-white font-mono font-bold focus:outline-none focus:border-amber-500">
             </div>
             <div>
-              <label class="block text-slate-300 font-semibold mb-1">Meta L&#237;nea FABS (Piezas):</label>
+              <label class="block text-slate-300 font-semibold mb-1">Meta Línea FABS (Piezas):</label>
               <input type="number" min="1" max="500" id="meta-input-fabs" required class="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-xs text-white font-mono font-bold focus:outline-none focus:border-amber-500">
             </div>
           </div>
         </div>
 
-        <!-- Metas por L&#237;nea de Modelo (12 Familias) -->
+        <!-- Metas por Línea de Modelo (12 Familias) -->
         <div class="p-3.5 bg-slate-900 rounded-xl border border-slate-700 space-y-3">
           <div class="flex items-center justify-between">
             <h4 class="font-bold text-slate-200 text-xs uppercase tracking-wider flex items-center gap-1.5">
@@ -5079,7 +5075,7 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL DE ACCIÓN: REALIZAR INSPECCI&#211;N / LIBERACIÓN DE CABINA POR EL COORDINADOR / QG ==================== -->
+  <!-- ==================== MODAL DE ACCIÓN: REALIZAR INSPECCIÓN / LIBERACIÓN DE CABINA POR EL COORDINADOR / QG ==================== -->
   <div id="modal-inspeccion-cabina-action" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-slate-900 border border-emerald-500/50 rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl p-5 sm:p-6 space-y-4 my-auto">
       
@@ -5092,7 +5088,7 @@
             <h3 class="text-base font-black text-white flex items-center gap-2 uppercase tracking-wide">
               LINEAS QUE REQUIEREN QG
             </h3>
-            <span class="text-xs text-cyan-400 font-mono font-bold" id="insp-cabina-linea-titulo">L&#237;nea PUERTAS • Serie CAB-2026-9041</span>
+            <span class="text-xs text-cyan-400 font-mono font-bold" id="insp-cabina-linea-titulo">Línea PUERTAS • Serie CAB-2026-9041</span>
           </div>
         </div>
         <button type="button" onclick="closeInspeccionCabinaActionModal()" class="text-slate-400 hover:text-white p-1 rounded-lg cursor-pointer">
@@ -5100,24 +5096,24 @@
         </button>
       </div>
 
-      <!-- Datos de la Solicitud de L&#237;nea -->
+      <!-- Datos de la Solicitud de Línea -->
       <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs space-y-1.5">
         <div class="flex justify-between"><span class="text-slate-400">Componente:</span> <span class="text-white font-mono font-bold" id="insp-cabina-parte">PN-7200-PTS</span></div>
         <div class="flex justify-between"><span class="text-slate-400">Estación:</span> <span class="text-white font-semibold" id="insp-cabina-estacion">Estación 4 - Ensamble</span></div>
-        <div class="flex justify-between"><span class="text-slate-400">Supervisor de L&#237;nea Solicitante:</span> <span class="text-amber-300 font-bold" id="insp-cabina-solicitante">Sup. L&#237;nea PUERTAS (4008)</span></div>
+        <div class="flex justify-between"><span class="text-slate-400">Supervisor de Línea Solicitante:</span> <span class="text-amber-300 font-bold" id="insp-cabina-solicitante">Sup. Línea PUERTAS (4008)</span></div>
         <div class="flex justify-between"><span class="text-slate-400">Coordinador / QG Solicitado:</span> <span class="text-cyan-300 font-bold" id="insp-cabina-qg-asignado">Juan Pérez Martínez - QG (1042)</span></div>
         <div class="flex justify-between"><span class="text-slate-400">Tiempo en espera:</span> <span class="text-rose-400 font-bold" id="insp-cabina-tiempo">18 minutos</span></div>
         <div class="pt-1.5 mt-1.5 border-t border-slate-800">
-          <span class="text-amber-400 font-bold block mb-0.5"><i class="fa-solid fa-envelope-open-text mr-1"></i> Información enviada por el Supervisor de L&#237;nea al QG:</span>
+          <span class="text-amber-400 font-bold block mb-0.5"><i class="fa-solid fa-envelope-open-text mr-1"></i> Información enviada por el Supervisor de Línea al QG:</span>
           <p class="text-slate-200 bg-slate-900/90 p-2 rounded border border-amber-500/30" id="insp-cabina-info-supervisor">Cabina terminada lista para revisión de QG.</p>
         </div>
       </div>
 
-      <!-- ==================== NUEVO: DATOS DEL COORDINADOR / QG QUE REALIZA LA INSPECCI&#211;N ==================== -->
+      <!-- ==================== NUEVO: DATOS DEL COORDINADOR / QG QUE REALIZA LA INSPECCIÓN ==================== -->
       <div class="bg-slate-950 p-3.5 rounded-xl border-2 border-cyan-500/50 space-y-2.5 text-xs">
         <div class="flex items-center justify-between gap-2">
           <label class="font-black text-cyan-300 uppercase tracking-wider flex items-center gap-1.5">
-            <i class="fa-solid fa-user-shield text-cyan-400"></i> Datos del Coordinador / QG que Realiza la INSPECCI&#211;N:
+            <i class="fa-solid fa-user-shield text-cyan-400"></i> Datos del Coordinador / QG que Realiza la Inspección:
           </label>
           <span class="text-[10px] text-slate-400 italic">En caso de relevo o si el QG solicitado no está disponible</span>
         </div>
@@ -5143,7 +5139,7 @@
             <input type="text" id="insp-cabina-qg-nomina" placeholder="Ej. 1042" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-cyan-300 font-mono font-bold focus:outline-none focus:border-cyan-400">
           </div>
           <div>
-            <label class="block text-[11px] text-slate-300 font-bold mb-1">Turno de INSPECCI&#211;N:</label>
+            <label class="block text-[11px] text-slate-300 font-bold mb-1">Turno de Inspección:</label>
             <select id="insp-cabina-qg-turno" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-semibold focus:outline-none focus:border-cyan-400">
               <option value="Turno 1 (Matutino)">Turno 1 (Matutino)</option>
               <option value="Turno 2 (Vespertino)">Turno 2 (Vespertino)</option>
@@ -5154,7 +5150,7 @@
         </div>
       </div>
 
-      <!-- Checklist de Criterios T&#233;cnicos para el Coordinador -->
+      <!-- Checklist de Criterios Técnicos para el Coordinador -->
       <div class="space-y-2">
         <label class="block text-xs font-bold text-slate-200 uppercase tracking-wider">
           <i class="fa-solid fa-list-check text-emerald-400 mr-1"></i> Lista de Verificación del Coordinador:
@@ -5164,12 +5160,12 @@
         </div>
       </div>
 
-      <!-- ==================== NUEVO: SUBIR FOTOS DE EVIDENCIA DE INSPECCI&#211;N QG ==================== -->
+      <!-- ==================== NUEVO: SUBIR FOTOS DE EVIDENCIA DE INSPECCIÓN QG ==================== -->
       <div class="bg-slate-950 p-3.5 rounded-xl border-2 border-emerald-500/50 space-y-2.5 text-xs">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <label class="font-black text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
-              <i class="fa-solid fa-camera-retro text-emerald-400"></i> Fotos de Evidencia de INSPECCI&#211;N QG:
+              <i class="fa-solid fa-camera-retro text-emerald-400"></i> Fotos de Evidencia de Inspección QG:
             </label>
             <p class="text-[11px] text-slate-400">Sube fotos de evidencia de que ya se inspeccionó el material o la cabina completa.</p>
           </div>
@@ -5199,7 +5195,7 @@
       <!-- Notas y Firma del Coordinador -->
       <div class="space-y-2">
         <label class="block text-xs font-bold text-slate-200 uppercase tracking-wider">
-          Observaciones y Dictamen T&#233;cnico:
+          Observaciones y Dictamen Técnico:
         </label>
         <textarea id="insp-cabina-dictamen-notas" rows="2" placeholder="Dictamen del coordinador (ej. Cabina aprobada al 100%, cordones continuos y perfiles alineados)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400"></textarea>
       </div>

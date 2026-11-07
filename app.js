@@ -1,13 +1,13 @@
-﻿/**
+/**
  * AUDITUM - LÓGICA PRINCIPAL DE LA APLICACIÓN
- * Inspecci&#243;n de Calidad de Componentes de Acero
+ * Inspección de Calidad de Componentes de Acero
  */
 
 // ==================== ESTADO GLOBAL Y CATÁLOGOS ====================
 // Mapeo estricto de Planta:
 // FABS: LTTT, MTTT, MG, WTS, LWL 988, LWL 990, MWL, PUERTAS, OHT, LMT
 // EDIFICIO K: LOW VOLUME, LMT K, COBOT
-// Nave fÃ­sica de producciÃ³n (FABS vs EDIFICIO K)
+// Nave física de producción (FABS vs EDIFICIO K)
 const LINEA_NAVE_MAP = {
   "LTTT": "FABS",
   "MTTT": "FABS",
@@ -25,9 +25,9 @@ const LINEA_NAVE_MAP = {
   "COBOT": "EDIFICIO K"
 };
 
-// Las 13 lÃ­neas de FABS y Edificio K pertenecen estrictamente al Ã¡rea de SOLDADURA
+// Las 13 líneas de FABS y Edificio K pertenecen estrictamente al área de SOLDADURA
 const LINEA_AREA_MAP = {
-  // FABS (10 L&#237;neas pertenecen al Ãrea de SOLDADURA)
+  // FABS (10 Líneas pertenecen al Área de SOLDADURA)
   "LTTT": "SOLDADURA",
   "MTTT": "SOLDADURA",
   "MG": "SOLDADURA",
@@ -38,16 +38,16 @@ const LINEA_AREA_MAP = {
   "PUERTAS": "SOLDADURA",
   "OHT": "SOLDADURA",
   "LMT": "SOLDADURA",
-  // EDIFICIO K (3 L&#237;neas pertenecen al Ãrea de SOLDADURA)
+  // EDIFICIO K (3 Líneas pertenecen al Área de SOLDADURA)
   "LOW VOLUME": "SOLDADURA",
   "LMT K": "SOLDADURA",
   "COBOT": "SOLDADURA",
-  // PINTURA (4 L&#237;neas / Ãreas del proceso de pintura)
+  // PINTURA (4 Líneas / Áreas del proceso de pintura)
   
   "Carga Paint": "PINTURA",
   "Sellado Paint": "PINTURA",
   "Preparacion Paint": "PINTURA",
-  "PreparaciÃ³n Paint": "PINTURA"
+  "Preparación Paint": "PINTURA"
 };
 
 function getNaveForModel(modelName) {
@@ -60,14 +60,14 @@ function matchItemArea(item, filterArea) {
   const a = String(item.area_ubicacion || "").toUpperCase().trim();
   const m = String(item.modelo || "").toUpperCase().trim();
 
-  // 1. Filtro especÃ­fico FABS (10 lÃ­neas de Soldadura en FABS)
+  // 1. Filtro específico FABS (10 líneas de Soldadura en FABS)
   if (f === "FABS" || f === "FAB") {
     if (a === "FABS" || a.indexOf("FABS") !== -1 || a.indexOf("FAB") !== -1) return true;
     if (LINEA_NAVE_MAP[item.modelo] === "FABS") return true;
     return false;
   }
 
-  // 2. Filtro especÃ­fico EDIFICIO K (3 lÃ­neas de Soldadura en Edificio K)
+  // 2. Filtro específico EDIFICIO K (3 líneas de Soldadura en Edificio K)
   if (f === "EDIFICIO K" || f === "EDIFICIO_K" || f === "EDIF K" || f === "K") {
     if (a === "EDIFICIO K" || a.indexOf("EDIFICIO K") !== -1 || a === "K" || a.indexOf("EDIF") !== -1) return true;
     if (LINEA_NAVE_MAP[item.modelo] === "EDIFICIO K") return true;
@@ -125,11 +125,11 @@ const DEFAULT_CATALOGOS = {
     "FOS"
   ],
   modelos: [
-    // FABS (10 L&#237;neas de Soldadura)
+    // FABS (10 Líneas de Soldadura)
     "LTTT", "MTTT", "MG", "WTS", "LWL 988", "LWL 990", "MWL", "PUERTAS", "OHT", "LMT",
-    // EDIFICIO K (3 L&#237;neas de Soldadura)
+    // EDIFICIO K (3 Líneas de Soldadura)
     "LOW VOLUME", "LMT K", "COBOT",
-    // PINTURA (4 L&#237;neas de Pintura)
+    // PINTURA (4 Líneas de Pintura)
     "Carga Paint", "Sellado Paint", "Preparacion Paint"
   ],
   tiposEvidencia: ["Retrabajar", "Por golpe", "Por mala soldadura", "Por falta de un componente", "Scrap"]
@@ -159,42 +159,42 @@ const DEFAULT_METAS = {
 
 const DEFAULT_COMPONENTES = [
   // FABS (10 líneas de producción)
-  { numero_parte: "PN-8420-LTT", modelo: "LTTT", familia: "Torres", area: "FABS", criterio: "Inspecci&#243;n dimensional de ensamble y cordones AWS D1.1" },
+  { numero_parte: "PN-8420-LTT", modelo: "LTTT", familia: "Torres", area: "FABS", criterio: "Inspección dimensional de ensamble y cordones AWS D1.1" },
   { numero_parte: "PN-5130-MTT", modelo: "MTTT", familia: "Torres", area: "FABS", criterio: "Verificación de barrenos de anclaje y perpendicularidad" },
   { numero_parte: "PN-4720-MG", modelo: "MG", familia: "Estructural", area: "FABS", criterio: "Soldadura libre de socavaciones o porosidad" },
   { numero_parte: "PN-4300-WTS", modelo: "WTS", familia: "Tanques y Soldadura", area: "FABS", criterio: "Hermeticidad en cordones de soldadura y ensamble estanco" },
-  { numero_parte: "PN-9880-LWL", modelo: "LWL 988", familia: "Cargadores", area: "FABS", criterio: "Inspecci&#243;n de cordones estructurales y bujes" },
+  { numero_parte: "PN-9880-LWL", modelo: "LWL 988", familia: "Cargadores", area: "FABS", criterio: "Inspección de cordones estructurales y bujes" },
   { numero_parte: "PN-9900-LWL", modelo: "LWL 990", familia: "Cargadores", area: "FABS", criterio: "Alineación de brazos y soldadura perimetral" },
   { numero_parte: "PN-3140-MWL", modelo: "MWL", familia: "Ruedas", area: "FABS", criterio: "Escuadra, balance y torque en tornillería" },
   { numero_parte: "PN-7200-PTS", modelo: "PUERTAS", familia: "Cabinas", area: "FABS", criterio: "Holgura perimetral uniforme y ajuste de bisagras" },
   { numero_parte: "PN-7340-OHT", modelo: "OHT", familia: "Estructuras", area: "FABS", criterio: "Tolerancia dimensional ±1.5 mm y acabado superficial" },
   { numero_parte: "PN-6210-LMT", modelo: "LMT", familia: "Estructuras", area: "FABS", criterio: "Planicidad en placas de unión y cordón continuo" },
 
-    // EDIFICIO K (3 lÃ­neas de producciÃ³n)
+    // EDIFICIO K (3 líneas de producción)
   { numero_parte: "PN-1950-LV", modelo: "LOW VOLUME", familia: "Estructural Especial", area: "EDIFICIO K", criterio: "Espesor de recubrimiento min 80 micras sin escurrimientos" },
-  { numero_parte: "PN-2080-LTK", modelo: "LMT K", familia: "Estructuras K", area: "EDIFICIO K", criterio: "Control geomÃ©trico en nave EDIFICIO K" },
-  { numero_parte: "PN-8800-CBT", modelo: "COBOT", familia: "RobÃ³tica", area: "EDIFICIO K", criterio: "Base nivelada, concentricidad y torque de pernos" },
+  { numero_parte: "PN-2080-LTK", modelo: "LMT K", familia: "Estructuras K", area: "EDIFICIO K", criterio: "Control geométrico en nave EDIFICIO K" },
+  { numero_parte: "PN-8800-CBT", modelo: "COBOT", familia: "Robótica", area: "EDIFICIO K", criterio: "Base nivelada, concentricidad y torque de pernos" },
 
-  // PINTURA (4 L&#237;neas / Ãreas de Proceso)
+  // PINTURA (4 Líneas / Áreas de Proceso)
   { numero_parte: "PN-9200-CGP", modelo: "Carga Paint", familia: "Proceso Pintura", area: "Carga Paint", criterio: "Colgado seguro en transportador, limpieza previa y libre de grasa" },
-  { numero_parte: "PN-9300-SLP", modelo: "Sellado Paint", familia: "Sellos y PolÃ­meros", area: "Sellado Paint", criterio: "CordÃ³n continuo de sellador en empates estructurales sin burbujas" },
-  { numero_parte: "PN-9400-PRP", modelo: "Preparacion Paint", familia: "Pretratamiento", area: "Preparacion Paint", criterio: "Desengrase alcalino, fosfatizado homogÃ©neo y prueba de adherencia" }
+  { numero_parte: "PN-9300-SLP", modelo: "Sellado Paint", familia: "Sellos y Polímeros", area: "Sellado Paint", criterio: "Cordón continuo de sellador en empates estructurales sin burbujas" },
+  { numero_parte: "PN-9400-PRP", modelo: "Preparacion Paint", familia: "Pretratamiento", area: "Preparacion Paint", criterio: "Desengrase alcalino, fosfatizado homogéneo y prueba de adherencia" }
 ];
 
 const SUPERVISORES_POR_LINEA = {
-  "LTTT": { nomina: 4001, nombre: "Sup. L&#237;nea LTTT - Ing. Héctor Morales", area: "FABS" },
-  "MTTT": { nomina: 4002, nombre: "Sup. L&#237;nea MTTT - Ing. Ricardo Silva", area: "FABS" },
-  "MG": { nomina: 4003, nombre: "Sup. L&#237;nea MG - Ing. Fernando Castro", area: "FABS" },
-  "WTS": { nomina: 4004, nombre: "Sup. L&#237;nea WTS - Ing. Alejandro Vargas", area: "FABS" },
-  "LWL 988": { nomina: 4005, nombre: "Sup. L&#237;nea LWL 988 - Ing. Daniel Ortega", area: "FABS" },
-  "LWL 990": { nomina: 4006, nombre: "Sup. L&#237;nea LWL 990 - Ing. Jorge Domínguez", area: "FABS" },
-  "MWL": { nomina: 4007, nombre: "Sup. L&#237;nea MWL - Ing. Eduardo Ríos", area: "FABS" },
-  "PUERTAS": { nomina: 4008, nombre: "Sup. L&#237;nea PUERTAS - Ing. Arturo Méndez", area: "FABS" },
-  "OHT": { nomina: 4009, nombre: "Sup. L&#237;nea OHT - Ing. Sergio Navarro", area: "FABS" },
-  "LMT": { nomina: 4010, nombre: "Sup. L&#237;nea LMT - Ing. Raúl Herrera", area: "FABS" },
-  "LOW VOLUME": { nomina: 4011, nombre: "Sup. L&#237;nea LOW VOLUME - Ing. Víctor Hugo Cruz", area: "EDIFICIO K" },
-  "LMT K": { nomina: 4012, nombre: "Sup. L&#237;nea LMT K - Ing. Óscar Delgado", area: "EDIFICIO K" },
-    "COBOT": { nomina: 4013, nombre: "Sup. L&#237;nea COBOT - Ing. Mario Alberto TreviÃ±o", area: "EDIFICIO K" },
+  "LTTT": { nomina: 4001, nombre: "Sup. Línea LTTT - Ing. Héctor Morales", area: "FABS" },
+  "MTTT": { nomina: 4002, nombre: "Sup. Línea MTTT - Ing. Ricardo Silva", area: "FABS" },
+  "MG": { nomina: 4003, nombre: "Sup. Línea MG - Ing. Fernando Castro", area: "FABS" },
+  "WTS": { nomina: 4004, nombre: "Sup. Línea WTS - Ing. Alejandro Vargas", area: "FABS" },
+  "LWL 988": { nomina: 4005, nombre: "Sup. Línea LWL 988 - Ing. Daniel Ortega", area: "FABS" },
+  "LWL 990": { nomina: 4006, nombre: "Sup. Línea LWL 990 - Ing. Jorge Domínguez", area: "FABS" },
+  "MWL": { nomina: 4007, nombre: "Sup. Línea MWL - Ing. Eduardo Ríos", area: "FABS" },
+  "PUERTAS": { nomina: 4008, nombre: "Sup. Línea PUERTAS - Ing. Arturo Méndez", area: "FABS" },
+  "OHT": { nomina: 4009, nombre: "Sup. Línea OHT - Ing. Sergio Navarro", area: "FABS" },
+  "LMT": { nomina: 4010, nombre: "Sup. Línea LMT - Ing. Raúl Herrera", area: "FABS" },
+  "LOW VOLUME": { nomina: 4011, nombre: "Sup. Línea LOW VOLUME - Ing. Víctor Hugo Cruz", area: "EDIFICIO K" },
+  "LMT K": { nomina: 4012, nombre: "Sup. Línea LMT K - Ing. Óscar Delgado", area: "EDIFICIO K" },
+    "COBOT": { nomina: 4013, nombre: "Sup. Línea COBOT - Ing. Mario Alberto Treviño", area: "EDIFICIO K" },
   "Carga Paint": { nomina: 4015, nombre: "Sup. Carga Paint - Ing. Roberto Almanza", area: "PINTURA" },
   "Sellado Paint": { nomina: 4016, nombre: "Sup. Sellado Paint - Ing. Gabriel Mendoza", area: "PINTURA" },
   "Preparacion Paint": { nomina: 4017, nombre: "Sup. Preparacion Paint - Ing. Luis Fernando Soto", area: "PINTURA" }
@@ -208,20 +208,20 @@ const DEFAULT_USUARIOS = [
   // Supervisor General y Gerente
   { nomina: 2088, password: "2088", nombre: "Ing. Carlos Mendoza", rol: "supervisor", turno: "Mixto", email: "cmendoza@acero.com" },
   { nomina: 3015, password: "3015", nombre: "Ing. Roberto Garza", rol: "gerente", turno: "General", email: "rgarza@acero.com" },
-  // Supervisores de L&#237;neas (Todas las 13 L&#237;neas de Producci&#243;n: FABS y EDIFICIO K)
-  { nomina: 4008, password: "4008", nombre: "Sup. L&#237;nea PUERTAS - Ing. Arturo Méndez", rol: "supervisor_linea", linea: "PUERTAS", area: "FABS", turno: "Turno 1 (Matutino)", email: "amendez@acero.com" },
-  { nomina: 4009, password: "4009", nombre: "Sup. L&#237;nea OHT - Ing. Sergio Navarro", rol: "supervisor_linea", linea: "OHT", area: "FABS", turno: "Turno 1 (Matutino)", email: "snavarro@acero.com" },
-  { nomina: 4005, password: "4005", nombre: "Sup. L&#237;nea LWL 988 - Ing. Daniel Ortega", rol: "supervisor_linea", linea: "LWL 988", area: "FABS", turno: "Turno 1 (Matutino)", email: "dortega@acero.com" },
-  { nomina: 4006, password: "4006", nombre: "Sup. L&#237;nea LWL 990 - Ing. Jorge Domínguez", rol: "supervisor_linea", linea: "LWL 990", area: "FABS", turno: "Turno 1 (Matutino)", email: "jdominguez@acero.com" },
-  { nomina: 4007, password: "4007", nombre: "Sup. L&#237;nea MWL - Ing. Eduardo Ríos", rol: "supervisor_linea", linea: "MWL", area: "FABS", turno: "Turno 1 (Matutino)", email: "erios@acero.com" },
-  { nomina: 4001, password: "4001", nombre: "Sup. L&#237;nea LTTT - Ing. Héctor Morales", rol: "supervisor_linea", linea: "LTTT", area: "FABS", turno: "Turno 1 (Matutino)", email: "hmorales@acero.com" },
-  { nomina: 4002, password: "4002", nombre: "Sup. L&#237;nea MTTT - Ing. Ricardo Silva", rol: "supervisor_linea", linea: "MTTT", area: "FABS", turno: "Turno 1 (Matutino)", email: "rsilva@acero.com" },
-  { nomina: 4003, password: "4003", nombre: "Sup. L&#237;nea MG - Ing. Fernando Castro", rol: "supervisor_linea", linea: "MG", area: "FABS", turno: "Turno 1 (Matutino)", email: "fcastro@acero.com" },
-  { nomina: 4004, password: "4004", nombre: "Sup. L&#237;nea WTS - Ing. Alejandro Vargas", rol: "supervisor_linea", linea: "WTS", area: "FABS", turno: "Turno 1 (Matutino)", email: "avargas@acero.com" },
-  { nomina: 4010, password: "4010", nombre: "Sup. L&#237;nea LMT - Ing. Raúl Herrera", rol: "supervisor_linea", linea: "LMT", area: "FABS", turno: "Turno 1 (Matutino)", email: "rherrera@acero.com" },
-  { nomina: 4011, password: "4011", nombre: "Sup. L&#237;nea LOW VOLUME - Ing. Víctor Hugo Cruz", rol: "supervisor_linea", linea: "LOW VOLUME", area: "EDIFICIO K", turno: "Turno 1 (Matutino)", email: "vcruz@acero.com" },
-  { nomina: 4012, password: "4012", nombre: "Sup. L&#237;nea LMT K - Ing. Óscar Delgado", rol: "supervisor_linea", linea: "LMT K", area: "EDIFICIO K", turno: "Turno 1 (Matutino)", email: "odelgado@acero.com" },
-  { nomina: 4013, password: "4013", nombre: "Sup. L&#237;nea COBOT - Ing. Mario Alberto Treviño", rol: "supervisor_linea", linea: "COBOT", area: "EDIFICIO K", turno: "Turno 1 (Matutino)", email: "mtrevino@acero.com" }
+  // Supervisores de Líneas (Todas las 13 Líneas de Producción: FABS y EDIFICIO K)
+  { nomina: 4008, password: "4008", nombre: "Sup. Línea PUERTAS - Ing. Arturo Méndez", rol: "supervisor_linea", linea: "PUERTAS", area: "FABS", turno: "Turno 1 (Matutino)", email: "amendez@acero.com" },
+  { nomina: 4009, password: "4009", nombre: "Sup. Línea OHT - Ing. Sergio Navarro", rol: "supervisor_linea", linea: "OHT", area: "FABS", turno: "Turno 1 (Matutino)", email: "snavarro@acero.com" },
+  { nomina: 4005, password: "4005", nombre: "Sup. Línea LWL 988 - Ing. Daniel Ortega", rol: "supervisor_linea", linea: "LWL 988", area: "FABS", turno: "Turno 1 (Matutino)", email: "dortega@acero.com" },
+  { nomina: 4006, password: "4006", nombre: "Sup. Línea LWL 990 - Ing. Jorge Domínguez", rol: "supervisor_linea", linea: "LWL 990", area: "FABS", turno: "Turno 1 (Matutino)", email: "jdominguez@acero.com" },
+  { nomina: 4007, password: "4007", nombre: "Sup. Línea MWL - Ing. Eduardo Ríos", rol: "supervisor_linea", linea: "MWL", area: "FABS", turno: "Turno 1 (Matutino)", email: "erios@acero.com" },
+  { nomina: 4001, password: "4001", nombre: "Sup. Línea LTTT - Ing. Héctor Morales", rol: "supervisor_linea", linea: "LTTT", area: "FABS", turno: "Turno 1 (Matutino)", email: "hmorales@acero.com" },
+  { nomina: 4002, password: "4002", nombre: "Sup. Línea MTTT - Ing. Ricardo Silva", rol: "supervisor_linea", linea: "MTTT", area: "FABS", turno: "Turno 1 (Matutino)", email: "rsilva@acero.com" },
+  { nomina: 4003, password: "4003", nombre: "Sup. Línea MG - Ing. Fernando Castro", rol: "supervisor_linea", linea: "MG", area: "FABS", turno: "Turno 1 (Matutino)", email: "fcastro@acero.com" },
+  { nomina: 4004, password: "4004", nombre: "Sup. Línea WTS - Ing. Alejandro Vargas", rol: "supervisor_linea", linea: "WTS", area: "FABS", turno: "Turno 1 (Matutino)", email: "avargas@acero.com" },
+  { nomina: 4010, password: "4010", nombre: "Sup. Línea LMT - Ing. Raúl Herrera", rol: "supervisor_linea", linea: "LMT", area: "FABS", turno: "Turno 1 (Matutino)", email: "rherrera@acero.com" },
+  { nomina: 4011, password: "4011", nombre: "Sup. Línea LOW VOLUME - Ing. Víctor Hugo Cruz", rol: "supervisor_linea", linea: "LOW VOLUME", area: "EDIFICIO K", turno: "Turno 1 (Matutino)", email: "vcruz@acero.com" },
+  { nomina: 4012, password: "4012", nombre: "Sup. Línea LMT K - Ing. Óscar Delgado", rol: "supervisor_linea", linea: "LMT K", area: "EDIFICIO K", turno: "Turno 1 (Matutino)", email: "odelgado@acero.com" },
+  { nomina: 4013, password: "4013", nombre: "Sup. Línea COBOT - Ing. Mario Alberto Treviño", rol: "supervisor_linea", linea: "COBOT", area: "EDIFICIO K", turno: "Turno 1 (Matutino)", email: "mtrevino@acero.com" }
 ];
 
 const DEFAULT_CABINAS_COORDINADOR = [
@@ -235,8 +235,8 @@ const DEFAULT_CABINAS_COORDINADOR = [
     tipo_cabina: "Cabina Operador Estándar",
     hora_finalizada: "08:45",
     fecha: "2026-10-26",
-    solicitante: "Sup. L&#237;nea PUERTAS - Ing. Arturo Méndez (4008)",
-    supervisor_linea: "Sup. L&#237;nea PUERTAS - Ing. Arturo Méndez (4008)",
+    solicitante: "Sup. Línea PUERTAS - Ing. Arturo Méndez (4008)",
+    supervisor_linea: "Sup. Línea PUERTAS - Ing. Arturo Méndez (4008)",
     coordinador_solicitado: "Juan Pérez Martínez - Coordinador / QG (1042)",
     turno: "Turno 1 (Matutino)",
     minutos_espera: 18,
@@ -260,8 +260,8 @@ const DEFAULT_CABINAS_COORDINADOR = [
     tipo_cabina: "Cabina ROP/FOP Camión Minería",
     hora_finalizada: "08:30",
     fecha: "2026-10-26",
-    solicitante: "Sup. L&#237;nea OHT - Ing. Sergio Navarro (4009)",
-    supervisor_linea: "Sup. L&#237;nea OHT - Ing. Sergio Navarro (4009)",
+    solicitante: "Sup. Línea OHT - Ing. Sergio Navarro (4009)",
+    supervisor_linea: "Sup. Línea OHT - Ing. Sergio Navarro (4009)",
     coordinador_solicitado: "Miguel Ángel Rojas - Coordinador / QG (1150)",
     turno: "Turno 1 (Matutino)",
     minutos_espera: 33,
@@ -273,7 +273,7 @@ const DEFAULT_CABINAS_COORDINADOR = [
       "Alineación de soporte de consola y piso",
       "Vidrios y empaques estancos instalados"
     ],
-    notas: "Cabina reforzada finalizada en Bahía 2. El Supervisor de L&#237;nea OHT requiere al Coordinador / QG para sello de liberación antes de pasar a pintura."
+    notas: "Cabina reforzada finalizada en Bahía 2. El Supervisor de Línea OHT requiere al Coordinador / QG para sello de liberación antes de pasar a pintura."
   },
   {
     id: "CAB-REQ-003",
@@ -285,8 +285,8 @@ const DEFAULT_CABINAS_COORDINADOR = [
     tipo_cabina: "Cabina Presurizada 988",
     hora_finalizada: "08:52",
     fecha: "2026-10-26",
-    solicitante: "Sup. L&#237;nea LWL 988 - Ing. Daniel Ortega (4005)",
-    supervisor_linea: "Sup. L&#237;nea LWL 988 - Ing. Daniel Ortega (4005)",
+    solicitante: "Sup. Línea LWL 988 - Ing. Daniel Ortega (4005)",
+    supervisor_linea: "Sup. Línea LWL 988 - Ing. Daniel Ortega (4005)",
     coordinador_solicitado: "Luis Fernando Torres - Coordinador / QG (1210)",
     turno: "Turno 1 (Matutino)",
     minutos_espera: 11,
@@ -298,7 +298,7 @@ const DEFAULT_CABINAS_COORDINADOR = [
       "Alineación dimensional ±1.0 mm",
       "Fijación de paneles acústicos interiores"
     ],
-    notas: "Supervisor de L&#237;nea LWL 988 envía datos de cabina terminada: requiere firma de QG en Estación 6 para avanzar a línea de prueba."
+    notas: "Supervisor de Línea LWL 988 envía datos de cabina terminada: requiere firma de QG en Estación 6 para avanzar a línea de prueba."
   }
 ];
 
@@ -317,7 +317,7 @@ const SAMPLE_INSPECCIONES = [
     responsable_nombre: "José Hernández Rivera",
     responsable_nomina: "5012",
     responsable_motivo: "Nuevo ingreso",
-    responsable_observaciones: "Tiene 4 dÍas en la estaciÓn; omitiÓ colocaciÓn de cartabones por duda en plano de ensamble.",
+    responsable_observaciones: "Tiene 4 días en la estación; omitió colocación de cartabones por duda en plano de ensamble.",
     retroalimentacion_estatus: "Pendiente",
     retroalimentacion_fecha: "",
     fecha_liberacion: "",
@@ -819,7 +819,7 @@ const SAMPLE_INSPECCIONES = [
         hora_fin: "2026-10-18 14:48:00",
         minutos: 33,
         estatus_entrega: "Concluido",
-        notas: "Sellado hermÃ©tico de juntas estructurales sin burbujas ni huecos."
+        notas: "Sellado hermético de juntas estructurales sin burbujas ni huecos."
       }
     ],
     fotos: []
@@ -977,7 +977,7 @@ function startLiveClock() {
   }, 1000);
 }
 
-// ==================== CRON&#211;METRO DE INSPECCI&#211;N EN PISO ====================
+// ==================== CRONÓMETRO DE INSPECCIÓN EN PISO ====================
 let inspectionTimer = {
   interval: null,
   isRunning: false,
@@ -993,7 +993,7 @@ function toggleInspectionTimer() {
   const iconContainer = document.getElementById("timer-icon-container");
 
   if (!inspectionTimer.isRunning) {
-    // Iniciar cron&#243;metro
+    // Iniciar cronómetro
     inspectionTimer.isRunning = true;
     if (!inspectionTimer.startTimestampStr) {
       const now = new Date();
@@ -1008,7 +1008,7 @@ function toggleInspectionTimer() {
     // Actualizar UI
     if (btn) btn.className = "flex-1 sm:flex-initial px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2 transition active:scale-95";
     if (btnIcon) btnIcon.className = "fa-solid fa-pause";
-    if (btnText) btnText.innerText = "Pausar Inspecci&#243;n";
+    if (btnText) btnText.innerText = "Pausar Inspección";
 
     if (badge) {
       badge.className = "px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 animate-pulse";
@@ -1018,17 +1018,17 @@ function toggleInspectionTimer() {
       iconContainer.className = "w-14 h-14 rounded-xl bg-emerald-950/80 border border-emerald-500/60 flex items-center justify-center text-emerald-400 text-2xl shadow-lg";
     }
   } else {
-    // Pausar cron&#243;metro
+    // Pausar cronómetro
     inspectionTimer.isRunning = false;
     clearInterval(inspectionTimer.interval);
 
     if (btn) btn.className = "flex-1 sm:flex-initial px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition active:scale-95";
     if (btnIcon) btnIcon.className = "fa-solid fa-play";
-    if (btnText) btnText.innerText = "Reanudar Inspecci&#243;n";
+    if (btnText) btnText.innerText = "Reanudar Inspección";
 
     if (badge) {
       badge.className = "px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30";
-      badge.innerText = "⏸ Inspecci&#243;n Pausada";
+      badge.innerText = "⏸ Inspección Pausada";
     }
     if (iconContainer) {
       iconContainer.className = "w-14 h-14 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-amber-400 text-2xl shadow-inner";
@@ -1051,7 +1051,7 @@ function resetInspectionTimer() {
 
   if (btn) btn.className = "flex-1 sm:flex-initial px-5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition active:scale-95";
   if (btnIcon) btnIcon.className = "fa-solid fa-play";
-  if (btnText) btnText.innerText = "Iniciar Inspecci&#243;n";
+  if (btnText) btnText.innerText = "Iniciar Inspección";
 
   if (badge) {
     badge.className = "px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-slate-800 text-slate-400 border border-slate-700";
@@ -1233,7 +1233,7 @@ function loadStoredData() {
           turno: tMap.turno,
           minutos: 30,
           estatus_entrega: item.estatus || "Concluido",
-          notas: "Inspecci&#243;n de calidad"
+          notas: "Inspección de calidad"
         }];
         migratedTurnos = true;
       } else if (item.turnos[0].turno !== tMap.turno || item.turnos[0].nomina_colaborador !== tMap.nomina) {
@@ -1316,7 +1316,7 @@ function loadStoredData() {
     // Asignación estricta de áreas de planta:
     // FABS: LTTT, MTTT, MG, WTS, LWL 988, LWL 990, MWL, PUERTAS, OHT, LMT
     // EDIFICIO K: LOW VOLUME, LMT K, COBOT
-        // Las lÃ­neas de FABS y Edificio K pertenecen al Ã¡rea de SOLDADURA
+        // Las líneas de FABS y Edificio K pertenecen al área de SOLDADURA
     if (it.area_ubicacion === "FABS" || it.area_ubicacion === "EDIFICIO K") {
       it.area_ubicacion = "SOLDADURA";
       defectsUpdated = true;
@@ -1439,7 +1439,7 @@ function saveToLocalStorage() {
 
 // ==================== POBLAR SELECTORES Y DROPDOWNS ====================
 
-// Actualizar vista previa del siguiente folio de inspecciÃ³n
+// Actualizar vista previa del siguiente folio de inspección
 function updateNextFolioPreview() {
   const el = document.getElementById("preview-folio");
   if (!el) return;
@@ -1449,7 +1449,7 @@ function updateNextFolioPreview() {
 }
 window.updateNextFolioPreview = updateNextFolioPreview;
 function populateDropdowns() {
-  // Datalist de sugerencias para N&#250;mero de Parte (Escritura Manual por Cabina)
+  // Datalist de sugerencias para Número de Parte (Escritura Manual por Cabina)
   const datalistParte = document.getElementById("list-partes-sugeridas");
   if (datalistParte) {
     datalistParte.innerHTML = "";
@@ -1526,23 +1526,23 @@ function populateDropdowns() {
   const dashFilterArea = document.getElementById("dash-filter-area");
 
     const areaOptgroupsHTML = `
-    <option value="">-- Seleccionar &#193;rea / Ubicaci&#243;n --</option>
-    <optgroup label="&#128293; SOLDADURA">
+    <option value="">-- Seleccionar Área / Ubicación --</option>
+    <optgroup label="🔥 SOLDADURA">
       <option value="SOLDADURA">SOLDADURA (General)</option>
       <option value="FABS">FABS</option>
       <option value="EDIFICIO K">EDIFICIO K</option>
     </optgroup>
-    <optgroup label="&#127912; PINTURA">
+    <optgroup label="🎨 PINTURA">
       <option value="PINTURA">PINTURA (General)</option>
       
       <option value="Carga Paint">Carga Paint</option>
       <option value="Sellado Paint">Sellado Paint</option>
       <option value="Preparacion Paint">Preparacion Paint</option>
     </optgroup>
-    <optgroup label="&#128297; ENSAMBLE">
+    <optgroup label="🔩 ENSAMBLE">
       <option value="ENSAMBLE">ENSAMBLE</option>
     </optgroup>
-    <optgroup label="&#128230; FOS">
+    <optgroup label="📦 FOS">
       <option value="FOS">FOS</option>
     </optgroup>
   `;
@@ -1565,7 +1565,7 @@ function populateDropdowns() {
 
   if (filterAreaTraspaso) {
     filterAreaTraspaso.innerHTML = `
-      <option value="">Todas las &#193;reas</option>
+      <option value="">Todas las Áreas</option>
       <option value="SOLDADURA">SOLDADURA</option>
       <option value="FABS">FABS</option>
       <option value="EDIFICIO K">EDIFICIO K</option>
@@ -1575,7 +1575,7 @@ function populateDropdowns() {
     `;
   }
 
-  // Modelos en Filtro de PestaÃ±a de Defectos
+  // Modelos en Filtro de Pestaña de Defectos
   const defectosFilterModelo = document.getElementById("defectos-filter-modelo");
   if (defectosFilterModelo && appState.catalogos.modelos) {
     defectosFilterModelo.innerHTML = `<option value="">Todos los ${appState.catalogos.modelos.length} Modelos</option>`;
@@ -1603,8 +1603,8 @@ function populateDropdowns() {
   updateNextFolioPreview();
 }
 
-// ==================== CASCADA: FILTRAR LÃNEAS POR ÃREA ====================
-// Cuando se selecciona FABS, EDIFICIO K o PINTURA, se muestran Ãºnicamente sus lÃ­neas correspondientes
+// ==================== CASCADA: FILTRAR LÍNEAS POR ÁREA ====================
+// Cuando se selecciona FABS, EDIFICIO K o PINTURA, se muestran únicamente sus líneas correspondientes
 function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
   const selModelo = document.getElementById(modeloSelectId);
   const selParte = parteSelectId ? document.getElementById(parteSelectId) : null;
@@ -1619,7 +1619,7 @@ function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
 
   const areaUpper = (selectedArea || "").toUpperCase().trim();
 
-  // 1. Caso FABS: Mostrar ÃšNICAMENTE las 10 lÃ­neas de FABS
+  // 1. Caso FABS: Mostrar ÚNICAMENTE las 10 líneas de FABS
   if (areaUpper === "FABS" || areaUpper === "FAB") {
     const grpFabs = document.createElement("optgroup");
     grpFabs.label = "Nave FABS (10 L\u00EDneas)";
@@ -1631,7 +1631,7 @@ function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
     });
     selModelo.appendChild(grpFabs);
   }
-  // 2. Caso EDIFICIO K: Mostrar ÃšNICAMENTE las 3 lÃ­neas de EDIFICIO K
+  // 2. Caso EDIFICIO K: Mostrar ÚNICAMENTE las 3 líneas de EDIFICIO K
   else if (areaUpper === "EDIFICIO K" || areaUpper === "K") {
     const grpK = document.createElement("optgroup");
     grpK.label = "Nave EDIFICIO K (3 L\u00EDneas)";
@@ -1643,7 +1643,7 @@ function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
     });
     selModelo.appendChild(grpK);
   }
-  // 3. Caso PINTURA: Mostrar ÃšNICAMENTE las 3 lÃ­neas de Pintura
+  // 3. Caso PINTURA: Mostrar ÚNICAMENTE las 3 líneas de Pintura
   else if (areaUpper === "PINTURA" || paintLines.some(p => p.toUpperCase() === areaUpper)) {
     const grpPaint = document.createElement("optgroup");
     grpPaint.label = "\u00C1rea PINTURA (3 L\u00EDneas)";
@@ -1707,7 +1707,7 @@ function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
     selModelo.appendChild(grpPaint);
   }
 
-  // Preservar valor si sigue siendo vÃ¡lido dentro del Ã¡rea elegida
+  // Preservar valor si sigue siendo válido dentro del área elegida
   if (currentVal && selModelo.querySelector(`option[value="${currentVal}"]`)) {
     selModelo.value = currentVal;
   } else {
@@ -1718,14 +1718,14 @@ function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
     }
   }
 
-  // Filtrar tambiÃ©n las sugerencias de parte si se suministrÃ³ selector
+  // Filtrar también las sugerencias de parte si se suministró selector
   if (selParte && parteSelectId) {
     updatePartesByArea(parteSelectId, selectedArea);
   }
 }
 
-// Filtrar selector de N&#250;meros de Parte por Ãrea
-// Actualizar sugerencias del datalist segÃºn el Ãrea seleccionada
+// Filtrar selector de Números de Parte por Área
+// Actualizar sugerencias del datalist según el Área seleccionada
 function updatePartesByArea(parteSelectId, selectedArea) {
   const datalist = document.getElementById("list-partes-sugeridas");
   if (!datalist) return;
@@ -1750,26 +1750,26 @@ function updatePartesByArea(parteSelectId, selectedArea) {
   });
 }
 
-// Disparador del cambio de Ãrea en el Formulario de Inspecci&#243;n
+// Disparador del cambio de Área en el Formulario de Inspección
 function handleAreaChange() {
   const areaVal = document.getElementById("input-area")?.value;
   updateModelosByArea("input-modelo", "input-parte", areaVal);
 }
 
-// Disparador del cambio de Ãrea en el Modal de Supervisor
+// Disparador del cambio de Área en el Modal de Supervisor
 function handleSuperAreaChange() {
   const areaVal = document.getElementById("super-input-area")?.value;
   updateModelosByArea("super-input-modelo", null, areaVal);
 }
 
-// Actualizar filtros secundarios de L&#237;neas en Defectos y Personal al cambiar de Ãrea
+// Actualizar filtros secundarios de Líneas en Defectos y Personal al cambiar de Área
 function updateFilterLineasOptions(selectedArea) {
   const f = (selectedArea || "").toUpperCase().trim();
   const fabsLines = ["LTTT", "MTTT", "MG", "WTS", "LWL 988", "LWL 990", "MWL", "PUERTAS", "OHT", "LMT"];
   const kLines = ["LOW VOLUME", "LMT K", "COBOT"];
   const paintLines = ["Carga Paint", "Sellado Paint", "Preparacion Paint"];
 
-  // 1. Selector de Modelo en pestaÃ±a de Defectos (#defectos-filter-modelo)
+  // 1. Selector de Modelo en pestaña de Defectos (#defectos-filter-modelo)
   const selDef = document.getElementById("defectos-filter-modelo");
   if (selDef) {
     const curVal = selDef.value;
@@ -1778,7 +1778,7 @@ function updateFilterLineasOptions(selectedArea) {
     if (f === "FABS" || f === "FAB") {
       selDef.innerHTML = '<option value="">Todos los 10 Modelos de FABS</option>';
       const grp = document.createElement("optgroup");
-      grp.label = "ðŸ­ Nave FABS (10 L&#237;neas)";
+      grp.label = "🏭 Nave FABS (10 Líneas)";
       fabsLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
@@ -1789,7 +1789,7 @@ function updateFilterLineasOptions(selectedArea) {
     } else if (f === "EDIFICIO K" || f === "K") {
       selDef.innerHTML = '<option value="">Todos los 3 Modelos de EDIFICIO K</option>';
       const grp = document.createElement("optgroup");
-      grp.label = "âš¡ Nave EDIFICIO K (3 L&#237;neas)";
+      grp.label = "⚡ Nave EDIFICIO K (3 Líneas)";
       kLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
@@ -1800,7 +1800,7 @@ function updateFilterLineasOptions(selectedArea) {
     } else if (f === "PINTURA" || paintLines.some(p => p.toUpperCase() === f)) {
       selDef.innerHTML = '<option value="">Todos los 3 Modelos de PINTURA</option>';
       const grp = document.createElement("optgroup");
-      grp.label = "ðŸŽ¨ Ãrea PINTURA (4 L&#237;neas)";
+      grp.label = "🎨 Área PINTURA (4 Líneas)";
       paintLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
@@ -1835,44 +1835,44 @@ function updateFilterLineasOptions(selectedArea) {
     }
   }
 
-  // 2. Selector de L&#237;neas en Personal Operativo (#filtro-personal-linea)
+  // 2. Selector de Líneas en Personal Operativo (#filtro-personal-linea)
   const selPer = document.getElementById("filtro-personal-linea");
   if (selPer) {
     const curVal = selPer.value;
     selPer.innerHTML = "";
 
     if (f === "FABS" || f === "FAB") {
-      selPer.innerHTML = '<option value="">Todas las L&#237;neas de FABS (10)</option>';
+      selPer.innerHTML = '<option value="">Todas las Líneas de FABS (10)</option>';
       fabsLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.innerText = `L&#237;nea ${m} (FABS)`;
+        opt.innerText = `Línea ${m} (FABS)`;
         selPer.appendChild(opt);
       });
     } else if (f === "EDIFICIO K" || f === "K") {
-      selPer.innerHTML = '<option value="">Todas las L&#237;neas de EDIFICIO K (3)</option>';
+      selPer.innerHTML = '<option value="">Todas las Líneas de EDIFICIO K (3)</option>';
       kLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.innerText = `L&#237;nea ${m} (Edif K)`;
+        opt.innerText = `Línea ${m} (Edif K)`;
         selPer.appendChild(opt);
       });
     } else if (f === "PINTURA" || paintLines.some(p => p.toUpperCase() === f)) {
-      selPer.innerHTML = '<option value="">Todas las L&#237;neas de PINTURA (3)</option>';
+      selPer.innerHTML = '<option value="">Todas las Líneas de PINTURA (3)</option>';
       paintLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.innerText = `L&#237;nea ${m} (Pintura)`;
+        opt.innerText = `Línea ${m} (Pintura)`;
         selPer.appendChild(opt);
       });
     } else {
-      selPer.innerHTML = '<option value="">Todas las L&#237;neas (17)</option>';
+      selPer.innerHTML = '<option value="">Todas las Líneas (17)</option>';
       const grpFabs = document.createElement("optgroup");
       grpFabs.label = "Nave FABS (10 L\u00EDneas)";
       fabsLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.innerText = `L&#237;nea ${m} (FABS)`;
+        opt.innerText = `Línea ${m} (FABS)`;
         grpFabs.appendChild(opt);
       });
       const grpK = document.createElement("optgroup");
@@ -1880,7 +1880,7 @@ function updateFilterLineasOptions(selectedArea) {
       kLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.innerText = `L&#237;nea ${m} (Edif K)`;
+        opt.innerText = `Línea ${m} (Edif K)`;
         grpK.appendChild(opt);
       });
       const grpPaint = document.createElement("optgroup");
@@ -1888,7 +1888,7 @@ function updateFilterLineasOptions(selectedArea) {
       paintLines.forEach(m => {
         const opt = document.createElement("option");
         opt.value = m;
-        opt.innerText = `L&#237;nea ${m} (Pintura)`;
+        opt.innerText = `Línea ${m} (Pintura)`;
         grpPaint.appendChild(opt);
       });
       selPer.appendChild(grpFabs);
@@ -1919,7 +1919,7 @@ function handlePartChange() {
     }
     if (criterioText) criterioText.innerText = comp.criterio;
     if (criterioBox) criterioBox.classList.remove("hidden");
-    // Iniciar cron&#243;metro automáticamente si está detenido en 00:00:00
+    // Iniciar cronómetro automáticamente si está detenido en 00:00:00
     if (!inspectionTimer.isRunning && inspectionTimer.elapsedSeconds === 0) {
       toggleInspectionTimer();
     }
@@ -1929,7 +1929,7 @@ function handlePartChange() {
 }
 
 // Cambio en selector de modelo para auto-seleccionar el número de parte y área correspondiente
-// Cambio en selector de modelo para auto-seleccionar el Ãrea y mostrar criterio
+// Cambio en selector de modelo para auto-seleccionar el Área y mostrar criterio
 function handleModeloChange() {
   const modeloVal = document.getElementById("input-modelo")?.value;
   const areaSelect = document.getElementById("input-area");
@@ -1942,7 +1942,7 @@ function handleModeloChange() {
     return;
   }
 
-  // 1. Asignar AUTOMÃTICAMENTE el Ã¡rea correspondiente segÃºn el modelo seleccionado
+  // 1. Asignar AUTOMÁTICAMENTE el área correspondiente según el modelo seleccionado
   if (areaSelect) {
     const nave = LINEA_NAVE_MAP[modeloVal];
     const area = getAreaForModel(modeloVal);
@@ -1962,15 +1962,15 @@ function handleModeloChange() {
     }
   }
 
-  // 2. Criterio de calidad segÃºn el modelo
+  // 2. Criterio de calidad según el modelo
   const comp = (appState.componentes || []).find(c => c.modelo === modeloVal);
   if (comp) {
-    if (criterioText) criterioText.innerText = comp.criterio || "Inspecci&#243;n segÃºn especificaciÃ³n tÃ©cnica aplicable";
+    if (criterioText) criterioText.innerText = comp.criterio || "Inspección según especificación técnica aplicable";
     if (criterioBox) criterioBox.classList.remove("hidden");
     if (inputParte && !inputParte.value) {
-      inputParte.placeholder = `Ej. ${comp.numero_parte} (o ingresar NÂ° de parte manual)`;
+      inputParte.placeholder = `Ej. ${comp.numero_parte} (o ingresar N° de parte manual)`;
     }
-    // Iniciar cron&#243;metro automÃ¡ticamente si estÃ¡ detenido en 00:00:00
+    // Iniciar cronómetro automáticamente si está detenido en 00:00:00
     if (!inspectionTimer.isRunning && inspectionTimer.elapsedSeconds === 0) {
       toggleInspectionTimer();
     }
@@ -2168,7 +2168,7 @@ function removeTempPhotoDefecto(idx) {
   updateMutualExclusionPhotoAndReleaseState();
 }
 
-// 3. Reglas de Exclusión Mutua Automática (Fotos y Liberaci&#243;n)
+// 3. Reglas de Exclusión Mutua Automática (Fotos y Liberación)
 function updateMutualExclusionPhotoAndReleaseState() {
   const hasGoodPhoto = appState.tempPhotosProducto && appState.tempPhotosProducto.length > 0;
   const hasDefectPhoto = appState.tempPhotosDefecto && appState.tempPhotosDefecto.length > 0;
@@ -2277,7 +2277,7 @@ function updateMutualExclusionPhotoAndReleaseState() {
     }
     if (badgeStatusProducto) {
       badgeStatusProducto.className = "px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-      badgeStatusProducto.innerText = "Inspecci&#243;n General";
+      badgeStatusProducto.innerText = "Inspección General";
     }
   }
 
@@ -2299,7 +2299,7 @@ function updateMutualExclusionPhotoAndReleaseState() {
       btnFinalizarInsp.disabled = false;
       btnFinalizarInsp.classList.remove("opacity-40", "cursor-not-allowed", "bg-slate-700", "pointer-events-none");
       btnFinalizarInsp.classList.add("bg-amber-600", "hover:bg-amber-500", "shadow-amber-600/30");
-      btnFinalizarInsp.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Finalizar Inspecci&#243;n (Con Opciones)';
+      btnFinalizarInsp.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Finalizar Inspección (Con Opciones)';
       btnFinalizarInsp.title = "Opciones para finalizar la inspección con faltantes, a retrabajo o liberado.";
     }
   } else {
@@ -2308,13 +2308,13 @@ function updateMutualExclusionPhotoAndReleaseState() {
       btnFinalizarInsp.disabled = false;
       btnFinalizarInsp.classList.remove("opacity-40", "cursor-not-allowed", "bg-slate-700", "pointer-events-none", "bg-amber-600", "hover:bg-amber-500");
       btnFinalizarInsp.classList.add("bg-emerald-600", "hover:bg-emerald-500", "shadow-emerald-600/30");
-      btnFinalizarInsp.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Finalizar Inspecci&#243;n';
+      btnFinalizarInsp.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Finalizar Inspección';
       btnFinalizarInsp.title = "Finalizar inspección y seleccionar estatus de entrega.";
     }
   }
 }
 
-// ==================== GUARDAR NUEVA INSPECCI&#211;N ====================
+// ==================== GUARDAR NUEVA INSPECCIÓN ====================
 function saveInspectionWithAction(action) {
   if (action === "traspaso") {
     handleSaveInspection(null, "Pausado");
@@ -2337,7 +2337,7 @@ function handleSaveInspection(event, statusOverride) {
   const notasIniciales = document.getElementById("input-notas-iniciales").value.trim();
 
   if (!parte || !modelo || !serie || !area) {
-    alert("Por favor completa los campos obligatorios (*) [N&#250;mero de Parte, Modelo, Serie, Área]");
+    alert("Por favor completa los campos obligatorios (*) [Número de Parte, Modelo, Serie, Área]");
     return;
   }
 
@@ -2363,16 +2363,16 @@ function handleSaveInspection(event, statusOverride) {
   const now = new Date();
   const timestampStr = now.toISOString().replace("T", " ").substring(0, 19);
 
-  // Calcular tiempo exacto y homogéneo del cron&#243;metro de inspección
+  // Calcular tiempo exacto y homogéneo del cronómetro de inspección
   let elapsedSec = inspectionTimer.elapsedSeconds;
 
-  // Si el cron&#243;metro sigue corriendo al guardar o liberar, pausarlo y congelar su tiempo medido
+  // Si el cronómetro sigue corriendo al guardar o liberar, pausarlo y congelar su tiempo medido
   if (inspectionTimer.isRunning) {
     toggleInspectionTimer();
     elapsedSec = inspectionTimer.elapsedSeconds;
   }
 
-  // Si no se activó el cron&#243;metro manualmente, calcular segundos reales transcurridos desde que se abrió/inició el formulario
+  // Si no se activó el cronómetro manualmente, calcular segundos reales transcurridos desde que se abrió/inició el formulario
   if (!elapsedSec || elapsedSec <= 0) {
     if (inspectionTimer.startTimestampStr) {
       const startMs = new Date(inspectionTimer.startTimestampStr.replace(" ", "T")).getTime();
@@ -2395,7 +2395,7 @@ function handleSaveInspection(event, statusOverride) {
   const respNotas = document.getElementById("in-defecto-retroalimentacion-notas") ? document.getElementById("in-defecto-retroalimentacion-notas").value.trim() : "";
   const respEstatus = document.getElementById("sel-defecto-retroalimentacion-estatus") ? document.getElementById("sel-defecto-retroalimentacion-estatus").value : (respNombre ? "Pendiente" : "");
 
-  const entregaStatus = targetStatus === "Pausado" ? "Pausado por Fin de Turno" : (targetStatus === "Liberado" ? "Inspecci&#243;n Finalizada / Liberada" : "En Proceso");
+  const entregaStatus = targetStatus === "Pausado" ? "Pausado por Fin de Turno" : (targetStatus === "Liberado" ? "Inspección Finalizada / Liberada" : "En Proceso");
 
   const nuevaInspeccion = {
     id_inspeccion: folio,
@@ -2430,7 +2430,7 @@ function handleSaveInspection(event, statusOverride) {
         minutos: elapsedMin,
         segundos: elapsedSec,
         estatus_entrega: entregaStatus,
-        notas: notasIniciales || (targetStatus === "Pausado" ? "Inspecci&#243;n pausada para traspaso de turno" : (targetStatus === "Liberado" ? "Inspecci&#243;n finalizada conforme" : "Inicio de inspección en piso"))
+        notas: notasIniciales || (targetStatus === "Pausado" ? "Inspección pausada para traspaso de turno" : (targetStatus === "Liberado" ? "Inspección finalizada conforme" : "Inicio de inspección en piso"))
       }
     ],
     fotos_producto: [...appState.tempPhotosProducto],
@@ -2469,21 +2469,21 @@ function handleSaveInspection(event, statusOverride) {
   });
 
   if (targetStatus === "Pausado") {
-    alert(`🔄 ¡Inspecci&#243;n guardada y enviada a Traspaso de Turno!\nFolio: ${folio}\nModelo: ${modelo}\nEstatus: Pausado (Disponible para continuar en la pestaña de Traspaso)`);
+    alert(`🔄 ¡Inspección guardada y enviada a Traspaso de Turno!\nFolio: ${folio}\nModelo: ${modelo}\nEstatus: Pausado (Disponible para continuar en la pestaña de Traspaso)`);
     resetInspectionForm();
     renderInspectionsTable();
     renderTraspasoList();
     updateKPIs();
     switchTab("traspaso");
   } else if (targetStatus === "Concluido") {
-    alert(`✅ ¡Inspecci&#243;n finalizada con éxito!\nFolio: ${folio}\nModelo: ${modelo}\nEstatus: Concluido (Lista para liberación de calidad)`);
+    alert(`✅ ¡Inspección finalizada con éxito!\nFolio: ${folio}\nModelo: ${modelo}\nEstatus: Concluido (Lista para liberación de calidad)`);
     resetInspectionForm();
     renderInspectionsTable();
     renderTraspasoList();
     updateKPIs();
     switchTab("dashboard");
   } else {
-    alert(`📋 ¡Inspecci&#243;n registrada con éxito!\nFolio: ${folio}\nModelo: ${modelo}\nEstatus: En Proceso`);
+    alert(`📋 ¡Inspección registrada con éxito!\nFolio: ${folio}\nModelo: ${modelo}\nEstatus: En Proceso`);
     resetInspectionForm();
     renderInspectionsTable();
     renderTraspasoList();
@@ -2552,7 +2552,7 @@ function renderTraspasoList() {
 
         <h4 class="font-bold text-white text-sm truncate">${item.modelo}</h4>
         <div class="text-xs text-slate-400 font-mono mt-0.5">Serie: <strong class="text-slate-200">${item.numero_serie}</strong></div>
-        <div class="text-xs text-slate-400 mt-0.5">Ubicaci&#243;n: <strong class="text-slate-300">${item.area_ubicacion}</strong></div>
+        <div class="text-xs text-slate-400 mt-0.5">Ubicación: <strong class="text-slate-300">${item.area_ubicacion}</strong></div>
 
         ${item.tiene_faltantes === "SI" ? `
           <div class="mt-2.5 p-2 rounded bg-amber-950/40 border border-amber-500/40 text-[11px] text-amber-200">
@@ -2653,22 +2653,22 @@ function updateResumeShiftReleaseState() {
   const btnFinalizar = document.getElementById("btn-resume-finalizar");
   const selEstatus = document.getElementById("resume-estatus-entrega");
 
-  // El botón de Finalizar Inspecci&#243;n SIEMPRE permanece habilitado con opciones
+  // El botón de Finalizar Inspección SIEMPRE permanece habilitado con opciones
   if (btnFinalizar) {
     btnFinalizar.disabled = false;
     btnFinalizar.classList.remove("opacity-40", "cursor-not-allowed", "bg-slate-700", "pointer-events-none");
 
     if (hasFaltantes) {
       btnFinalizar.className = "px-5 py-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-lg shadow-amber-600/30 flex items-center gap-1.5 transition active:scale-95 cursor-pointer";
-      btnFinalizar.innerHTML = '<i class="fa-solid fa-flag-checkered text-amber-300"></i> Finalizar Inspecci&#243;n (Con Opciones)';
+      btnFinalizar.innerHTML = '<i class="fa-solid fa-flag-checkered text-amber-300"></i> Finalizar Inspección (Con Opciones)';
       btnFinalizar.title = "Opciones para finalizar inspección con faltantes, retrabajo o liberado.";
     } else if (hasDefectPhotos || targetHasDefects) {
       btnFinalizar.className = "px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 flex items-center gap-1.5 transition active:scale-95 cursor-pointer";
-      btnFinalizar.innerHTML = '<i class="fa-solid fa-flag-checkered text-cyan-300"></i> Finalizar Inspecci&#243;n (Con Opciones)';
+      btnFinalizar.innerHTML = '<i class="fa-solid fa-flag-checkered text-cyan-300"></i> Finalizar Inspección (Con Opciones)';
       btnFinalizar.title = "Opciones para finalizar inspección a retrabajo, scrap o conforme.";
     } else {
       btnFinalizar.className = "px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 flex items-center gap-1.5 transition active:scale-95 cursor-pointer";
-      btnFinalizar.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Finalizar Inspecci&#243;n';
+      btnFinalizar.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Finalizar Inspección';
       btnFinalizar.title = "Opciones para finalizar inspección y registrar estatus final de la pieza.";
     }
   }
@@ -2681,7 +2681,7 @@ function updateResumeShiftReleaseState() {
   }
 }
 
-// ==================== MODAL DE OPCIONES DE FINALIZACIÓN DE INSPECCI&#211;N ====================
+// ==================== MODAL DE OPCIONES DE FINALIZACIÓN DE INSPECCIÓN ====================
 let activeFinalizarContext = "resume"; // "resume" o "nueva"
 
 function openOpcionesFinalizarModal(context = "resume") {
@@ -2713,7 +2713,7 @@ function openOpcionesFinalizarModal(context = "resume") {
       if (!hasFaltantes && target.tiene_faltantes === "SI") hasFaltantes = true;
     }
   } else {
-    idInspeccion = document.getElementById("input-serie")?.value.trim() || "Nueva Inspecci&#243;n";
+    idInspeccion = document.getElementById("input-serie")?.value.trim() || "Nueva Inspección";
     const checkF = document.getElementById("check-faltantes");
     hasFaltantes = checkF ? checkF.checked : false;
     descFaltantes = document.getElementById("input-descripcion-faltantes")?.value.trim() || "";
@@ -2788,7 +2788,7 @@ function executeFinalizarWithOption(statusOption) {
     if (sel) sel.value = statusOption;
     confirmResumeShift(statusOption);
   } else {
-    // Contexto: Nueva Inspecci&#243;n
+    // Contexto: Nueva Inspección
     const radioLib = document.getElementById("radio-estatus-liberado");
     const radioFalt = document.getElementById("radio-estatus-faltantes");
     const radioPaus = document.getElementById("radio-estatus-pausado");
@@ -3030,10 +3030,10 @@ function confirmResumeShift(statusOverride) {
   }
 
   let entregaText = rawEstatusEntrega;
-  if (nuevoEstatusInspeccion === "Liberado") entregaText = "Inspecci&#243;n Finalizada / Liberada";
-  else if (nuevoEstatusInspeccion === "Con Faltantes") entregaText = `Inspecci&#243;n Finalizada (Con Faltantes: ${descFaltantes || 'Pendiente de Surtimiento'})`;
-  else if (nuevoEstatusInspeccion === "En Espera de Retrabajo") entregaText = "Inspecci&#243;n Finalizada (Canalizada a Retrabajo)";
-  else if (nuevoEstatusInspeccion === "Rechazado") entregaText = "Inspecci&#243;n Finalizada (Rechazado / Scrap)";
+  if (nuevoEstatusInspeccion === "Liberado") entregaText = "Inspección Finalizada / Liberada";
+  else if (nuevoEstatusInspeccion === "Con Faltantes") entregaText = `Inspección Finalizada (Con Faltantes: ${descFaltantes || 'Pendiente de Surtimiento'})`;
+  else if (nuevoEstatusInspeccion === "En Espera de Retrabajo") entregaText = "Inspección Finalizada (Canalizada a Retrabajo)";
+  else if (nuevoEstatusInspeccion === "Rechazado") entregaText = "Inspección Finalizada (Rechazado / Scrap)";
 
   const nuevoTramoTurno = {
     id_turno: "TRN-" + Date.now(),
@@ -3045,7 +3045,7 @@ function confirmResumeShift(statusOverride) {
     segundos: minutos * 60,
     estatus_entrega: entregaText,
     notas: notas || (nuevoEstatusInspeccion === "Liberado" 
-      ? "Inspecci&#243;n concluida y liberada conforme" 
+      ? "Inspección concluida y liberada conforme" 
       : `Intervención de inspección finalizada con estatus: ${nuevoEstatusInspeccion}`)
   };
 
@@ -3068,7 +3068,7 @@ function confirmResumeShift(statusOverride) {
     id_auditoria: "AUD-" + Date.now(),
     id_inspeccion: target.id_inspeccion,
     nomina_usuario: inspectorNomina,
-    accion: `Inspecci&#243;n concluida (${nuevoEstatusInspeccion})`,
+    accion: `Inspección concluida (${nuevoEstatusInspeccion})`,
     fecha_modificacion: nowIso,
     campo_modificado: "Estatus",
     valor_anterior: "En Proceso / Traspaso",
@@ -3118,13 +3118,13 @@ function confirmResumeShift(statusOverride) {
   }
 
   if (nuevoEstatusInspeccion === "Liberado") {
-    alert(`🏁 ¡Inspecci&#243;n concluida y liberada con éxito!\n\nPieza: ${target.id_inspeccion}\nEstatus: LIBERADO (Listo para entrega)\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
+    alert(`🏁 ¡Inspección concluida y liberada con éxito!\n\nPieza: ${target.id_inspeccion}\nEstatus: LIBERADO (Listo para entrega)\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
   } else if (nuevoEstatusInspeccion === "Con Faltantes") {
-    alert(`⚠️ ¡Inspecci&#243;n concluida con faltantes!\n\nPieza: ${target.id_inspeccion}\nEstatus: CON FALTANTES\nFaltantes reportados: ${descFaltantes || 'Sin detalle'}\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})\nQueda registrada para surtimiento de piezas.`);
+    alert(`⚠️ ¡Inspección concluida con faltantes!\n\nPieza: ${target.id_inspeccion}\nEstatus: CON FALTANTES\nFaltantes reportados: ${descFaltantes || 'Sin detalle'}\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})\nQueda registrada para surtimiento de piezas.`);
   } else if (nuevoEstatusInspeccion === "En Espera de Retrabajo") {
-    alert(`🔧 ¡Inspecci&#243;n concluida y enviada a Retrabajo!\n\nPieza: ${target.id_inspeccion}\nEstatus: EN ESPERA DE RETRABAJO\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
+    alert(`🔧 ¡Inspección concluida y enviada a Retrabajo!\n\nPieza: ${target.id_inspeccion}\nEstatus: EN ESPERA DE RETRABAJO\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
   } else if (nuevoEstatusInspeccion === "Rechazado") {
-    alert(`⛔ ¡Inspecci&#243;n concluida como Rechazado / Scrap!\n\nPieza: ${target.id_inspeccion}\nEstatus: RECHAZADO / SCRAP\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
+    alert(`⛔ ¡Inspección concluida como Rechazado / Scrap!\n\nPieza: ${target.id_inspeccion}\nEstatus: RECHAZADO / SCRAP\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
   } else if (nuevoEstatusInspeccion === "Pausado") {
     alert(`🔄 ¡Traspaso de turno registrado!\n\nPieza: ${target.id_inspeccion}\nEstatus: PAUSADO (En bandeja de Traspaso)\nInspector: ${inspectorNombre} (Nómina ${inspectorNomina})`);
   } else {
@@ -3215,7 +3215,7 @@ function renderInspectionsTable() {
     const allItemPhotos = item.fotos || [];
     const prodPhotos = (item.fotos_producto && item.fotos_producto.length > 0)
       ? item.fotos_producto
-      : allItemPhotos.filter(f => f.categoria === "producto" || f.tipo === "Producto Inspeccionado" || f.tipo === "Liberaci&#243;n Final");
+      : allItemPhotos.filter(f => f.categoria === "producto" || f.tipo === "Producto Inspeccionado" || f.tipo === "Liberación Final");
     const defPhotos = (item.fotos_defecto && item.fotos_defecto.length > 0)
       ? item.fotos_defecto
       : allItemPhotos.filter(f => f.categoria === "defecto" || (f.tipo && f.tipo.toLowerCase().includes("defecto")) || (f.tipo && f.tipo.toLowerCase().includes("golpe")) || (f.tipo && f.tipo.toLowerCase().includes("pintura")) || (f.tipo && f.tipo.toLowerCase().includes("faltante")));
@@ -3318,7 +3318,7 @@ function renderInspectionsTable() {
       </td>
       <td class="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
         ${isSupervisor ? `
-          <button onclick="openSupervisorEditModal('${item.id_inspeccion}')" title="Modificar o Corregir Inspecci&#243;n (Supervisor)" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition shadow-sm">
+          <button onclick="openSupervisorEditModal('${item.id_inspeccion}')" title="Modificar o Corregir Inspección (Supervisor)" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition shadow-sm">
             <i class="fa-solid fa-pen-to-square text-amber-400"></i>
             <span>Modificar</span>
           </button>
@@ -3531,7 +3531,7 @@ function openDetailModal(idInspeccion) {
   const allItemFotos = item.fotos || [];
   const prodFotos = (item.fotos_producto && item.fotos_producto.length > 0)
     ? item.fotos_producto
-    : allItemFotos.filter(f => f.categoria === "producto" || f.tipo === "Producto Inspeccionado" || f.tipo === "Liberaci&#243;n Final");
+    : allItemFotos.filter(f => f.categoria === "producto" || f.tipo === "Producto Inspeccionado" || f.tipo === "Liberación Final");
   const defFotos = (item.fotos_defecto && item.fotos_defecto.length > 0)
     ? item.fotos_defecto
     : allItemFotos.filter(f => f.categoria === "defecto" || (f.tipo && f.tipo.toLowerCase().includes("defecto")) || (f.tipo && f.tipo.toLowerCase().includes("golpe")) || (f.tipo && f.tipo.toLowerCase().includes("pintura")) || (f.tipo && f.tipo.toLowerCase().includes("faltante")));
@@ -3580,7 +3580,7 @@ function openDetailModal(idInspeccion) {
     }
   }
 
-  // Configuraci&#243;n de botones de supervisión y desbloqueo
+  // Configuración de botones de supervisión y desbloqueo
   const btnSuperEdit = document.getElementById("btn-detail-supervisor-edit");
   const btnUnlock = document.getElementById("btn-detail-unlock");
   const myRol = appState.currentUser ? appState.currentUser.rol : "colaborador";
@@ -3588,10 +3588,10 @@ function openDetailModal(idInspeccion) {
   if (btnSuperEdit) {
     if (myRol === "supervisor") {
       btnSuperEdit.classList.remove("hidden");
-      btnSuperEdit.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Corregir Inspecci&#243;n / Faltante';
+      btnSuperEdit.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Corregir Inspección / Faltante';
     } else if (myRol === "colaborador" && item.desbloqueada_edicion) {
       btnSuperEdit.classList.remove("hidden");
-      btnSuperEdit.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Modificar mi Inspecci&#243;n (Autorizado)';
+      btnSuperEdit.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Modificar mi Inspección (Autorizado)';
     } else {
       btnSuperEdit.classList.add("hidden");
     }
@@ -3655,7 +3655,7 @@ function handleDecision(tipo) {
     }
   }
 
-  const obs = prompt(`Confirmar dictamen como ${tipo.toUpperCase()}.\nIngresa comentarios u observaciones de calidad:`, "Inspecci&#243;n conforme a especificaciones");
+  const obs = prompt(`Confirmar dictamen como ${tipo.toUpperCase()}.\nIngresa comentarios u observaciones de calidad:`, "Inspección conforme a especificaciones");
   if (obs === null) return; // cancelado
 
   const now = new Date();
@@ -3879,7 +3879,7 @@ function buildAndDownloadPDF(item) {
   doc.setTextColor(255, 255, 255);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("AUDITUM | CERTIFICADO DE INSPECCI&#211;N DE CALIDAD", 14, 12);
+  doc.text("AUDITUM | CERTIFICADO DE INSPECCIÓN DE CALIDAD", 14, 12);
 
   doc.setFontSize(9);
   doc.setFont("helvetica", "normal");
@@ -3909,7 +3909,7 @@ function buildAndDownloadPDF(item) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(71, 85, 105);
-  doc.text("N&#250;mero de Parte:", 16, y);
+  doc.text("Número de Parte:", 16, y);
   doc.text("Modelo / Descripción:", 80, y);
 
   doc.setFont("helvetica", "normal");
@@ -3920,8 +3920,8 @@ function buildAndDownloadPDF(item) {
   y += 12;
   doc.setFont("helvetica", "bold");
   doc.setTextColor(71, 85, 105);
-  doc.text("N&#250;mero de Serie:", 16, y);
-  doc.text("Área de Ubicaci&#243;n:", 80, y);
+  doc.text("Número de Serie:", 16, y);
+  doc.text("Área de Ubicación:", 80, y);
   doc.text("Estatus Final:", 145, y);
 
   doc.setFont("helvetica", "normal");
@@ -4146,7 +4146,7 @@ function getQGShiftInspections(activeNomina, activeUser) {
           turno: c.qg_inspector_turno || activeUser.turno || turnoCfg.nombre,
           minutos: c.minutos_espera || 25,
           estatus_entrega: c.estatus === "Liberada" ? "Concluido" : "Retrabajo",
-          notas: c.dictamen_notas || c.notas || "Inspecci&#243;n de cabina en línea por QG"
+          notas: c.dictamen_notas || c.notas || "Inspección de cabina en línea por QG"
         }
       ],
       fotos: c.fotos_evidencia_qg || [],
@@ -4326,7 +4326,7 @@ function buildAndDownloadShiftReportPDF(operatorData, shiftInspections) {
   doc.setFontSize(8.5);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(148, 163, 184); // slate-400
-  doc.text("Control de Trazabilidad e Inspecci&#243;n de Calidad de Componentes de Acero", 14, 18);
+  doc.text("Control de Trazabilidad e Inspección de Calidad de Componentes de Acero", 14, 18);
   const nowStr = new Date().toLocaleString("es-MX", { dateStyle: "full", timeStyle: "short" });
   doc.text(`Fecha y Hora de Emisión: ${nowStr}`, 14, 23);
 
@@ -4357,7 +4357,7 @@ function buildAndDownloadShiftReportPDF(operatorData, shiftInspections) {
   doc.setFontSize(8.5);
   doc.setTextColor(71, 85, 105);
   doc.text("Nombre Completo:", 16, y);
-  doc.text("N&#250;mero de Nómina:", 80, y);
+  doc.text("Número de Nómina:", 80, y);
   doc.text("Puesto / Perfil:", 135, y);
 
   y += 4.5;
@@ -4372,7 +4372,7 @@ function buildAndDownloadShiftReportPDF(operatorData, shiftInspections) {
   doc.setTextColor(15, 23, 42);
   doc.text(operatorData.rol.toUpperCase(), 135, y);
 
-  // 3. Resumen y Balance de Producci&#243;n del Turno
+  // 3. Resumen y Balance de Producción del Turno
   y += 10;
   doc.setFillColor(241, 245, 249);
   doc.rect(14, y, pageWidth - 28, 6.5, "F");
@@ -4554,14 +4554,14 @@ function buildAndDownloadShiftReportPDF(operatorData, shiftInspections) {
 
     let curY = y + 12;
     enPausa.forEach((p, idx) => {
-      // L&#237;nea 1: Identificación clara del componente
+      // Línea 1: Identificación clara del componente
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8);
       doc.setTextColor(15, 23, 42);
       const titleLine = `(${idx + 1}) ${p.id_inspeccion} | Serie: ${p.numero_serie || 'S/N'} | ${p.modelo} (${p.area_ubicacion || 'General'})`;
       doc.text(titleLine.substring(0, 85), 18, curY);
 
-      // L&#237;nea 2: Faltantes reportados
+      // Línea 2: Faltantes reportados
       curY += 4.5;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7.5);
@@ -4574,7 +4574,7 @@ function buildAndDownloadShiftReportPDF(operatorData, shiftInspections) {
         doc.text("    FALTANTES: Sin faltantes reportados.", 18, curY);
       }
 
-      // L&#237;nea 3: Nota de traspaso/relevo (si existe)
+      // Línea 3: Nota de traspaso/relevo (si existe)
       const lastTr = (p.turnos && p.turnos.length > 0) ? p.turnos[p.turnos.length - 1] : null;
       if (lastTr && lastTr.notas) {
         curY += 4.5;
@@ -4991,7 +4991,7 @@ function renderLoginPresetsList() {
   // Sincronizar dinámicamente las opciones del selector desplegable agrupadas por perfil y línea
   if (selectEl) {
     const currentVal = selectEl.value;
-    selectEl.innerHTML = `<option value="">-- Elige tu usuario o Supervisor de L&#237;nea --</option>`;
+    selectEl.innerHTML = `<option value="">-- Elige tu usuario o Supervisor de Línea --</option>`;
 
     const grpCoord = document.createElement("optgroup");
     grpCoord.label = "🛡️ Coordinadores / QG, Supervisor y Gerente";
@@ -5136,7 +5136,7 @@ function logoutUser() {
   appState.isAuthenticated = false;
   sessionStorage.removeItem("auditum_logged_in");
 
-  // Pausar cron&#243;metro si está corriendo
+  // Pausar cronómetro si está corriendo
   if (inspectionTimer.isRunning) {
     toggleInspectionTimer();
   }
@@ -5175,7 +5175,7 @@ function openUserModal() {
 
   appState.usuarios.forEach(u => {
     const isCurrent = appState.currentUser.nomina == u.nomina;
-    const roleText = u.rol === "supervisor_linea" ? `Sup. L&#237;nea ${u.linea}` : u.rol === "colaborador" ? "Coordinador / QG" : u.rol;
+    const roleText = u.rol === "supervisor_linea" ? `Sup. Línea ${u.linea}` : u.rol === "colaborador" ? "Coordinador / QG" : u.rol;
     const card = document.createElement("div");
     card.className = `p-3 rounded-lg border transition ${isCurrent ? 'bg-blue-600/20 border-blue-500 text-white' : 'bg-slate-900 border-slate-700 hover:border-slate-500 text-slate-300'}`;
     card.innerHTML = `
@@ -5287,14 +5287,14 @@ function applyRoleTabVisibility() {
   const tabBtnCabinas = document.getElementById("tab-btn-cabinas") || document.getElementById("btn-cabinas-coordinador");
   const tabBtnMapa = document.getElementById("tab-btn-mapa");
 
-  // El Mapa de Planta y Sensores es visible para todos los roles (Coordinador, Supervisor de L&#237;nea y Gerente)
+  // El Mapa de Planta y Sensores es visible para todos los roles (Coordinador, Supervisor de Línea y Gerente)
   if (tabBtnMapa) {
     tabBtnMapa.classList.remove("hidden");
     tabBtnMapa.style.display = "";
   }
 
   if (isSupervisorLinea) {
-    // Para Supervisores de L&#237;nea: SOLO se ve Dashboard, Producci&#243;n y Defectos + LINEAS QUE REQUIEREN QG
+    // Para Supervisores de Línea: SOLO se ve Dashboard, Producción y Defectos + LINEAS QUE REQUIEREN QG
     if (tabBtnNueva) {
       tabBtnNueva.classList.add("hidden");
       tabBtnNueva.style.display = "none";
@@ -5316,7 +5316,7 @@ function applyRoleTabVisibility() {
       tabBtnCabinas.style.display = "";
     }
   } else if (isGerente) {
-    // Para Gerente: Ocultar y remover estrictamente Nueva Inspecci&#243;n y Traspaso de Turno
+    // Para Gerente: Ocultar y remover estrictamente Nueva Inspección y Traspaso de Turno
     if (tabBtnNueva) {
       tabBtnNueva.classList.add("hidden");
       tabBtnNueva.style.display = "none";
@@ -5370,7 +5370,7 @@ function updateUserHeader() {
   const u = appState.currentUser;
   document.getElementById("user-display-name").innerText = u.nombre;
   document.getElementById("user-display-nomina").innerText = u.nomina;
-  const roleLabel = u.rol === "supervisor_linea" ? `Sup. L&#237;nea ${u.linea}` : u.rol === "colaborador" ? "Coordinador / QG" : u.rol;
+  const roleLabel = u.rol === "supervisor_linea" ? `Sup. Línea ${u.linea}` : u.rol === "colaborador" ? "Coordinador / QG" : u.rol;
   document.getElementById("user-display-role").innerText = roleLabel;
 
   const initials = u.nombre.split(" ").map(w => w[0]).slice(0, 2).join("");
@@ -5384,7 +5384,7 @@ function updateUserHeader() {
   if (sideName) sideName.innerText = u.nombre;
   if (sideTurno) sideTurno.innerText = u.turno || "Turno 1";
 
-  // Label de usuario en cron&#243;metro
+  // Label de usuario en cronómetro
   const timerUser = document.getElementById("timer-user-label");
   if (timerUser) timerUser.innerText = `Nómina ${u.nomina} - ${u.nombre}`;
 
@@ -5419,7 +5419,7 @@ function updateUserHeader() {
       switchTab("gerente");
     }
   } else if (u.rol === "supervisor_linea") {
-    // Para Supervisor de L&#237;nea: permitir pestaña Dashboard o pestaña LINEAS QUE REQUIEREN QG
+    // Para Supervisor de Línea: permitir pestaña Dashboard o pestaña LINEAS QUE REQUIEREN QG
     const activeTab = document.querySelector(".tab-content:not(.hidden)");
     if (!activeTab || (activeTab.id !== "tab-gerente" && activeTab.id !== "tab-cabinas")) {
       switchTab("gerente");
@@ -5488,7 +5488,7 @@ function saveSyncSettings() {
   updateSyncIndicator();
   closeSyncModal();
   if (url) {
-    alert("Configuraci&#243;n de URL de respaldo guardada correctamente.");
+    alert("Configuración de URL de respaldo guardada correctamente.");
   }
 }
 
@@ -5594,14 +5594,14 @@ const GERENTE_MODULES = [
 const GERENTE_MODULE_INFO = {
   "dashboard": {
     shortName: "Dashboard",
-    name: "Dashboard & Liberaci&#243;n de Calidad",
+    name: "Dashboard & Liberación de Calidad",
     desc: "Catálogo maestro de componentes en piso, balance de piezas aprobadas y reporte final de turno en PDF.",
     icon: "fa-solid fa-chart-pie text-emerald-400",
     pillBg: "from-emerald-600 to-teal-500"
   },
   "diaria": {
     shortName: "Prod. Diaria",
-    name: "Producci&#243;n Diaria y Matriz Semanal",
+    name: "Producción Diaria y Matriz Semanal",
     desc: "Volumen de piezas inspeccionadas por día (Lunes a Sábado), desglose por turno y día récord.",
     icon: "fa-solid fa-chart-column text-blue-400",
     pillBg: "from-blue-600 to-cyan-500"
@@ -5630,7 +5630,7 @@ const GERENTE_MODULE_INFO = {
   "naves": {
     shortName: "Naves",
     name: "Comparativa de Naves: EDIFICIO K vs FABS",
-    desc: "Producci&#243;n total y defectos clasificados por nave (Soldadura, Golpe, Faltantes y Scrap).",
+    desc: "Producción total y defectos clasificados por nave (Soldadura, Golpe, Faltantes y Scrap).",
     icon: "fa-solid fa-industry text-cyan-400",
     pillBg: "from-cyan-600 to-teal-500"
   },
@@ -5650,7 +5650,7 @@ const GERENTE_MODULE_INFO = {
   },
   "personal": {
     shortName: "Personal Op.",
-    name: "Gr&#225;fica del Personal Operativo & Causa Raíz",
+    name: "Gráfica del Personal Operativo & Causa Raíz",
     desc: "Distribución de causas humanas (Entrenamiento, Fatiga, Compromiso, Utillaje) y seguimiento de retroalimentación.",
     icon: "fa-solid fa-chalkboard-user text-amber-400",
     pillBg: "from-amber-600 via-orange-500 to-yellow-400"
@@ -5688,7 +5688,7 @@ function renderCollapsedTablesCornerDock() {
 
   const countLabel = document.getElementById("gerente-corner-style-count-label");
   if (countLabel) {
-    countLabel.innerText = `GR&#193;FICAS (${collapsedCount}/${keys.length})`;
+    countLabel.innerText = `GRÁFICAS (${collapsedCount}/${keys.length})`;
   }
 }
 
@@ -5888,7 +5888,7 @@ function switchTab(tabId) {
     targetTab = "gerente";
   }
 
-  // Restricción para Supervisor de L&#237;nea: solo ve Dashboard, Producci&#243;n y Defectos + LINEAS QUE REQUIEREN QG + MAPA
+  // Restricción para Supervisor de Línea: solo ve Dashboard, Producción y Defectos + LINEAS QUE REQUIEREN QG + MAPA
   if (appState.currentUser && appState.currentUser.rol === "supervisor_linea") {
     if (targetTab !== "gerente" && targetTab !== "cabinas" && targetTab !== "mapa") {
       targetTab = "gerente";
@@ -6197,7 +6197,7 @@ function renderPresenceDropdown(activeServerUsers) {
     countLabel.innerText = activosCount + " Activo" + (activosCount !== 1 ? 's' : '') + (pausaCount > 0 ? ' (' + pausaCount + ' en pausa)' : '');
   }
 
-  // Actualizar contadores de las pestaÑas internas
+  // Actualizar contadores de las pestañas internas
   const tabCoord = document.getElementById("presence-tab-coordinadores");
   const tabTodos = document.getElementById("presence-tab-todos");
   const tabActivos = document.getElementById("presence-tab-activos");
@@ -6218,7 +6218,7 @@ function renderPresenceDropdown(activeServerUsers) {
   };
 
   if (currentPresenceFilter === "coordinadores") {
-    // Encabezado de SecciÓn Coordinadores
+    // Encabezado de Sección Coordinadores
     const secHeader = document.createElement("div");
     secHeader.className = "flex items-center justify-between px-1 pb-1 border-b border-slate-800 text-[11px] font-black uppercase text-cyan-400";
     secHeader.innerHTML = `
@@ -6243,7 +6243,7 @@ function renderPresenceDropdown(activeServerUsers) {
       });
     }
   } else {
-    // Mostrar Todos (SecciÓn Coordinadores y SecciÓn Supervisores)
+    // Mostrar Todos (Sección Coordinadores y Sección Supervisores)
     const secHeader1 = document.createElement("div");
     secHeader1.className = "flex items-center justify-between px-1 pb-1 border-b border-slate-800 text-[11px] font-black uppercase text-cyan-400";
     secHeader1.innerHTML = `
@@ -6262,7 +6262,7 @@ function renderPresenceDropdown(activeServerUsers) {
     secHeader2.className = "flex items-center justify-between px-1 pt-2 pb-1 border-b border-slate-800 text-[11px] font-black uppercase text-amber-400";
     secHeader2.innerHTML = `
       <span class="flex items-center gap-1.5 text-amber-300">
-        <i class="fa-solid fa-industry text-amber-400"></i> Supervisores de L&#237;nea (${supervisores.length})
+        <i class="fa-solid fa-industry text-amber-400"></i> Supervisores de Línea (${supervisores.length})
       </span>
       <span class="text-[10px] text-slate-400 font-mono">${supervisores.filter(s => s.status === 'activo').length} en piso</span>
     `;
@@ -6275,7 +6275,7 @@ function renderPresenceDropdown(activeServerUsers) {
 
   updateMyPauseButtonUI();
 }
-// ==================== PERFIL GERENCIAL Y GR&#193;FICAS DE AVANCE ====================
+// ==================== PERFIL GERENCIAL Y GRÁFICAS DE AVANCE ====================
 function openDatePicker(inputId) {
   const el = document.getElementById(inputId);
   if (el) {
@@ -6299,7 +6299,7 @@ function formatYMD(d) {
   return `${yr}-${mo}-${dy}`;
 }
 
-// SincronizaciÃ³n universal de Filtro de Ãrea en TODOS los cuadros y mÃ³dulos
+// Sincronización universal de Filtro de Área en TODOS los cuadros y módulos
 function syncModuleAreaFilter(selectedArea) {
   const areaSelectIds = [
     "gerente-filter-area",
@@ -6325,7 +6325,7 @@ function syncModuleAreaFilter(selectedArea) {
     }
   });
 
-  // 1. Actualizar grÃ¡ficas gerenciales con el filtro de Ã¡rea
+  // 1. Actualizar gráficas gerenciales con el filtro de área
   if (typeof renderGerenteCharts === "function") {
     renderGerenteCharts();
   }
@@ -6335,7 +6335,7 @@ function syncModuleAreaFilter(selectedArea) {
     applyFilters();
   }
 
-  // 3. Actualizar pestaÃ±a de Defectos y Personal
+  // 3. Actualizar pestaña de Defectos y Personal
   if (typeof renderDefectosTab === "function") {
     renderDefectosTab();
   }
@@ -6524,7 +6524,7 @@ function renderGerenteCharts() {
       return true;
     });
   } else if (periodo !== "all" && periodo !== "custom") {
-    // 2. Filtrado por per&#237;odo preestablecido
+    // 2. Filtrado por período preestablecido
     const days = periodo === "today" ? 1 : (parseInt(periodo.replace("days", "")) || 7);
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - days);
@@ -6538,8 +6538,8 @@ function renderGerenteCharts() {
     });
   }
 
-  // M&#233;tricas globales de turno en el per&#237;odo (antes del filtro específico de turno para mantener visión integral)
-    // Filtrar todos los cuadros gerenciales por Ãrea (SOLDADURA, PINTURA, ENSAMBLE, FOS)
+  // Métricas globales de turno en el período (antes del filtro específico de turno para mantener visión integral)
+    // Filtrar todos los cuadros gerenciales por Área (SOLDADURA, PINTURA, ENSAMBLE, FOS)
   if (filterAreaVal && filterAreaVal !== "all") {
     items = items.filter(i => matchItemArea(i, filterAreaVal));
   }
@@ -6585,7 +6585,7 @@ function renderGerenteCharts() {
     items = items.filter(i => getTurnoKey(i) === filterTurno);
   }
 
-  // M&#233;tricas y KPIs Ejecutivos
+  // Métricas y KPIs Ejecutivos
   const total = items.length;
   const liberadas = items.filter(i => i.estatus === "Liberado").length;
   const rechazadas = items.filter(i => i.estatus === "Rechazado").length;
@@ -6652,7 +6652,7 @@ function renderGerenteCharts() {
     }
   });
 
-  // Determinar el Día Récord de Producci&#243;n
+  // Determinar el Día Récord de Producción
   let maxDayStat = null;
   let maxQty = 0;
   diasStats.forEach(stat => {
@@ -6692,26 +6692,26 @@ function renderGerenteCharts() {
     const turnoBadgeText = filterTurno !== "all" ? ` <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono">${filterTurno}</span>` : "";
 
     barSummary.innerHTML = maxQty > 0 
-      ? `🏆 Día Récord de Producci&#243;n: <strong class="text-amber-400 font-bold">${maxDayStat.nombre} (${maxDayStat.fecha})</strong> con <strong class="text-white">${maxQty} piezas</strong> inspeccionadas (Lunes a Sábado).${turnoBadgeText}${rangoLabel}`
-      : `⚠️ Sin inspecciones registradas en el per&#237;odo.${turnoBadgeText}${rangoLabel}`;
+      ? `🏆 Día Récord de Producción: <strong class="text-amber-400 font-bold">${maxDayStat.nombre} (${maxDayStat.fecha})</strong> con <strong class="text-white">${maxQty} piezas</strong> inspeccionadas (Lunes a Sábado).${turnoBadgeText}${rangoLabel}`
+      : `⚠️ Sin inspecciones registradas en el período.${turnoBadgeText}${rangoLabel}`;
   }
 
-  // 0. Renderizar Metas y Cumplimiento de Piezas por L&#237;nea
+  // 0. Renderizar Metas y Cumplimiento de Piezas por Línea
   renderMetasLineas(items);
 
-  // 1. Gr&#225;fica de Barras Multiturno: Producci&#243;n por Día (Lunes a Sábado)
+  // 1. Gráfica de Barras Multiturno: Producción por Día (Lunes a Sábado)
   renderChartProduccionDiaria(diasStats, maxDayStat, filterTurno);
 
   // 1.1 Matriz Semanal por Turno (Lunes a Sábado)
   renderTablaProduccionSemanal(diasStats, maxDayStat);
 
-  // 2. Gr&#225;fica de Pastel / Donut: Distribución de 12 Modelos
+  // 2. Gráfica de Pastel / Donut: Distribución de 12 Modelos
   renderChartModelosDonut(items);
 
-  // 3. Gr&#225;fica de Pastel: Estatus del Proceso
+  // 3. Gráfica de Pastel: Estatus del Proceso
   renderChartEstatusPie(items);
 
-  // 4. Gr&#225;fica de Barras Multiturno: Producci&#243;n por Área (EDIFICIO K vs FABS)
+  // 4. Gráfica de Barras Multiturno: Producción por Área (EDIFICIO K vs FABS)
   renderChartAreasBar(items);
 
   if (typeof renderCollapsedTablesCornerDock === "function") {
@@ -6955,7 +6955,7 @@ function renderTablaProduccionSemanal(diasStats, maxDayStat) {
   tableBody.innerHTML = html;
 }
 
-// ==================== PLUGIN PARA DIBUJAR PORCENTAJES EN GR&#193;FICAS ====================
+// ==================== PLUGIN PARA DIBUJAR PORCENTAJES EN GRÁFICAS ====================
 const piePercentagePlugin = {
   id: 'piePercentagePlugin',
   afterDatasetsDraw(chart) {
@@ -7169,7 +7169,7 @@ function renderChartAreasBar(items) {
   const pctK = metaK > 0 ? Math.round((edifK / metaK) * 100) : 0;
   const pctFabs = metaFabs > 0 ? Math.round((fabs / metaFabs) * 100) : 0;
 
-  // Calcular m&#233;tricas para micro-etiquetas de los cuadros de acceso rápido
+  // Calcular métricas para micro-etiquetas de los cuadros de acceso rápido
   const total = items.length;
   const liberadas = items.filter(i => i.estatus === "Liberado").length;
   const rechazadas = items.filter(i => i.estatus === "Rechazado").length;
@@ -7335,11 +7335,11 @@ function renderMetasLineas(items) {
     globalSummary.innerHTML = `Meta Global: <span class="text-white font-bold font-mono">${totalReal}</span> de <span class="text-amber-400 font-bold font-mono">${totalMeta} piezas</span> (<strong class="${globalPct >= 100 ? 'text-emerald-400' : 'text-cyan-400'}">${globalPct}%</strong> cumplimiento)`;
   }
 
-  // Tarjetas de Área (L&#237;nea EDIFICIO K y L&#237;nea FABS)
+  // Tarjetas de Área (Línea EDIFICIO K y Línea FABS)
   const lineasData = [
     {
       id: "EDIFICIO K",
-      nombre: "L&#237;nea EDIFICIO K",
+      nombre: "Línea EDIFICIO K",
       nave: "Nave Industrial K • Estructuras Pesadas",
       icon: "fa-industry",
       real: realK,
@@ -7351,7 +7351,7 @@ function renderMetasLineas(items) {
     },
     {
       id: "FABS",
-      nombre: "L&#237;nea FABS",
+      nombre: "Línea FABS",
       nave: "Nave Fabricaciones • Ensambles y Componentes",
       icon: "fa-gears",
       real: realFabs,
@@ -7370,7 +7370,7 @@ function renderMetasLineas(items) {
     const excedente = Math.max(0, linea.real - linea.meta);
     const isAlcanzada = linea.real >= linea.meta;
 
-    // M&#233;tricas de calidad
+    // Métricas de calidad
     const libCount = linea.items.filter(i => i.estatus === "Liberado").length;
     const faltCount = linea.items.filter(i => i.tiene_faltantes === "SI").length;
     const scrapCount = linea.items.filter(i => i.estatus === "Rechazado" || i.estatus === "Scrap").length;
@@ -7421,7 +7421,7 @@ function renderMetasLineas(items) {
       <!-- Resumen Compacto cuando el Flujo está Contraído -->
       <div id="compact-collapse-linea-${safeId}" class="${isCollapsed ? '' : 'hidden'} pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs gap-2">
         <div class="flex items-center gap-2">
-          <span class="text-slate-400">Producci&#243;n Actual:</span>
+          <span class="text-slate-400">Producción Actual:</span>
           <strong class="text-white font-mono">${linea.real}</strong>
           <span class="text-slate-500">/</span>
           <span class="text-amber-400 font-mono font-semibold">${linea.meta} pzas</span>
@@ -7438,10 +7438,10 @@ function renderMetasLineas(items) {
 
       <!-- Cuerpo Completo cuando el Flujo está Expandido -->
       <div id="body-collapse-linea-${safeId}" class="${isCollapsed ? 'hidden' : ''} space-y-3.5">
-        <!-- Comparativa N&#250;meros Reales vs Meta -->
+        <!-- Comparativa Números Reales vs Meta -->
         <div class="flex items-baseline justify-between pt-1">
           <div>
-            <span class="text-xs text-slate-400 uppercase font-semibold">Producci&#243;n Actual:</span>
+            <span class="text-xs text-slate-400 uppercase font-semibold">Producción Actual:</span>
             <div class="flex items-baseline gap-1.5 mt-0.5">
               <span class="text-3xl font-black text-white font-mono">${linea.real}</span>
               <span class="text-xs text-slate-400 font-semibold font-mono">/ meta de <strong class="text-amber-400 font-bold">${linea.meta} piezas</strong></span>
@@ -7464,7 +7464,7 @@ function renderMetasLineas(items) {
           </div>
         </div>
 
-        <!-- Sub-indicadores de Calidad de la L&#237;nea -->
+        <!-- Sub-indicadores de Calidad de la Línea -->
         <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center">
           <div class="p-1.5 rounded-lg bg-slate-950/50 border border-slate-800">
             <span class="text-[10px] text-slate-400 block font-semibold">Liberadas</span>
@@ -7568,7 +7568,7 @@ function toggleModelosMetasCollapse() {
   isModelosMetasCollapsed = !isModelosMetasCollapsed;
   if (isModelosMetasCollapsed) {
     grid.classList.add("hidden");
-    if (label) label.innerText = `Ver Desglose de ${appState.catalogos.modelos.length} L&#237;neas`;
+    if (label) label.innerText = `Ver Desglose de ${appState.catalogos.modelos.length} Líneas`;
     if (icon) icon.className = "fa-solid fa-chevron-down transition-transform";
   } else {
     grid.classList.remove("hidden");
@@ -8098,7 +8098,7 @@ function renderDefectosTab() {
     return true;
   });
 
-  // M&#233;tricas de defectos por turno (visión global del per&#237;odo)
+  // Métricas de defectos por turno (visión global del período)
   const t1Defects = allDefectItemsInPeriod.filter(i => getTurnoKey(i) === "Turno 1").length;
   const t2Defects = allDefectItemsInPeriod.filter(i => getTurnoKey(i) === "Turno 2").length;
   const t3Defects = allDefectItemsInPeriod.filter(i => getTurnoKey(i) === "Turno 3").length;
@@ -8211,16 +8211,16 @@ function renderDefectosTab() {
   if (kpiCritica) kpiCritica.innerText = maxModel !== "--" ? maxModel : "Ninguna";
   if (kpiCriticaDesc) kpiCriticaDesc.innerText = maxCount > 0 ? `${maxCount} piezas defectuosas` : "Sin incidencias";
 
-  // 1. Gr&#225;fica de Barras Apiladas por Área (EDIFICIO K vs FABS)
+  // 1. Gráfica de Barras Apiladas por Área (EDIFICIO K vs FABS)
   renderChartDefectosAreasBar(defectItems);
 
-  // 2. Gr&#225;fica Donut de Proporción de Defectos
+  // 2. Gráfica Donut de Proporción de Defectos
   renderChartDefectosDonut(countSoldadura, countGolpe, countFaltante, countScrap);
 
-  // 3. Gr&#225;fica de Barras Horizontal por Modelo (12 L&#237;neas)
+  // 3. Gráfica de Barras Horizontal por Modelo (12 Líneas)
   renderChartDefectosModelosBar(defectItems);
 
-  // 4. Gr&#225;fica de Tendencia Diaria Multiturno (Lunes a Sábado)
+  // 4. Gráfica de Tendencia Diaria Multiturno (Lunes a Sábado)
   renderChartDefectosTendenciaBar(defectItems, filterTurno);
 
   // 5. Tabla Detallada de Incidencias con Turno
@@ -8229,7 +8229,7 @@ function renderDefectosTab() {
   renderPersonalRetroalimentacionTable(defectItems);
 }
 
-// 1. Gr&#225;fica de Barras Apiladas: EDIFICIO K vs FABS por Causa
+// 1. Gráfica de Barras Apiladas: EDIFICIO K vs FABS por Causa
 function renderChartDefectosAreasBar(defectItems) {
   const ctx = document.getElementById("chart-defectos-areas-bar");
   if (!ctx) return;
@@ -8330,7 +8330,7 @@ function renderChartDefectosAreasBar(defectItems) {
   }
 }
 
-// 2. Gr&#225;fica Donut: Proporción Global de Causas
+// 2. Gráfica Donut: Proporción Global de Causas
 function renderChartDefectosDonut(cSold, cGolpe, cFalt, cScrap) {
   const ctx = document.getElementById("chart-defectos-donut");
   if (!ctx) return;
@@ -8389,7 +8389,7 @@ function renderChartDefectosDonut(cSold, cGolpe, cFalt, cScrap) {
   }
 }
 
-// 3. Gr&#225;fica de Barras Horizontal Apilada por Causa: Defectos por Modelo / L&#237;nea (12 Modelos)
+// 3. Gráfica de Barras Horizontal Apilada por Causa: Defectos por Modelo / Línea (12 Modelos)
 function renderChartDefectosModelosBar(defectItems) {
   const ctx = document.getElementById("chart-defectos-modelos-bar");
   if (!ctx) return;
@@ -8489,7 +8489,7 @@ function renderChartDefectosModelosBar(defectItems) {
         const yPos = y.getPixelForTick(index);
 
         if (stat.total === 0) {
-          // L&#237;nea con 0 defectos: Indicador en verde esmeralda con check
+          // Línea con 0 defectos: Indicador en verde esmeralda con check
           const xPos = x.getPixelForValue(0) + 10;
           ctx.fillStyle = "#34d399"; // emerald-400
           ctx.font = "bold 11px sans-serif";
@@ -8497,7 +8497,7 @@ function renderChartDefectosModelosBar(defectItems) {
           ctx.textBaseline = "middle";
           ctx.fillText("0  ✓  Sin defectos (100% Conforme)", xPos, yPos);
         } else {
-          // L&#237;nea con defectos: Mostrar total e insignia de causas
+          // Línea con defectos: Mostrar total e insignia de causas
           const xPos = x.getPixelForValue(stat.total) + 10;
           ctx.fillStyle = "#ffffff";
           ctx.font = "bold 12px monospace";
@@ -8539,7 +8539,7 @@ function renderChartDefectosModelosBar(defectItems) {
             title: (items) => {
               const idx = items[0].dataIndex;
               const s = sortedStats[idx];
-              return `L&#237;nea: ${s.modelo} • Total Defectos: ${s.total}`;
+              return `Línea: ${s.modelo} • Total Defectos: ${s.total}`;
             },
             label: (ctx) => {
               const val = ctx.parsed.x;
@@ -8562,7 +8562,7 @@ function renderChartDefectosModelosBar(defectItems) {
           grid: { color: "rgba(51, 65, 85, 0.4)" },
           title: {
             display: true,
-            text: "N&#250;mero de Defectos e Incidencias (Piezas)",
+            text: "Número de Defectos e Incidencias (Piezas)",
             color: "#64748b",
             font: { size: 10, weight: "bold" }
           }
@@ -8592,7 +8592,7 @@ function renderChartDefectosModelosBar(defectItems) {
       const zeroModelNames = linesZeroDefects.map(s => s.modelo).join(", ");
       summaryEl.innerHTML = `
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <span>🚨 L&#237;nea prioritaria: <strong class="text-rose-400 font-bold">${topModel.modelo}</strong> con <strong class="text-white">${topModel.total} defecto(s)</strong></span>
+          <span>🚨 Línea prioritaria: <strong class="text-rose-400 font-bold">${topModel.modelo}</strong> con <strong class="text-white">${topModel.total} defecto(s)</strong></span>
           <span class="text-emerald-400 font-medium"><i class="fa-solid fa-circle-check"></i> <strong>${linesZeroDefects.length} líneas</strong> con Cero Defectos ${zeroModelNames ? `(${zeroModelNames})` : ''}</span>
         </div>
       `;
@@ -8600,7 +8600,7 @@ function renderChartDefectosModelosBar(defectItems) {
   }
 }
 
-// 4. Gr&#225;fica de Tendencia Diaria Multiturno (Lunes a Sábado)
+// 4. Gráfica de Tendencia Diaria Multiturno (Lunes a Sábado)
 function renderChartDefectosTendenciaBar(defectItems, filterTurno = "") {
   const ctx = document.getElementById("chart-defectos-tendencia-bar");
   if (!ctx) return;
@@ -8756,7 +8756,7 @@ function renderChartDefectosTendenciaBar(defectItems, filterTurno = "") {
   if (summaryEl) {
     summaryEl.innerHTML = totalDefectos > 0
       ? `Total: <strong class="text-white">${totalDefectos} defecto(s)</strong> en ${diasConDefectos} jornada(s) laboral(es) (Lunes a Sábado)`
-      : `Sin defectos registrados en el per&#237;odo`;
+      : `Sin defectos registrados en el período`;
   }
 }
 
@@ -8939,7 +8939,7 @@ function updateCabinasBadge() {
   const criticaCount = pending.filter(c => getNivelUrgenciaCabina(c) === "critica").length;
   const mediaCount = pending.filter(c => getNivelUrgenciaCabina(c) === "media").length;
   const bajaCount = pending.filter(c => getNivelUrgenciaCabina(c) === "baja").length;
-  const countText = `${count} L&#237;nea${count === 1 ? '' : 's'}`;
+  const countText = `${count} Línea${count === 1 ? '' : 's'}`;
 
   // 1. Badge superior en barra de navegación (zona encerrada)
   const badgeNav = document.getElementById("badge-cabinas-count");
@@ -8949,7 +8949,7 @@ function updateCabinasBadge() {
       badgeNav.className = "px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-[11px] font-extrabold";
     } else {
       badgeNav.className = "px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[11px] font-bold";
-      badgeNav.innerText = "0 L&#237;neas";
+      badgeNav.innerText = "0 Líneas";
     }
   }
 
@@ -8965,10 +8965,10 @@ function updateCabinasBadge() {
   // 2. Encabezado y contadores del modal
   const modalHeaderBadge = document.getElementById("modal-cabinas-badge-header");
   if (modalHeaderBadge) {
-    modalHeaderBadge.innerText = `${count} L&#237;nea${count === 1 ? '' : 's'} en Espera`;
+    modalHeaderBadge.innerText = `${count} Línea${count === 1 ? '' : 's'} en Espera`;
     if (count === 0) {
       modalHeaderBadge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono";
-      modalHeaderBadge.innerText = "Todas las L&#237;neas al Día";
+      modalHeaderBadge.innerText = "Todas las Líneas al Día";
     } else {
       modalHeaderBadge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono";
     }
@@ -8987,7 +8987,7 @@ function updateCabinasBadge() {
   const countBaja = document.getElementById("count-cabinas-baja");
   if (countBaja) countBaja.innerText = bajaCount;
 
-  // 3. Alerta en Nueva Inspecci&#243;n
+  // 3. Alerta en Nueva Inspección
   const nuevaCount = document.getElementById("nueva-cabinas-count-text");
   if (nuevaCount) nuevaCount.innerText = countText;
   const nuevaAlert = document.getElementById("nueva-cabinas-alert");
@@ -8999,7 +8999,7 @@ function updateCabinasBadge() {
   // 4. Alerta en Dashboard Gerente
   const gerenteBadge = document.getElementById("gerente-cabinas-badge");
   if (gerenteBadge) {
-    gerenteBadge.innerText = `${count} L&#237;nea${count === 1 ? '' : 's'} Requieren Coordinador`;
+    gerenteBadge.innerText = `${count} Línea${count === 1 ? '' : 's'} Requieren Coordinador`;
     if (count === 0) {
       gerenteBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono";
       gerenteBadge.innerText = "Cabinas al 100% Liberadas";
@@ -9011,7 +9011,7 @@ function updateCabinasBadge() {
   if (gerenteSummary) {
     if (count > 0) {
       const summaryList = pending.map(c => `${c.linea} (${c.serie_cabina})`).join(", ");
-      gerenteSummary.innerText = `L&#237;neas en espera de liberación: ${summaryList}`;
+      gerenteSummary.innerText = `Líneas en espera de liberación: ${summaryList}`;
     } else {
       gerenteSummary.innerText = "Todas las cabinas finalizadas en piso han sido inspeccionadas y liberadas por el coordinador.";
     }
@@ -9066,12 +9066,12 @@ function renderSidebarNotificaciones() {
 
   // Actualizar badges del encabezado
   if (countBadge) {
-    countBadge.innerText = `${pending.length} L&#237;nea${pending.length === 1 ? '' : 's'}`;
+    countBadge.innerText = `${pending.length} Línea${pending.length === 1 ? '' : 's'}`;
     if (pending.length > 0) {
       countBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono";
     } else {
       countBadge.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono";
-      countBadge.innerText = "0 L&#237;neas";
+      countBadge.innerText = "0 Líneas";
     }
   }
 
@@ -9085,7 +9085,7 @@ function renderSidebarNotificaciones() {
         <div class="w-10 h-10 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center text-emerald-400 shadow-sm">
           <i class="fa-solid fa-circle-check text-lg"></i>
         </div>
-        <p class="text-xs font-bold text-slate-200">¡L&#237;neas al Día!</p>
+        <p class="text-xs font-bold text-slate-200">¡Líneas al Día!</p>
         <p class="text-[11px] text-slate-400">No hay líneas en espera de coordinador en este momento.</p>
       </div>
     `;
@@ -9144,14 +9144,14 @@ function renderSidebarNotificaciones() {
       ? `<span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 flex items-center gap-1 shadow-sm"><i class="fa-solid fa-user-tag text-[9px]"></i> Te Solicitan</span>`
       : "";
 
-    const supervisorText = c.supervisor_linea || c.solicitante || "Supervisor de L&#237;nea";
+    const supervisorText = c.supervisor_linea || c.solicitante || "Supervisor de Línea";
 
     html += `
       <div class="p-3 rounded-xl ${bgAccent} border ${borderAccent} transition hover:border-slate-500 hover:bg-slate-750/70 shadow-sm space-y-2">
         <div class="flex items-start justify-between gap-1.5">
           <div class="flex items-center gap-1.5 flex-wrap">
             <span class="inline-flex items-center gap-1 text-xs font-black text-white bg-slate-700/80 border border-slate-600/60 px-2 py-0.5 rounded-md">
-              <i class="fa-solid fa-industry text-amber-400 text-[11px]"></i> L&#237;nea ${c.linea}
+              <i class="fa-solid fa-industry text-amber-400 text-[11px]"></i> Línea ${c.linea}
             </span>
             ${forMeBadge}
           </div>
@@ -9179,7 +9179,7 @@ function renderSidebarNotificaciones() {
 
         <div class="pt-1 flex items-center gap-2">
           <button type="button" onclick="abrirInspeccionCabina('${c.id}')" class="flex-1 py-1.5 px-2.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-[11px] shadow-sm shadow-emerald-700/30 flex items-center justify-center gap-1.5 transition active:scale-95 cursor-pointer">
-            <i class="fa-solid fa-clipboard-check text-xs"></i> Atender L&#237;nea
+            <i class="fa-solid fa-clipboard-check text-xs"></i> Atender Línea
           </button>
           <button type="button" onclick="filtrarPorLineaQG('${c.linea}')" title="Filtrar esta línea en el módulo de cabinas" class="py-1.5 px-2.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 border border-slate-600/60 text-[11px] font-semibold flex items-center justify-center transition cursor-pointer">
             <i class="fa-solid fa-arrow-up-right-from-square text-cyan-400"></i>
@@ -9202,10 +9202,10 @@ function logAuditAction(entry) {
       id_inspeccion: entry.id_inspeccion || "CABINA-QG",
       nomina_editor: entry.usuario || (appState.currentUser ? appState.currentUser.nomina : 1042),
       fecha_hora: nowStr,
-      campo_modificado: entry.campo_modificado || "Liberaci&#243;n QG",
-      status_anterior: entry.valor_anterior || "En L&#237;nea",
+      campo_modificado: entry.campo_modificado || "Liberación QG",
+      status_anterior: entry.valor_anterior || "En Línea",
       status_final: entry.status_final || "Esperando Coordinador",
-      valor_anterior: entry.valor_anterior || "En L&#237;nea",
+      valor_anterior: entry.valor_anterior || "En Línea",
       valor_nuevo: entry.status_final || "Esperando Coordinador",
       justificacion_motivo: entry.motivo || ""
     });
@@ -9228,7 +9228,7 @@ function updateLineFilterButtonsCounts() {
     const isActive = (linea === "all" && currentCabinasFilter === "all") || (currentCabinasFilter === `LINEA:${linea}`);
     if (linea === "all") {
       const total = list.length;
-      btn.innerHTML = `📋 Todas las L&#237;neas (${total})`;
+      btn.innerHTML = `📋 Todas las Líneas (${total})`;
       btn.className = isActive
         ? "px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 border border-amber-300 text-[10px] font-black whitespace-nowrap transition cursor-pointer shadow-md"
         : "px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-slate-200 border border-slate-700 text-[10px] font-bold whitespace-nowrap transition cursor-pointer";
@@ -9273,13 +9273,13 @@ function applyQGModalRoleVisibility() {
       footerHint.innerHTML = `Vista de <strong>Coordinador / QG</strong>: Revisa las urgencias por checar, registra tus datos y sube fotos de evidencia de inspección.`;
     }
   } else {
-    // Para Supervisores de L&#237;nea, Supervisor General y Gerente: Mostrar ambas opciones
+    // Para Supervisores de Línea, Supervisor General y Gerente: Mostrar ambas opciones
     if (btnForm) {
       btnForm.classList.remove("hidden");
       btnForm.style.display = "";
     }
     if (footerHint) {
-      footerHint.innerHTML = `Usa los iconos superiores para alternar entre <strong>Urgencias por Checar</strong> y <strong>Subir Información del Supervisor de L&#237;nea</strong>.`;
+      footerHint.innerHTML = `Usa los iconos superiores para alternar entre <strong>Urgencias por Checar</strong> y <strong>Subir Información del Supervisor de Línea</strong>.`;
     }
   }
 }
@@ -9307,7 +9307,7 @@ function filtrarPorLineaQG(linea) {
     return;
   }
 
-  // Preseleccionar también la línea en el formulario de envío para comodidad del Supervisor de L&#237;nea
+  // Preseleccionar también la línea en el formulario de envío para comodidad del Supervisor de Línea
   const selFormLinea = document.getElementById("solicitar-cabina-linea");
   if (selFormLinea) {
     selFormLinea.value = linea;
@@ -9428,17 +9428,17 @@ function renderCabinasCoordinadorList(filter = 'all') {
                 <i class="fa-solid fa-circle-check"></i>
               </div>
               <div class="text-white font-black text-sm">
-                ${filteredLineName ? `L&#237;nea ${filteredLineName} sin Cabinas en Espera de QG` : `Sin Cabinas Pendientes ${urgLabel}`}
+                ${filteredLineName ? `Línea ${filteredLineName} sin Cabinas en Espera de QG` : `Sin Cabinas Pendientes ${urgLabel}`}
               </div>
               <div class="text-xs text-slate-400">
                 ${filteredLineName
-                  ? `${supInfo ? supInfo.nombre : 'El Supervisor de L&#237;nea'} puede enviar información cuando requiera que un Coordinador / QG acuda a liberar una cabina en L&#237;nea ${filteredLineName}.`
+                  ? `${supInfo ? supInfo.nombre : 'El Supervisor de Línea'} puede enviar información cuando requiera que un Coordinador / QG acuda a liberar una cabina en Línea ${filteredLineName}.`
                   : `No hay cabinas terminadas en espera de coordinador ${urgLabel}.`}
               </div>
               <div class="pt-1 flex items-center justify-center gap-2">
                 ${(filteredLineName && !isCurrentUserQGOnly()) ? `
                   <button type="button" onclick="seleccionarSupervisorLineaParaQG('${filteredLineName}')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-xs shadow-lg cursor-pointer transition">
-                    <i class="fa-solid fa-paper-plane mr-1"></i> + Mandar Info a QG desde L&#237;nea ${filteredLineName}
+                    <i class="fa-solid fa-paper-plane mr-1"></i> + Mandar Info a QG desde Línea ${filteredLineName}
                   </button>
                 ` : ''}
                 <button type="button" onclick="filterCabinasList('all')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs cursor-pointer transition">
@@ -9458,11 +9458,11 @@ function renderCabinasCoordinadorList(filter = 'all') {
             <i class="fa-solid fa-circle-check"></i>
           </div>
           <h4 class="text-white font-black text-sm">
-            ${filteredLineName ? `L&#237;nea ${filteredLineName} sin Cabinas en Espera de QG` : `Sin Cabinas Pendientes ${urgLabel}`}
+            ${filteredLineName ? `Línea ${filteredLineName} sin Cabinas en Espera de QG` : `Sin Cabinas Pendientes ${urgLabel}`}
           </h4>
           <p class="text-xs text-slate-400 max-w-md mx-auto">
             ${filteredLineName
-              ? `${supInfo ? supInfo.nombre : 'El Supervisor de L&#237;nea'} puede enviar información cuando requiera que un Coordinador / QG acuda a liberar una cabina en L&#237;nea ${filteredLineName}.`
+              ? `${supInfo ? supInfo.nombre : 'El Supervisor de Línea'} puede enviar información cuando requiera que un Coordinador / QG acuda a liberar una cabina en Línea ${filteredLineName}.`
               : `No hay cabinas terminadas en espera de coordinador ${urgLabel}.`}
           </p>
         </div>
@@ -9553,7 +9553,7 @@ function renderCabinasCoordinadorList(filter = 'all') {
         <tr class="${rowBgClass}">
           <td class="p-3 whitespace-nowrap">${urgenciaCell}</td>
           <td class="p-3 whitespace-nowrap">
-            <div class="font-black text-white text-xs">L&#237;nea ${item.linea}</div>
+            <div class="font-black text-white text-xs">Línea ${item.linea}</div>
             <span class="inline-block mt-0.5 px-1.5 py-0.2 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">${item.area}</span>
           </td>
           <td class="p-3 whitespace-nowrap">
@@ -9680,7 +9680,7 @@ function renderCabinasCoordinadorList(filter = 'all') {
     const fotosHtml = fotosEvidencia.length > 0 ? `
       <div class="pt-2 border-t border-slate-800/80 space-y-1.5">
         <div class="text-[10px] font-extrabold uppercase text-emerald-400 flex items-center gap-1.5">
-          <i class="fa-solid fa-camera-retro"></i> Evidencia Fotográfica de Inspecci&#243;n QG (${fotosEvidencia.length} foto${fotosEvidencia.length === 1 ? '' : 's'}):
+          <i class="fa-solid fa-camera-retro"></i> Evidencia Fotográfica de Inspección QG (${fotosEvidencia.length} foto${fotosEvidencia.length === 1 ? '' : 's'}):
         </div>
         <div class="flex items-center gap-2 overflow-x-auto pb-1">
           ${fotosEvidencia.map(f => `
@@ -9695,7 +9695,7 @@ function renderCabinasCoordinadorList(filter = 'all') {
 
     return `
       <div class="p-4 rounded-xl ${borderClass} transition-all space-y-3">
-        <!-- Encabezado de la Tarjeta de L&#237;nea -->
+        <!-- Encabezado de la Tarjeta de Línea -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-800">
           <div class="flex items-center gap-2.5">
             <span class="w-9 h-9 rounded-lg ${iconBoxClass} flex items-center justify-center text-sm font-black shrink-0">
@@ -9705,7 +9705,7 @@ function renderCabinasCoordinadorList(filter = 'all') {
               <div class="flex items-center gap-2 flex-wrap">
                 ${lightIndicator}
                 <h4 class="text-sm font-black text-white tracking-wide">
-                  L&#237;nea ${item.linea}
+                  Línea ${item.linea}
                 </h4>
                 <span class="px-2 py-0.2 rounded text-[10px] font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-500/30">
                   ${item.area}
@@ -9722,9 +9722,9 @@ function renderCabinasCoordinadorList(filter = 'all') {
           </div>
         </div>
 
-        <!-- Detalles T&#233;cnicos y Criterios a Validar -->
+        <!-- Detalles Técnicos y Criterios a Validar -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-          <!-- Columna 1: Datos de Producci&#243;n -->
+          <!-- Columna 1: Datos de Producción -->
           <div class="space-y-1.5 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
             <div class="flex justify-between text-[11px]">
               <span class="text-slate-400">No. Parte:</span>
@@ -9735,7 +9735,7 @@ function renderCabinasCoordinadorList(filter = 'all') {
               <span class="text-slate-200 font-semibold">${item.hora_finalizada} hrs (${item.fecha})</span>
             </div>
             <div class="flex justify-between text-[11px]">
-              <span class="text-slate-400">Supervisor de L&#237;nea:</span>
+              <span class="text-slate-400">Supervisor de Línea:</span>
               <span class="text-amber-300 font-bold">${item.supervisor_linea || item.solicitante}</span>
             </div>
             <div class="flex justify-between text-[11px]">
@@ -9755,10 +9755,10 @@ function renderCabinasCoordinadorList(filter = 'all') {
             ` : ''}
           </div>
 
-          <!-- Columna 2: Criterios T&#233;cnicos para el Coordinador / QG -->
+          <!-- Columna 2: Criterios Técnicos para el Coordinador / QG -->
           <div class="space-y-1 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
             <div class="text-[10px] uppercase font-bold text-slate-400 tracking-wider mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-list-check text-emerald-400"></i> Puntos Clave de Inspecci&#243;n Coordinador / QG:
+              <i class="fa-solid fa-list-check text-emerald-400"></i> Puntos Clave de Inspección Coordinador / QG:
             </div>
             ${criteriosHtml}
             ${fotosHtml}
@@ -9776,11 +9776,11 @@ function renderCabinasCoordinadorList(filter = 'all') {
           <div class="flex items-center gap-2 shrink-0">
             ${isPending ? `
               <button type="button" onclick="abrirInspeccionCabina('${item.id}')" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-extrabold text-xs shadow-md shadow-emerald-600/30 flex items-center gap-1.5 transition active:scale-95 cursor-pointer">
-                <i class="fa-solid fa-clipboard-check text-sm"></i> Realizar Inspecci&#243;n de Coordinador / QG
+                <i class="fa-solid fa-clipboard-check text-sm"></i> Realizar Inspección de Coordinador / QG
               </button>
             ` : `
               <button type="button" onclick="abrirInspeccionCabina('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 transition cursor-pointer">
-                <i class="fa-solid fa-eye text-cyan-400"></i> Ver Detalle de Liberaci&#243;n
+                <i class="fa-solid fa-eye text-cyan-400"></i> Ver Detalle de Liberación
               </button>
             `}
           </div>
@@ -9905,13 +9905,13 @@ function handleSolicitarCoordinadorCabina(event) {
   const coordDestino = selCoord ? selCoord.value : "Cualquier Coordinador / QG Disponible en Turno";
   const urgenciaRaw = selUrgencia ? selUrgencia.value : "media";
   const urgenciaVal = urgenciaRaw === "critica" ? 25 : (urgenciaRaw === "media" ? 15 : (urgenciaRaw === "baja" ? 5 : (parseInt(urgenciaRaw, 10) || 15)));
-  const tipoApoyo = selTipoApoyo ? selTipoApoyo.value : "Liberaci&#243;n Final de Cabina Terminada";
+  const tipoApoyo = selTipoApoyo ? selTipoApoyo.value : "Liberación Final de Cabina Terminada";
   const notasRaw = inNotas ? inNotas.value.trim() : "";
 
   const supInfo = SUPERVISORES_POR_LINEA[linea];
   const supervisorLineaStr = supInfo
     ? `${supInfo.nombre} (${supInfo.nomina})`
-    : (appState.currentUser ? `${appState.currentUser.nombre} (${appState.currentUser.nomina})` : `Supervisor de L&#237;nea ${linea}`);
+    : (appState.currentUser ? `${appState.currentUser.nombre} (${appState.currentUser.nomina})` : `Supervisor de Línea ${linea}`);
 
   const partMatch = appState.componentes.find(c => c.modelo === linea) || { numero_parte: "PN-CAB-" + linea };
 
@@ -9956,10 +9956,10 @@ function handleSolicitarCoordinadorCabina(event) {
   // Registro de Auditoría Inmutable
   logAuditAction({
     id_inspeccion: serie,
-    campo_modificado: "Solicitud Supervisor de L&#237;nea a QG",
+    campo_modificado: "Solicitud Supervisor de Línea a QG",
     status_final: "Esperando Coordinador",
     valor_anterior: "Ensamble",
-    motivo: `${supervisorLineaStr} envió información a ${coordDestino} para liberar cabina en L&#237;nea ${linea} (${estacion}): ${mensajeFinal}`,
+    motivo: `${supervisorLineaStr} envió información a ${coordDestino} para liberar cabina en Línea ${linea} (${estacion}): ${mensajeFinal}`,
     usuario: supInfo ? supInfo.nomina : (appState.currentUser ? appState.currentUser.nomina : 4001)
   });
 
@@ -9981,7 +9981,7 @@ function handleSolicitarCoordinadorCabina(event) {
   const banner = document.getElementById("qg-envio-confirmacion");
   const bannerTxt = document.getElementById("qg-envio-confirmacion-texto");
   if (banner && bannerTxt) {
-    bannerTxt.innerText = `✅ Información enviada de L&#237;nea ${linea} (${serie}) para ${coordDestino}: "${mensajeFinal}"`;
+    bannerTxt.innerText = `✅ Información enviada de Línea ${linea} (${serie}) para ${coordDestino}: "${mensajeFinal}"`;
     banner.classList.remove("hidden");
   }
 }
@@ -10118,7 +10118,7 @@ function abrirInspeccionCabina(cabinaId) {
   if (!modal) return;
 
   const tLinea = document.getElementById("insp-cabina-linea-titulo");
-  if (tLinea) tLinea.innerText = `L&#237;nea ${item.linea} • Serie ${item.serie_cabina}`;
+  if (tLinea) tLinea.innerText = `Línea ${item.linea} • Serie ${item.serie_cabina}`;
 
   const tParte = document.getElementById("insp-cabina-parte");
   if (tParte) tParte.innerText = item.numero_parte;
@@ -10256,7 +10256,7 @@ function ejecutarDictamenCabina(resultado) {
 
     logAuditAction({
       id_inspeccion: item.serie_cabina,
-      campo_modificado: "Liberaci&#243;n de Cabina por Coordinador / QG",
+      campo_modificado: "Liberación de Cabina por Coordinador / QG",
       status_final: "Liberada",
       valor_anterior: "Esperando Coordinador",
       motivo: `Inspeccionó y liberó: ${coordNombreCompleto} (Solicitado originalmente: ${item.coordinador_solicitado || 'En Turno'}). Fotos de evidencia: ${item.fotos_evidencia_qg.length}. ${item.dictamen_notas}`,
@@ -10269,17 +10269,17 @@ function ejecutarDictamenCabina(resultado) {
     if (typeof updateOperatorShiftBanner === "function") updateOperatorShiftBanner();
     closeInspeccionCabinaActionModal();
 
-    alert(`✅ ¡CABINA LIBERADA EXITOSAMENTE POR QG!\n\nSerie: ${item.serie_cabina}\nL&#237;nea: ${item.linea}\nInspeccionó y Liberó: ${coordNombreCompleto}\nFotos de Evidencia: ${item.fotos_evidencia_qg.length}\n\nLa cabina ha recibido el sello de calidad inmutable y puede avanzar.`);
+    alert(`✅ ¡CABINA LIBERADA EXITOSAMENTE POR QG!\n\nSerie: ${item.serie_cabina}\nLínea: ${item.linea}\nInspeccionó y Liberó: ${coordNombreCompleto}\nFotos de Evidencia: ${item.fotos_evidencia_qg.length}\n\nLa cabina ha recibido el sello de calidad inmutable y puede avanzar.`);
   } else {
     item.estatus = "Retrabajo";
     item.dictamen_notas = dictamenNotas || "Observaciones técnicas encontradas en ensamble o pintura. Requiere retrabajo.";
 
     logAuditAction({
       id_inspeccion: item.serie_cabina,
-      campo_modificado: "Inspecci&#243;n Cabina QG - Rechazo / Retrabajo",
+      campo_modificado: "Inspección Cabina QG - Rechazo / Retrabajo",
       status_final: "Retrabajo",
       valor_anterior: "Esperando Coordinador",
-      motivo: `Inspeccionó: ${coordNombreCompleto}. Envió cabina a retrabajo en L&#237;nea ${item.linea}. Fotos adjuntas: ${item.fotos_evidencia_qg.length}. ${item.dictamen_notas}`,
+      motivo: `Inspeccionó: ${coordNombreCompleto}. Envió cabina a retrabajo en Línea ${item.linea}. Fotos adjuntas: ${item.fotos_evidencia_qg.length}. ${item.dictamen_notas}`,
       usuario: parseInt(qgNomina, 10) || (appState.currentUser ? appState.currentUser.nomina : 1042)
     });
 
@@ -10289,7 +10289,7 @@ function ejecutarDictamenCabina(resultado) {
     if (typeof updateOperatorShiftBanner === "function") updateOperatorShiftBanner();
     closeInspeccionCabinaActionModal();
 
-    alert(`⚠️ CABINA ENVIADA A RETRABAJO\n\nSerie: ${item.serie_cabina}\nL&#237;nea: ${item.linea}\nInspeccionó: ${coordNombreCompleto}\nFotos de Evidencia: ${item.fotos_evidencia_qg.length}\nObservaciones: ${item.dictamen_notas}`);
+    alert(`⚠️ CABINA ENVIADA A RETRABAJO\n\nSerie: ${item.serie_cabina}\nLínea: ${item.linea}\nInspeccionó: ${coordNombreCompleto}\nFotos de Evidencia: ${item.fotos_evidencia_qg.length}\nObservaciones: ${item.dictamen_notas}`);
   }
 }
 
@@ -10546,7 +10546,7 @@ function updatePlantSensorsStatus() {
           tagEl.className = isCritica ? "text-[9px] text-rose-950 font-mono font-black" : "text-[9px] text-slate-950 font-mono font-black";
         }
         if (statusBadgeEl) {
-          statusBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> âš ï¸ Esperando QG (${mins}m)`;
+          statusBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> ⚠️ Esperando QG (${mins}m)`;
           statusBadgeEl.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono";
         }
       } else if (status === "defecto") {
@@ -10557,7 +10557,7 @@ function updatePlantSensorsStatus() {
           tagEl.className = "text-[9px] text-rose-950 font-mono font-black";
         }
         if (statusBadgeEl) {
-          statusBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-400"></span> ðŸš¨ Defecto Reportado`;
+          statusBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-400"></span> 🚨 Defecto Reportado`;
           statusBadgeEl.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 font-mono";
         }
       } else {
@@ -10573,7 +10573,7 @@ function updatePlantSensorsStatus() {
           tagEl.innerText = "";
         }
         if (statusBadgeEl) {
-          statusBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400"></span> âœ” Normal / Liberada`;
+          statusBadgeEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400"></span> ✔ Normal / Liberada`;
           statusBadgeEl.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
         }
       }
@@ -10598,14 +10598,14 @@ function updatePlantSensorsStatus() {
   if (fCountLib) fCountLib.innerText = 13 - (totalPending + defectCount);
 
   const hudFabsEspera = document.getElementById("hud-fabs-espera");
-  if (hudFabsEspera) hudFabsEspera.innerText = `${fabsPendingCount} L&#237;neas`;
+  if (hudFabsEspera) hudFabsEspera.innerText = `${fabsPendingCount} Líneas`;
   const hudFabsLib = document.getElementById("hud-fabs-liberadas");
   if (hudFabsLib) hudFabsLib.innerText = liberadasCount;
   const hudFabsDef = document.getElementById("hud-fabs-defectos");
   if (hudFabsDef) hudFabsDef.innerText = defectCount;
 
   const hudKEspera = document.getElementById("hud-k-espera");
-  if (hudKEspera) hudKEspera.innerText = `${kPendingCount} L&#237;neas`;
+  if (hudKEspera) hudKEspera.innerText = `${kPendingCount} Líneas`;
 
   const fabsTopBadge = document.getElementById("fabs-badge-solicitudes-top");
   if (fabsTopBadge) fabsTopBadge.innerText = `${fabsPendingCount} Solicitud${fabsPendingCount === 1 ? '' : 'es'} QG`;
@@ -10651,11 +10651,11 @@ function abrirDetalleSensorPlanta(linea) {
   }
 
   if (tSup) {
-    tSup.innerText = supInfo ? `${supInfo.nombre} (${supInfo.nomina})` : `Supervisor de L&#237;nea ${linea}`;
+    tSup.innerText = supInfo ? `${supInfo.nombre} (${supInfo.nomina})` : `Supervisor de Línea ${linea}`;
   }
 
   if (tCriterio) {
-    tCriterio.innerText = compInfo.criterio || "Inspecci&#243;n dimensional, AWS D1.1 y calidad de ensamble.";
+    tCriterio.innerText = compInfo.criterio || "Inspección dimensional, AWS D1.1 y calidad de ensamble.";
   }
 
   if (cabinaReq) {
@@ -10682,7 +10682,7 @@ function abrirDetalleSensorPlanta(linea) {
     }
     if (btnAtender) {
       btnAtender.classList.remove("hidden");
-      btnAtender.innerText = `Atender L&#237;nea ${linea} Ahora`;
+      btnAtender.innerText = `Atender Línea ${linea} Ahora`;
     }
   } else {
     if (tUrg) {
@@ -10696,7 +10696,7 @@ function abrirDetalleSensorPlanta(linea) {
       tQg.innerText = "No se requiere coordinador en este momento";
     }
     if (tTiempo) {
-      tTiempo.innerText = "Sin tiempo de espera (L&#237;nea al día)";
+      tTiempo.innerText = "Sin tiempo de espera (Línea al día)";
       tTiempo.className = "font-mono font-semibold text-emerald-400";
     }
     if (bNotasBox) bNotasBox.classList.add("hidden");
@@ -10771,7 +10771,7 @@ function simularAlertaSensorRandom() {
   }
 
   const pickedLine = pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : "COBOT";
-  const supInfo = SUPERVISORES_POR_LINEA[pickedLine] || { nombre: `Sup. L&#237;nea ${pickedLine}`, nomina: 4013, area: "EDIFICIO K" };
+  const supInfo = SUPERVISORES_POR_LINEA[pickedLine] || { nombre: `Sup. Línea ${pickedLine}`, nomina: 4013, area: "EDIFICIO K" };
   const compInfo = (appState.componentes || DEFAULT_COMPONENTES).find(c => c.modelo === pickedLine) || { numero_parte: "PN-" + pickedLine };
 
   const nuevaAlerta = {
@@ -10791,8 +10791,8 @@ function simularAlertaSensorRandom() {
     minutos_espera: Math.floor(10 + Math.random() * 15),
     estatus: "Esperando Coordinador",
     coordinador_asignado: null,
-    criterios: [compInfo.criterio || "Inspecci&#243;n dimensional y soldadura"],
-    notas: `[SIMULACIÓN EN PISO] Supervisor de L&#237;nea ${pickedLine} reporta pieza terminada y solicita presencia del Coordinador / QG para validación dimensional.`
+    criterios: [compInfo.criterio || "Inspección dimensional y soldadura"],
+    notas: `[SIMULACIÓN EN PISO] Supervisor de Línea ${pickedLine} reporta pieza terminada y solicita presencia del Coordinador / QG para validación dimensional.`
   };
 
   appState.cabinasCoordinador.unshift(nuevaAlerta);
@@ -10809,7 +10809,7 @@ function simularAlertaSensorRandom() {
   }
 
   // Notificar al usuario
-  alert(`⚡ ¡NUEVA ALERTA DE SENSOR ACTIVADA!\n\nL&#237;nea: ${pickedLine} (${supInfo.area})\nSerie: ${nuevaAlerta.serie_cabina}\nSupervisor: ${nuevaAlerta.supervisor_linea}\n\nEl sensor de L&#237;nea ${pickedLine} ahora está PARPADEANDO en el plano interactivo.`);
+  alert(`⚡ ¡NUEVA ALERTA DE SENSOR ACTIVADA!\n\nLínea: ${pickedLine} (${supInfo.area})\nSerie: ${nuevaAlerta.serie_cabina}\nSupervisor: ${nuevaAlerta.supervisor_linea}\n\nEl sensor de Línea ${pickedLine} ahora está PARPADEANDO en el plano interactivo.`);
 }
 window.simularAlertaSensorRandom = simularAlertaSensorRandom;
 
@@ -10818,7 +10818,7 @@ window.simularAlertaSensorRandom = simularAlertaSensorRandom;
 
 
 
-// ==================== 6. GR&#193;FICAS DE CAUSAS RAÍZ HUMANAS & FACTORES DE PERSONAL ====================
+// ==================== 6. GRÁFICAS DE CAUSAS RAÍZ HUMANAS & FACTORES DE PERSONAL ====================
 function renderChartDefectosMotivos(defectItems) {
   const ctx = document.getElementById("chart-defectos-motivos");
   if (!ctx) return;
@@ -11040,7 +11040,7 @@ function renderPersonalRetroalimentacionTable(defectItems) {
     const opNombre = item.responsable_nombre || (item.turnos && item.turnos[0] ? ((item.turnos[0].turno || "").startsWith("Turno") ? ("Colaborador " + item.turnos[0].turno) : ("Colaborador Turno " + item.turnos[0].turno)) : "Colaborador de Soldadura");
     const opNomina = item.responsable_nomina || "5012";
     const motivo = item.responsable_motivo || "En entrenamiento / Sin certificar";
-    const notas = item.responsable_observaciones || item.descripcion_faltantes || "Requiere refuerzo t&#233;cnico de estación.";
+    const notas = item.responsable_observaciones || item.descripcion_faltantes || "Requiere refuerzo técnico de estación.";
     const estatus = item.retroalimentacion_estatus || "Pendiente";
 
     let motivoBadgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/40";
@@ -11072,7 +11072,7 @@ function renderPersonalRetroalimentacionTable(defectItems) {
     const accionBtn = estatus === "Realizada"
       ? '<span class="text-[11px] text-emerald-400 font-bold whitespace-nowrap"><i class="fa-solid fa-check"></i> Realizada</span>'
       : ('<button onclick="darRetroalimentacion(\'' + (item.id_inspeccion || '') + '\')" class="px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-yellow-300 text-slate-950 font-black text-xs transition cursor-pointer shadow-md flex items-center gap-1.5 whitespace-nowrap active:scale-95">' +
-          '<i class="fa-solid fa-chalkboard-user"></i> Dar Retroalimentaci&#243;n' +
+          '<i class="fa-solid fa-chalkboard-user"></i> Dar Retroalimentación' +
         '</button>');
 
     tr.innerHTML = 
@@ -11126,7 +11126,7 @@ function darRetroalimentacion(idInspeccion) {
   const opNombre = item.responsable_nombre || "el colaborador";
   const motivo = item.responsable_motivo || "calidad de ensamble";
 
-  const confirmacion = confirm("¿Deseas confirmar que se impartió la Retroalimentaci&#243;n / Coaching en piso a " + opNombre + "?\n\nMotivo del Defecto: " + motivo + "\nL&#237;nea: " + (item.modelo || ""));
+  const confirmacion = confirm("¿Deseas confirmar que se impartió la Retroalimentación / Coaching en piso a " + opNombre + "?\n\nMotivo del Defecto: " + motivo + "\nLínea: " + (item.modelo || ""));
   if (!confirmacion) return;
 
   item.retroalimentacion_estatus = "Realizada";
@@ -11136,17 +11136,17 @@ function darRetroalimentacion(idInspeccion) {
   if (typeof logAuditAction === "function") {
     logAuditAction({
       id_inspeccion: item.id_inspeccion,
-      campo_modificado: "Retroalimentaci&#243;n Impartida",
+      campo_modificado: "Retroalimentación Impartida",
       status_final: item.estatus,
       valor_anterior: "Pendiente",
-      motivo: "Retroalimentaci&#243;n técnica y concientización completada en piso para " + opNombre + " (" + (item.responsable_nomina || "5012") + ") sobre causa raíz: " + motivo + ".",
+      motivo: "Retroalimentación técnica y concientización completada en piso para " + opNombre + " (" + (item.responsable_nomina || "5012") + ") sobre causa raíz: " + motivo + ".",
       usuario: appState.currentUser ? appState.currentUser.nomina : 1042
     });
   }
 
   if (typeof saveToLocalStorage === "function") saveToLocalStorage();
   if (typeof renderDefectosTab === "function") renderDefectosTab();
-  alert("✅ Retroalimentaci&#243;n registrada exitosamente.\n\nColaborador: " + opNombre + "\nL&#237;nea: " + (item.modelo || "") + "\nEstatus: Retroalimentaci&#243;n Impartida y Sincronizada.");
+  alert("✅ Retroalimentación registrada exitosamente.\n\nColaborador: " + opNombre + "\nLínea: " + (item.modelo || "") + "\nEstatus: Retroalimentación Impartida y Sincronizada.");
 }
 window.darRetroalimentacion = darRetroalimentacion;
 
@@ -11181,7 +11181,7 @@ function abrirDetalleSensorPlantaConPersonal(linea) {
     listaContainer.innerHTML = 
       '<div class="p-3 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">' +
         '<i class="fa-solid fa-circle-check text-emerald-400 text-base shrink-0"></i>' +
-        '<span>✓ <strong>Cero defectos registrados en L&#237;nea ' + linea + '.</strong> Todo el personal opera conforme a estándar.</span>' +
+        '<span>✓ <strong>Cero defectos registrados en Línea ' + linea + '.</strong> Todo el personal opera conforme a estándar.</span>' +
       '</div>';
     return;
   }
