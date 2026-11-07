@@ -1,0 +1,15 @@
+# Credenciales privadas de Google Cloud (No compartir públicamente)
+auditum-calidad-*.json
+service_account.json
+*.pem
+*.key
+
+# Archivos de respaldo y temporales
+*.bak
+*.new
+scratch/
+
+# Archivos del sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
