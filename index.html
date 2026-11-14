@@ -491,455 +491,200 @@
       </div>
     </div>
 
-        <!-- Navigation Tabs (HOME + 6 Opciones en el Orden Exacto Solicitado) -->
-    <div class="w-full border-t border-amber-400/30 bg-slate-950/60">
-      <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-2">
-        <nav class="flex flex-wrap xl:flex-nowrap items-center justify-center xl:justify-between gap-1.5" aria-label="Tabs">
-          <!-- Botón HOME (Menú Principal) -->
-          <button type="button" onclick="switchTab('home')" id="tab-btn-home" class="tab-btn nav-tab-btn nav-tab-home active px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-house text-xs sm:text-sm"></i>
-            <span>HOME</span>
-          </button>
-
-          <!-- 1. Nueva Inspección -->
-          <button type="button" onclick="switchTab('nueva')" id="tab-btn-nueva" class="tab-btn nav-tab-btn nav-tab-nueva px-2.5 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-clipboard-check text-xs"></i>
-            <span>1. Nueva Inspección</span>
-          </button>
-
-          <!-- 2. Traspaso de Turno -->
-          <button type="button" onclick="switchTab('traspaso')" id="tab-btn-traspaso" class="tab-btn nav-tab-btn nav-tab-traspaso px-2.5 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-clock-rotate-left text-xs"></i>
-            <span>2. Traspaso de Turno</span>
-            <span id="badge-incompletas" class="px-1.5 py-0.2 text-[10px] font-black rounded-full bg-amber-400 text-slate-950 border border-slate-950 font-mono shadow-sm">0</span>
-          </button>
-
-          <!-- 3. Líneas que Requieren QG -->
-          <button type="button" onclick="switchTab('cabinas')" id="tab-btn-cabinas" class="tab-btn nav-tab-btn nav-tab-cabinas px-2.5 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <span class="relative flex h-2 w-2" id="cabinas-ping-container">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-90"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500 shadow-[0_0_8px_#ef4444]"></span>
-            </span>
-            <i class="fa-solid fa-truck-pickup text-xs"></i>
-            <span>3. Líneas que Requieren QG</span>
-            <span id="badge-cabinas-count" class="px-1.5 py-0.2 text-[10px] font-black rounded-full bg-amber-400 text-slate-950 border border-slate-950 font-mono shadow-sm">3</span>
-          </button>
-
-          <!-- 4. Mapa de Planta (Sensores) -->
-          <button type="button" onclick="switchTab('mapa')" id="tab-btn-mapa" class="tab-btn nav-tab-btn nav-tab-mapa px-2.5 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer shadow-md">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-90"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
-            </span>
-            <i class="fa-solid fa-map-location-dot text-xs"></i>
-            <span>4. Mapa de Planta (Sensores)</span>
-            <span id="badge-mapa-alert-count" class="px-1.5 py-0.2 text-[10px] font-black rounded-full bg-emerald-400 text-slate-950 border border-slate-950 font-mono shadow-sm">3</span>
-          </button>
-
-          <!-- 5. Registro de Modificaciones -->
-          <button type="button" onclick="switchTab('auditoria')" id="tab-btn-auditoria" class="tab-btn nav-tab-btn nav-tab-auditoria px-2.5 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-shield-halved text-xs"></i>
-            <span>5. Registro de Modificaciones</span>
-          </button>
-
-          <!-- 6. Dashboard, Producción y Defectos -->
-          <button type="button" onclick="switchTab('gerente')" id="tab-btn-gerente" class="tab-btn nav-tab-btn nav-tab-gerente px-2.5 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-chart-line text-xs"></i>
-            <span>6. Dashboard, Producción y Defectos</span>
-            <span id="badge-total-defectos" class="px-1.5 py-0.2 text-[10px] font-black rounded-full bg-rose-500 text-white border border-white font-mono shadow-sm">0</span>
-          </button>
-
-          <!-- Aliases ocultos para compatibilidad -->
-          <span id="tab-btn-dashboard" class="hidden" style="display:none;"></span>
-          <span id="tab-btn-defectos" class="hidden" style="display:none;"></span>
-          <span id="btn-cabinas-coordinador" class="hidden" style="display:none;"></span>
-        </nav>
-      </div>
+            <!-- Aliases ocultos de pestañas en el header para mantener el encabezado limpio sin barra de pestañas -->
+    <div class="hidden" style="display:none !important;">
+      <button type="button" id="tab-btn-home" class="tab-btn"></button>
+      <button type="button" id="tab-btn-nueva" class="tab-btn"></button>
+      <button type="button" id="tab-btn-traspaso" class="tab-btn"></button>
+      <button type="button" id="tab-btn-cabinas" class="tab-btn"><span id="cabinas-ping-container"></span><span id="badge-cabinas-count">3</span></button>
+      <button type="button" id="tab-btn-mapa" class="tab-btn"><span id="badge-mapa-alert-count">3</span></button>
+      <button type="button" id="tab-btn-auditoria" class="tab-btn"></button>
+      <button type="button" id="tab-btn-gerente" class="tab-btn"><span id="badge-total-defectos">0</span></button>
+      <span id="badge-incompletas">0</span>
+      <span id="tab-btn-dashboard"></span>
+      <span id="tab-btn-defectos"></span>
+      <span id="btn-cabinas-coordinador"></span>
     </div>
   </header>
 
   <!-- ==================== MAIN CONTENT AREA ==================== -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full flex flex-col">
 
-    <!-- Barra Superior de Retorno al HOME cuando se está dentro de una pestaña (Oculta en HOME) -->
-    <div id="subtab-return-home-bar" class="hidden mb-5 bg-slate-900/95 border-2 border-amber-400/70 rounded-2xl px-4 py-2.5 shadow-xl flex flex-wrap items-center justify-between gap-3">
+    <!-- Barra Superior de Retorno al HOME cuando se ingresa a una opción (Oculta en HOME) -->
+    <div id="subtab-return-home-bar" class="hidden mb-5 bg-slate-950/95 border-2 border-amber-400 rounded-2xl px-4 py-3 shadow-2xl flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <button type="button" onclick="switchTab('home')" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-md cursor-pointer transition active:scale-95">
-          <i class="fa-solid fa-house"></i>
-          <span>⬅ Volver al HOME (Menú Principal)</span>
+        <button type="button" onclick="switchTab('home')" class="px-4 py-2 rounded-xl bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 hover:from-amber-200 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 border-2 border-yellow-200 shadow-[0_4px_0_#92400e,0_8px_15px_rgba(0,0,0,0.5)] active:translate-y-0.5 cursor-pointer transition">
+          <i class="fa-solid fa-house text-sm"></i>
+          <span>⬅ VOLVER AL HOME (MENÚ)</span>
         </button>
-        <div class="hidden sm:flex items-center gap-2 text-xs font-bold text-slate-300">
-          <span class="text-slate-500">/</span>
-          <span id="subtab-active-title" class="text-amber-300 font-black uppercase tracking-wide">Módulo Activo</span>
+        <div class="flex items-center gap-2 text-xs sm:text-sm font-black text-white">
+          <span class="text-amber-400">▸</span>
+          <span id="subtab-active-title" class="text-amber-300 uppercase tracking-wide">Módulo Activo</span>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button type="button" id="btn-open-current-new-tab" onclick="abrirPestanaActualEnNuevaVentana()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer transition">
-          <i class="fa-solid fa-up-right-from-square text-[11px]"></i>
-          <span>Abrir en pestaña nueva</span>
+        <button type="button" id="btn-open-current-new-tab" onclick="abrirPestanaActualEnNuevaVentana()" class="px-3.5 py-2 rounded-xl bg-gradient-to-b from-sky-400 to-blue-600 hover:from-sky-300 hover:to-blue-500 text-white border-2 border-white/80 text-xs font-black flex items-center gap-1.5 shadow-lg cursor-pointer transition active:scale-95">
+          <i class="fa-solid fa-up-right-from-square"></i>
+          <span>Abrir en otra pestaña</span>
         </button>
       </div>
     </div>
 
-    <!-- ==================== TAB 0: HOME (MENÚ PRINCIPAL DE OPCIONES Y ÁREAS) ==================== -->
-    <section id="tab-home" class="tab-content space-y-6">
+    <!-- ==================== TAB 0: HOME (MENÚ ESTILO BOTONES 3D CON CÍRCULOS DE ACCIÓN) ==================== -->
+    <section id="tab-home" class="tab-content flex-1 flex flex-col items-center justify-center py-2 sm:py-6">
       
-      <!-- Banner de Bienvenida del HOME -->
-      <div class="bg-slate-950/95 rounded-2xl border-2 border-amber-400 overflow-hidden shadow-2xl">
-        <div class="bg-hazard-card-header text-slate-950 px-6 py-4 border-b-2 border-slate-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-slate-950 text-amber-400 flex items-center justify-center text-2xl shadow-lg shrink-0">
-              <i class="fa-solid fa-house-laptop"></i>
-            </div>
-            <div>
-              <h1 class="text-lg sm:text-xl font-black uppercase tracking-wide text-slate-950">
-                HOME — Centro de Control y Navegación AUDITUM
-              </h1>
-              <p class="text-xs font-extrabold text-slate-900">
-                Selecciona cualquiera de las 6 opciones principales o haz clic en un Área de Planta para abrir su pestaña de información.
-              </p>
-            </div>
+      <div class="w-full max-w-2xl mx-auto bg-slate-950/90 backdrop-blur-md border-4 border-amber-500/80 rounded-3xl p-5 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.85)] space-y-6">
+        
+        <!-- Encabezado del Menú HOME -->
+        <div class="text-center space-y-1 border-b-2 border-amber-500/30 pb-4">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-xs font-black uppercase tracking-widest mb-1">
+            <i class="fa-solid fa-shield-halved"></i> MENÚ PRINCIPAL AUDITUM
           </div>
-          <div class="flex items-center gap-2 self-start sm:self-auto">
-            <span class="px-3 py-1.5 rounded-xl bg-slate-950 text-amber-300 text-xs font-black border border-amber-400/50 flex items-center gap-2 shadow">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span id="home-user-greeting">Sesión Activa</span>
-            </span>
-          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-white uppercase tracking-wide drop-shadow">
+            Selecciona el Área / Módulo a Ingresar
+          </h1>
+          <p class="text-xs text-slate-300 font-semibold" id="home-user-greeting">
+            Haz clic en cualquier botón para abrir su información correspondiente
+          </p>
         </div>
 
-        <!-- 6 OPCIONES PRINCIPALES EN EL ORDEN EXACTO SOLICITADO -->
-        <div class="p-5 sm:p-6 space-y-6">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <h2 class="text-xs sm:text-sm font-black uppercase tracking-wider text-amber-300 flex items-center gap-2">
-                <i class="fa-solid fa-table-cells-large text-amber-400"></i> Módulos Principales del Sistema (1 al 6)
-              </h2>
-              <span class="text-[11px] text-slate-400 font-semibold hidden sm:inline">
-                Haz clic en cualquier tarjeta para abrir su pestaña (o usa <i class="fa-solid fa-up-right-from-square text-cyan-400 mx-0.5"></i> para abrir en otra ventana)
-              </span>
-            </div>
+        <!-- LISTA VERTICAL DE LOS 6 BOTONES 3D + CÍRCULOS A LA DERECHA (COMO EN LA IMAGEN DE REFERENCIA) -->
+        <div class="space-y-4">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              
-              <!-- OPCIÓN 1: 1. Nueva Inspección -->
-              <div onclick="abrirModuloHome('nueva')" id="home-card-nueva" class="group relative bg-gradient-to-br from-slate-900 via-blue-950/60 to-slate-900 hover:from-blue-950/90 hover:to-slate-900 border-2 border-blue-500/80 hover:border-blue-400 rounded-2xl p-5 shadow-xl hover:shadow-blue-500/25 transition-all duration-200 cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-blue-600/40 border border-blue-300 group-hover:scale-105 transition">
-                      <i class="fa-solid fa-clipboard-check"></i>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="px-2.5 py-1 rounded-full text-[11px] font-black bg-blue-500/20 text-blue-300 border border-blue-400/40 font-mono">
-                        OPCIÓN 1
-                      </span>
-                      <button type="button" onclick="abrirModuloEnNuevaPestana('nueva', event)" title="Abrir 1. Nueva Inspección en otra pestaña del navegador" class="p-1.5 rounded-lg bg-slate-800/90 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 text-xs transition cursor-pointer">
-                        <i class="fa-solid fa-up-right-from-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-black text-white group-hover:text-blue-300 transition">
-                    1. Nueva Inspección
-                  </h3>
-                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Registro en piso de componentes de acero, cronómetro de inspección, número de serie, área y evidencia fotográfica dual.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-extrabold text-blue-300">
-                  <span><i class="fa-solid fa-bolt mr-1"></i> Captura en Piso</span>
-                  <span class="group-hover:translate-x-1 transition flex items-center gap-1 text-white bg-blue-600 px-3 py-1 rounded-lg shadow">
-                    Abrir Pestaña <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                  </span>
-                </div>
+          <!-- 1. NUEVA INSPECCIÓN -->
+          <div id="home-card-nueva" class="flex items-center gap-3 sm:gap-4">
+            <button type="button" onclick="abrirModuloHome('nueva')" class="flex-1 group relative p-1.5 rounded-2xl bg-gradient-to-b from-yellow-300 via-amber-500 to-amber-700 border-2 border-amber-900 shadow-[0_6px_0_#78350f,0_10px_20px_rgba(0,0,0,0.6)] active:translate-y-1 active:shadow-[0_2px_0_#78350f] transition-all cursor-pointer text-left">
+              <div class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-gradient-to-b from-lime-500 via-emerald-600 to-green-700 group-hover:from-lime-400 group-hover:to-green-600 border-t-2 border-lime-200/70 shadow-inner flex items-center justify-between">
+                <span class="text-sm sm:text-lg font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  1. Nueva Inspección
+                </span>
+                <span class="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-black/30 text-lime-100 text-[11px] font-black font-mono">
+                  REGISTRO
+                </span>
               </div>
-
-              <!-- OPCIÓN 2: 2. Traspaso de Turno -->
-              <div onclick="abrirModuloHome('traspaso')" id="home-card-traspaso" class="group relative bg-gradient-to-br from-slate-900 via-amber-950/50 to-slate-900 hover:from-amber-950/80 hover:to-slate-900 border-2 border-amber-500/80 hover:border-amber-400 rounded-2xl p-5 shadow-xl hover:shadow-amber-500/25 transition-all duration-200 cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl font-black shadow-lg shadow-amber-500/40 border border-amber-200 group-hover:scale-105 transition">
-                      <i class="fa-solid fa-clock-rotate-left"></i>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                      <span id="home-badge-traspaso" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-amber-400 text-slate-950 border border-slate-950 font-mono shadow">
-                        0 Pendientes
-                      </span>
-                      <button type="button" onclick="abrirModuloEnNuevaPestana('traspaso', event)" title="Abrir 2. Traspaso de Turno en otra pestaña del navegador" class="p-1.5 rounded-lg bg-slate-800/90 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 text-xs transition cursor-pointer">
-                        <i class="fa-solid fa-up-right-from-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-black text-white group-hover:text-amber-300 transition">
-                    2. Traspaso de Turno
-                  </h3>
-                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Inspecciones en pausa o inconclusas que deja el turno saliente para que el turno entrante las continúe con trazabilidad total.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-extrabold text-amber-300">
-                  <span><i class="fa-solid fa-handshake-angle mr-1"></i> Continuidad T1 / T2 / T3</span>
-                  <span class="group-hover:translate-x-1 transition flex items-center gap-1 text-slate-950 bg-amber-400 px-3 py-1 rounded-lg shadow font-black">
-                    Abrir Pestaña <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                  </span>
-                </div>
-              </div>
-
-              <!-- OPCIÓN 3: 3. Líneas que Requieren QG -->
-              <div onclick="abrirModuloHome('cabinas')" id="home-card-cabinas" class="group relative bg-gradient-to-br from-slate-900 via-red-950/60 to-slate-900 hover:from-red-950/85 hover:to-slate-900 border-2 border-red-500/80 hover:border-red-400 rounded-2xl p-5 shadow-xl hover:shadow-red-500/25 transition-all duration-200 cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-red-600 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-red-600/40 border border-red-300 group-hover:scale-105 transition">
-                      <i class="fa-solid fa-truck-pickup"></i>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                      <span id="home-badge-cabinas" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-red-600 text-white border border-red-200 font-mono shadow animate-pulse">
-                        3 en Espera
-                      </span>
-                      <button type="button" onclick="abrirModuloEnNuevaPestana('cabinas', event)" title="Abrir 3. Líneas que Requieren QG en otra pestaña del navegador" class="p-1.5 rounded-lg bg-slate-800/90 hover:bg-red-600 text-red-300 hover:text-white border border-red-500/40 text-xs transition cursor-pointer">
-                        <i class="fa-solid fa-up-right-from-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-black text-white group-hover:text-red-300 transition">
-                    3. Líneas que Requieren QG
-                  </h3>
-                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Alertas en tiempo real de cabinas terminadas en FABS y Edificio K que esperan presencia y liberación de Coordinador / QG.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-extrabold text-red-300">
-                  <span><i class="fa-solid fa-bell mr-1"></i> Atención Prioritaria QG</span>
-                  <span class="group-hover:translate-x-1 transition flex items-center gap-1 text-white bg-red-600 px-3 py-1 rounded-lg shadow">
-                    Abrir Pestaña <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                  </span>
-                </div>
-              </div>
-
-              <!-- OPCIÓN 4: 4. Mapa de Planta (Sensores) -->
-              <div onclick="abrirModuloHome('mapa')" id="home-card-mapa" class="group relative bg-gradient-to-br from-slate-900 via-emerald-950/60 to-slate-900 hover:from-emerald-950/85 hover:to-slate-900 border-2 border-emerald-500/80 hover:border-emerald-400 rounded-2xl p-5 shadow-xl hover:shadow-emerald-500/25 transition-all duration-200 cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-emerald-600/40 border border-emerald-300 group-hover:scale-105 transition">
-                      <i class="fa-solid fa-map-location-dot"></i>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                      <span id="home-badge-mapa" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-emerald-400 text-slate-950 border border-slate-950 font-mono shadow">
-                        13 Líneas / Sensores
-                      </span>
-                      <button type="button" onclick="abrirModuloEnNuevaPestana('mapa', event)" title="Abrir 4. Mapa de Planta (Sensores) en otra pestaña del navegador" class="p-1.5 rounded-lg bg-slate-800/90 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-xs transition cursor-pointer">
-                        <i class="fa-solid fa-up-right-from-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-black text-white group-hover:text-emerald-300 transition">
-                    4. Mapa de Planta (Sensores)
-                  </h3>
-                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Plano digital CAD SCADA de Planta 3 (Nave FABS) y Edificio K con panel lateral de filtros y sensores interactivos en vivo.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-extrabold text-emerald-300">
-                  <span><i class="fa-solid fa-satellite-dish mr-1"></i> Telemetría FABS & Edif. K</span>
-                  <span class="group-hover:translate-x-1 transition flex items-center gap-1 text-white bg-emerald-600 px-3 py-1 rounded-lg shadow">
-                    Abrir Pestaña <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                  </span>
-                </div>
-              </div>
-
-              <!-- OPCIÓN 5: 5. Registro de Modificaciones -->
-              <div onclick="abrirModuloHome('auditoria')" id="home-card-auditoria" class="group relative bg-gradient-to-br from-slate-900 via-indigo-950/60 to-slate-900 hover:from-indigo-950/85 hover:to-slate-900 border-2 border-indigo-500/80 hover:border-indigo-400 rounded-2xl p-5 shadow-xl hover:shadow-indigo-500/25 transition-all duration-200 cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-indigo-600/40 border border-indigo-300 group-hover:scale-105 transition">
-                      <i class="fa-solid fa-shield-halved"></i>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                      <span id="home-badge-auditoria" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-indigo-500/20 text-indigo-300 border border-indigo-400/40 font-mono">
-                        Auditoría Inmutable
-                      </span>
-                      <button type="button" onclick="abrirModuloEnNuevaPestana('auditoria', event)" title="Abrir 5. Registro de Modificaciones en otra pestaña del navegador" class="p-1.5 rounded-lg bg-slate-800/90 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 text-xs transition cursor-pointer">
-                        <i class="fa-solid fa-up-right-from-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-black text-white group-hover:text-indigo-300 transition">
-                    5. Registro de Modificaciones
-                  </h3>
-                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Historial transparente y bitácora de auditoría con fecha, nómina de responsable, valores anteriores y justificación obligatoria.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-extrabold text-indigo-300">
-                  <span><i class="fa-solid fa-lock mr-1"></i> Trazabilidad de Cambios</span>
-                  <span class="group-hover:translate-x-1 transition flex items-center gap-1 text-white bg-indigo-600 px-3 py-1 rounded-lg shadow">
-                    Abrir Pestaña <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                  </span>
-                </div>
-              </div>
-
-              <!-- OPCIÓN 6: 6. Dashboard, Producción y Defectos -->
-              <div onclick="abrirModuloHome('gerente')" id="home-card-gerente" class="group relative bg-gradient-to-br from-slate-900 via-cyan-950/60 to-slate-900 hover:from-cyan-950/85 hover:to-slate-900 border-2 border-cyan-500/80 hover:border-cyan-400 rounded-2xl p-5 shadow-xl hover:shadow-cyan-500/25 transition-all duration-200 cursor-pointer flex flex-col justify-between">
-                <div>
-                  <div class="flex items-start justify-between gap-3 mb-3">
-                    <div class="w-12 h-12 rounded-2xl bg-cyan-600 text-white flex items-center justify-center text-xl font-black shadow-lg shadow-cyan-600/40 border border-cyan-300 group-hover:scale-105 transition">
-                      <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                      <span id="home-badge-gerente" class="px-2.5 py-1 rounded-full text-[11px] font-black bg-cyan-500/20 text-cyan-300 border border-cyan-400/40 font-mono">
-                        9 Gráficas & KPIs
-                      </span>
-                      <button type="button" onclick="abrirModuloEnNuevaPestana('gerente', event)" title="Abrir 6. Dashboard, Producción y Defectos en otra pestaña del navegador" class="p-1.5 rounded-lg bg-slate-800/90 hover:bg-cyan-600 text-cyan-300 hover:text-white border border-cyan-500/40 text-xs transition cursor-pointer">
-                        <i class="fa-solid fa-up-right-from-square"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="text-base sm:text-lg font-black text-white group-hover:text-cyan-300 transition">
-                    6. Dashboard, Producción y Defectos
-                  </h3>
-                  <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Panel ejecutivo de avance diario, distribución por modelos, gráficas de defectos, causas raíz humanas y reporte final de turno en PDF.
-                  </p>
-                </div>
-                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs font-extrabold text-cyan-300">
-                  <span><i class="fa-solid fa-chart-pie mr-1"></i> Indicadores & PDF</span>
-                  <span class="group-hover:translate-x-1 transition flex items-center gap-1 text-white bg-cyan-600 px-3 py-1 rounded-lg shadow">
-                    Abrir Pestaña <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                  </span>
-                </div>
-              </div>
-
-            </div>
+            </button>
+            <!-- Círculo Naranja: Ingresar -->
+            <button type="button" onclick="abrirModuloHome('nueva')" title="Ingresar a 1. Nueva Inspección" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#9a3412,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-lg sm:text-xl cursor-pointer transition">
+              <i class="fa-solid fa-play ml-0.5 drop-shadow"></i>
+            </button>
+            <!-- Círculo Azul: Abrir en otra pestaña / Check -->
+            <button type="button" onclick="abrirModuloEnNuevaPestana('nueva', event)" title="Abrir 1. Nueva Inspección en otra pestaña" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#1e3a8a,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-base sm:text-lg font-black cursor-pointer transition">
+              <i class="fa-solid fa-clipboard-check drop-shadow"></i>
+            </button>
           </div>
 
-          <!-- SECCIÓN 2 DEL HOME: BOTONES DE ÁREAS DE LA PLANTA (Abren la información perteneciente a cada área) -->
-          <div class="pt-4 border-t border-slate-800">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-              <div>
-                <h2 class="text-xs sm:text-sm font-black uppercase tracking-wider text-cyan-300 flex items-center gap-2">
-                  <i class="fa-solid fa-industry text-cyan-400"></i> Áreas de Planta en Orden de Manufactura (Haz clic para ver la información de cada área)
-                </h2>
-                <p class="text-[11px] text-slate-400">
-                  Al hacer clic en un botón de área se abre su pestaña dedicada con las líneas, supervisores, inspecciones y defectos pertenecientes a esa área.
-                </p>
+          <!-- 2. TRASPASO DE TURNO -->
+          <div id="home-card-traspaso" class="flex items-center gap-3 sm:gap-4">
+            <button type="button" onclick="abrirModuloHome('traspaso')" class="flex-1 group relative p-1.5 rounded-2xl bg-gradient-to-b from-yellow-300 via-amber-500 to-amber-700 border-2 border-amber-900 shadow-[0_6px_0_#78350f,0_10px_20px_rgba(0,0,0,0.6)] active:translate-y-1 active:shadow-[0_2px_0_#78350f] transition-all cursor-pointer text-left">
+              <div class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-gradient-to-b from-lime-500 via-emerald-600 to-green-700 group-hover:from-lime-400 group-hover:to-green-600 border-t-2 border-lime-200/70 shadow-inner flex items-center justify-between">
+                <span class="text-sm sm:text-lg font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  2. Traspaso de Turno
+                </span>
+                <span id="home-badge-traspaso" class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 border border-slate-950 text-[11px] font-black font-mono shadow">
+                  0 Pendientes
+                </span>
               </div>
-            </div>
+            </button>
+            <!-- Círculo Naranja: Ingresar -->
+            <button type="button" onclick="abrirModuloHome('traspaso')" title="Ingresar a 2. Traspaso de Turno" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#9a3412,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-lg sm:text-xl cursor-pointer transition">
+              <i class="fa-solid fa-rotate-right drop-shadow"></i>
+            </button>
+            <!-- Círculo Azul: Otra pestaña -->
+            <button type="button" onclick="abrirModuloEnNuevaPestana('traspaso', event)" title="Abrir 2. Traspaso de Turno en otra pestaña" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#1e3a8a,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-base sm:text-lg font-black cursor-pointer transition">
+              <i class="fa-solid fa-clock-rotate-left drop-shadow"></i>
+            </button>
+          </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-              
-              <!-- Área 1A: SOLDADURA - NAVE FABS -->
-              <div onclick="abrirPestanaAreaPlanta('FABS')" class="group bg-slate-900/95 hover:bg-slate-800 border-2 border-amber-500/60 hover:border-amber-400 rounded-xl p-3.5 cursor-pointer transition shadow-lg flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">ETAPA 1A</span>
-                    <button type="button" onclick="abrirAreaEnNuevaPestana('FABS', event)" title="Abrir Área FABS en nueva pestaña" class="text-slate-400 hover:text-amber-300 text-xs">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </button>
-                  </div>
-                  <div class="font-black text-white text-sm group-hover:text-amber-300 transition flex items-center gap-1.5">
-                    <span>🔥 1. Soldadura — FABS</span>
-                  </div>
-                  <p class="text-[11px] text-slate-400 mt-1">
-                    Planta 3: 10 Líneas (LTTT, MTTT, LWL 988/990, MWL, MG, WTS, OHT, LMT, PUERTAS).
-                  </p>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] font-bold text-amber-300">
-                  <span>Ver información de FABS</span>
-                  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
-                </div>
+          <!-- 3. LÍNEAS QUE REQUIEREN QG -->
+          <div id="home-card-cabinas" class="flex items-center gap-3 sm:gap-4">
+            <button type="button" onclick="abrirModuloHome('cabinas')" class="flex-1 group relative p-1.5 rounded-2xl bg-gradient-to-b from-yellow-300 via-amber-500 to-amber-700 border-2 border-amber-900 shadow-[0_6px_0_#78350f,0_10px_20px_rgba(0,0,0,0.6)] active:translate-y-1 active:shadow-[0_2px_0_#78350f] transition-all cursor-pointer text-left">
+              <div class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-gradient-to-b from-lime-500 via-emerald-600 to-green-700 group-hover:from-lime-400 group-hover:to-green-600 border-t-2 border-lime-200/70 shadow-inner flex items-center justify-between">
+                <span class="text-sm sm:text-lg font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  3. Líneas que Requieren QG
+                </span>
+                <span id="home-badge-cabinas" class="px-2.5 py-0.5 rounded-full bg-red-600 text-white border border-white text-[11px] font-black font-mono shadow animate-pulse">
+                  3 en Espera
+                </span>
               </div>
+            </button>
+            <!-- Círculo Naranja: Ingresar -->
+            <button type="button" onclick="abrirModuloHome('cabinas')" title="Ingresar a 3. Líneas que Requieren QG" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#9a3412,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-lg sm:text-xl cursor-pointer transition">
+              <i class="fa-solid fa-bell drop-shadow"></i>
+            </button>
+            <!-- Círculo Azul: Otra pestaña -->
+            <button type="button" onclick="abrirModuloEnNuevaPestana('cabinas', event)" title="Abrir 3. Líneas que Requieren QG en otra pestaña" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#1e3a8a,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-base sm:text-lg font-black cursor-pointer transition">
+              <i class="fa-solid fa-truck-pickup drop-shadow"></i>
+            </button>
+          </div>
 
-              <!-- Área 1B: SOLDADURA - EDIFICIO K -->
-              <div onclick="abrirPestanaAreaPlanta('EDIFICIO K')" class="group bg-slate-900/95 hover:bg-slate-800 border-2 border-orange-500/60 hover:border-orange-400 rounded-xl p-3.5 cursor-pointer transition shadow-lg flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-black bg-orange-500/20 text-orange-300 border border-orange-500/40 font-mono">ETAPA 1B</span>
-                    <button type="button" onclick="abrirAreaEnNuevaPestana('EDIFICIO K', event)" title="Abrir Edificio K en nueva pestaña" class="text-slate-400 hover:text-orange-300 text-xs">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </button>
-                  </div>
-                  <div class="font-black text-white text-sm group-hover:text-orange-300 transition flex items-center gap-1.5">
-                    <span>⚡ 1B. Soldadura — Edif. K</span>
-                  </div>
-                  <p class="text-[11px] text-slate-400 mt-1">
-                    3 Líneas Especiales y Robótica: LOW VOLUME, LMT K y Célula COBOT.
-                  </p>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] font-bold text-orange-300">
-                  <span>Ver info de Edificio K</span>
-                  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
-                </div>
+          <!-- 4. MAPA DE PLANTA (SENSORES) -->
+          <div id="home-card-mapa" class="flex items-center gap-3 sm:gap-4">
+            <button type="button" onclick="abrirModuloHome('mapa')" class="flex-1 group relative p-1.5 rounded-2xl bg-gradient-to-b from-yellow-300 via-amber-500 to-amber-700 border-2 border-amber-900 shadow-[0_6px_0_#78350f,0_10px_20px_rgba(0,0,0,0.6)] active:translate-y-1 active:shadow-[0_2px_0_#78350f] transition-all cursor-pointer text-left">
+              <div class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-gradient-to-b from-lime-500 via-emerald-600 to-green-700 group-hover:from-lime-400 group-hover:to-green-600 border-t-2 border-lime-200/70 shadow-inner flex items-center justify-between">
+                <span class="text-sm sm:text-lg font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  4. Mapa de Planta (Sensores)
+                </span>
+                <span id="home-badge-mapa" class="px-2.5 py-0.5 rounded-full bg-black/30 text-lime-100 text-[11px] font-black font-mono">
+                  13 Líneas
+                </span>
               </div>
+            </button>
+            <!-- Círculo Naranja: Ingresar -->
+            <button type="button" onclick="abrirModuloHome('mapa')" title="Ingresar a 4. Mapa de Planta (Sensores)" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#9a3412,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-lg sm:text-xl cursor-pointer transition">
+              <i class="fa-solid fa-location-dot drop-shadow"></i>
+            </button>
+            <!-- Círculo Azul: Otra pestaña -->
+            <button type="button" onclick="abrirModuloEnNuevaPestana('mapa', event)" title="Abrir 4. Mapa de Planta en otra pestaña" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#1e3a8a,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-base sm:text-lg font-black cursor-pointer transition">
+              <i class="fa-solid fa-map-location-dot drop-shadow"></i>
+            </button>
+          </div>
 
-              <!-- Área 2: PINTURA -->
-              <div onclick="abrirPestanaAreaPlanta('PINTURA')" class="group bg-slate-900/95 hover:bg-slate-800 border-2 border-cyan-500/60 hover:border-cyan-400 rounded-xl p-3.5 cursor-pointer transition shadow-lg flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-black bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-mono">ETAPA 2</span>
-                    <button type="button" onclick="abrirAreaEnNuevaPestana('PINTURA', event)" title="Abrir Área Pintura en nueva pestaña" class="text-slate-400 hover:text-cyan-300 text-xs">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </button>
-                  </div>
-                  <div class="font-black text-white text-sm group-hover:text-cyan-300 transition flex items-center gap-1.5">
-                    <span>🎨 2. Área Pintura</span>
-                  </div>
-                  <p class="text-[11px] text-slate-400 mt-1">
-                    Proceso en orden: 1° Preparación Paint, 2° Sellado Paint y 3° Carga Paint.
-                  </p>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] font-bold text-cyan-300">
-                  <span>Ver info de Pintura</span>
-                  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
-                </div>
+          <!-- 5. REGISTRO DE MODIFICACIONES -->
+          <div id="home-card-auditoria" class="flex items-center gap-3 sm:gap-4">
+            <button type="button" onclick="abrirModuloHome('auditoria')" class="flex-1 group relative p-1.5 rounded-2xl bg-gradient-to-b from-yellow-300 via-amber-500 to-amber-700 border-2 border-amber-900 shadow-[0_6px_0_#78350f,0_10px_20px_rgba(0,0,0,0.6)] active:translate-y-1 active:shadow-[0_2px_0_#78350f] transition-all cursor-pointer text-left">
+              <div class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-gradient-to-b from-lime-500 via-emerald-600 to-green-700 group-hover:from-lime-400 group-hover:to-green-600 border-t-2 border-lime-200/70 shadow-inner flex items-center justify-between">
+                <span class="text-sm sm:text-lg font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  5. Registro de Modificaciones
+                </span>
+                <span id="home-badge-auditoria" class="px-2.5 py-0.5 rounded-full bg-black/30 text-lime-100 text-[11px] font-black font-mono">
+                  AUDITORÍA
+                </span>
               </div>
+            </button>
+            <!-- Círculo Naranja: Ingresar -->
+            <button type="button" onclick="abrirModuloHome('auditoria')" title="Ingresar a 5. Registro de Modificaciones" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#9a3412,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-lg sm:text-xl cursor-pointer transition">
+              <i class="fa-solid fa-list-check drop-shadow"></i>
+            </button>
+            <!-- Círculo Azul: Otra pestaña -->
+            <button type="button" onclick="abrirModuloEnNuevaPestana('auditoria', event)" title="Abrir 5. Registro de Modificaciones en otra pestaña" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#1e3a8a,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-base sm:text-lg font-black cursor-pointer transition">
+              <i class="fa-solid fa-shield-halved drop-shadow"></i>
+            </button>
+          </div>
 
-              <!-- Área 3: ENSAMBLE -->
-              <div onclick="abrirPestanaAreaPlanta('ENSAMBLE')" class="group bg-slate-900/95 hover:bg-slate-800 border-2 border-emerald-500/60 hover:border-emerald-400 rounded-xl p-3.5 cursor-pointer transition shadow-lg flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">ETAPA 3</span>
-                    <button type="button" onclick="abrirAreaEnNuevaPestana('ENSAMBLE', event)" title="Abrir Área Ensamble en nueva pestaña" class="text-slate-400 hover:text-emerald-300 text-xs">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </button>
-                  </div>
-                  <div class="font-black text-white text-sm group-hover:text-emerald-300 transition flex items-center gap-1.5">
-                    <span>🔩 3. Área Ensamble</span>
-                  </div>
-                  <p class="text-[11px] text-slate-400 mt-1">
-                    Integración de componentes, accesorios, arneses, cristales y torqueo estructural.
-                  </p>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] font-bold text-emerald-300">
-                  <span>Ver info de Ensamble</span>
-                  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
-                </div>
+          <!-- 6. DASHBOARD, PRODUCCIÓN Y DEFECTOS -->
+          <div id="home-card-gerente" class="flex items-center gap-3 sm:gap-4">
+            <button type="button" onclick="abrirModuloHome('gerente')" class="flex-1 group relative p-1.5 rounded-2xl bg-gradient-to-b from-yellow-300 via-amber-500 to-amber-700 border-2 border-amber-900 shadow-[0_6px_0_#78350f,0_10px_20px_rgba(0,0,0,0.6)] active:translate-y-1 active:shadow-[0_2px_0_#78350f] transition-all cursor-pointer text-left">
+              <div class="w-full px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-gradient-to-b from-lime-500 via-emerald-600 to-green-700 group-hover:from-lime-400 group-hover:to-green-600 border-t-2 border-lime-200/70 shadow-inner flex items-center justify-between">
+                <span class="text-sm sm:text-lg font-black text-white uppercase tracking-wider drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+                  6. Dashboard, Producción y Defectos
+                </span>
+                <span id="home-badge-gerente" class="px-2.5 py-0.5 rounded-full bg-black/30 text-lime-100 text-[11px] font-black font-mono">
+                  GRÁFICAS
+                </span>
               </div>
-
-              <!-- Área 4: FOS -->
-              <div onclick="abrirPestanaAreaPlanta('FOS')" class="group bg-slate-900/95 hover:bg-slate-800 border-2 border-purple-500/60 hover:border-purple-400 rounded-xl p-3.5 cursor-pointer transition shadow-lg flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <span class="px-2 py-0.5 rounded text-[10px] font-black bg-purple-500/20 text-purple-300 border border-purple-500/40 font-mono">ETAPA 4</span>
-                    <button type="button" onclick="abrirAreaEnNuevaPestana('FOS', event)" title="Abrir Área FOS en nueva pestaña" class="text-slate-400 hover:text-purple-300 text-xs">
-                      <i class="fa-solid fa-up-right-from-square"></i>
-                    </button>
-                  </div>
-                  <div class="font-black text-white text-sm group-hover:text-purple-300 transition flex items-center gap-1.5">
-                    <span>📦 4. Área FOS (Final)</span>
-                  </div>
-                  <p class="text-[11px] text-slate-400 mt-1">
-                    Auditoría final de salida, embarque y liberación definitiva para cliente.
-                  </p>
-                </div>
-                <div class="mt-3 pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] font-bold text-purple-300">
-                  <span>Ver info de FOS</span>
-                  <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
-                </div>
-              </div>
-
-            </div>
+            </button>
+            <!-- Círculo Naranja: Ingresar -->
+            <button type="button" onclick="abrirModuloHome('gerente')" title="Ingresar a 6. Dashboard, Producción y Defectos" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-orange-600 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#9a3412,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-lg sm:text-xl cursor-pointer transition">
+              <i class="fa-solid fa-chart-pie drop-shadow"></i>
+            </button>
+            <!-- Círculo Azul: Otra pestaña -->
+            <button type="button" onclick="abrirModuloEnNuevaPestana('gerente', event)" title="Abrir 6. Dashboard, Producción y Defectos en otra pestaña" class="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-full bg-gradient-to-b from-sky-400 via-blue-500 to-blue-700 hover:brightness-110 border-[3px] border-white shadow-[0_5px_0_#1e3a8a,0_8px_15px_rgba(0,0,0,0.6)] active:translate-y-1 flex items-center justify-center text-white text-base sm:text-lg font-black cursor-pointer transition">
+              <i class="fa-solid fa-chart-line drop-shadow"></i>
+            </button>
           </div>
 
         </div>
+
       </div>
     </section>
 
@@ -960,18 +705,8 @@
               </p>
             </div>
           </div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <button type="button" onclick="abrirPestanaAreaPlanta('FABS')" class="px-2.5 py-1 rounded-lg bg-slate-950 text-amber-300 hover:bg-slate-800 text-xs font-black cursor-pointer">🔥 1A. FABS</button>
-            <button type="button" onclick="abrirPestanaAreaPlanta('EDIFICIO K')" class="px-2.5 py-1 rounded-lg bg-slate-950 text-orange-300 hover:bg-slate-800 text-xs font-black cursor-pointer">⚡ 1B. Edificio K</button>
-            <button type="button" onclick="abrirPestanaAreaPlanta('PINTURA')" class="px-2.5 py-1 rounded-lg bg-slate-950 text-cyan-300 hover:bg-slate-800 text-xs font-black cursor-pointer">🎨 2. Pintura</button>
-            <button type="button" onclick="abrirPestanaAreaPlanta('ENSAMBLE')" class="px-2.5 py-1 rounded-lg bg-slate-950 text-emerald-300 hover:bg-slate-800 text-xs font-black cursor-pointer">🔩 3. Ensamble</button>
-            <button type="button" onclick="abrirPestanaAreaPlanta('FOS')" class="px-2.5 py-1 rounded-lg bg-slate-950 text-purple-300 hover:bg-slate-800 text-xs font-black cursor-pointer">📦 4. FOS</button>
-          </div>
         </div>
-
-        <div id="area-view-body" class="p-5 sm:p-6 space-y-6">
-          <!-- Renderizado dinámico con toda la información perteneciente al área seleccionada -->
-        </div>
+        <div id="area-view-body" class="p-5 sm:p-6 space-y-6"></div>
       </div>
     </section>
 
