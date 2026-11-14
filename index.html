@@ -379,7 +379,7 @@
       </div>
 
       <!-- Pie con estado de conexión -->
-      <div class="text-center pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-center gap-1.5">
+      <div class="hidden" style="display: none !important;">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span>Google Cloud API: Conexión Inmutable Activa</span>
       </div>
@@ -453,7 +453,7 @@
         </div>
 
         <!-- Google Cloud API Status (Alta Visibilidad Cyan / Azul) -->
-        <button id="btn-sync-status" onclick="openSyncModal()" class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-xl text-xs font-black bg-slate-950/95 border-2 border-cyan-400 text-cyan-300 shadow-xl shadow-cyan-500/25 hover:bg-cyan-950 transition cursor-pointer">
+        <button id="btn-sync-status" onclick="openSyncModal()" class="hidden" style="display: none !important;">
           <span id="sync-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]"></span>
           <span id="sync-label" class="text-white">Google Cloud API: Conectado</span>
           <i class="fa-solid fa-cloud-arrow-up text-xs text-cyan-400 ml-1"></i>
@@ -479,59 +479,59 @@
       </div>
     </div>
 
-    <!-- Navigation Tabs (Pestañas de Alta Visibilidad con Colores Vibrantes y Scroll Horizontal) -->
-    <div class="w-full px-2 sm:px-4 lg:px-6 border-t border-amber-400/30">
-      <div class="w-full overflow-x-auto overflow-y-hidden py-1.5 scroll-smooth custom-scrollbar" style="scrollbar-width: thin; -webkit-overflow-scrolling: touch;">
-        <nav class="flex items-center space-x-1.5 sm:space-x-2 min-w-max pb-0.5" aria-label="Tabs">
-          <!-- 1. Pestaña Nueva Inspección (Azul Royal Eléctrico) -->
-          <button onclick="switchTab('nueva')" id="tab-btn-nueva" class="tab-btn nav-tab-btn nav-tab-nueva px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-clipboard-check text-sm"></i>
-            <span>Nueva Inspección</span>
+    <!-- Navigation Tabs (Pestañas Ordenadas por Flujo de Trabajo, Sin Barra de Scroll Horizontal) -->
+    <div class="w-full border-t border-amber-400/30 bg-slate-950/40">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2">
+        <nav class="flex flex-wrap lg:flex-nowrap items-center justify-center lg:justify-between gap-1.5 sm:gap-2" aria-label="Tabs">
+          <!-- 1. Nueva Inspección (Paso 1: Registro en Piso) -->
+          <button type="button" onclick="switchTab('nueva')" id="tab-btn-nueva" class="tab-btn nav-tab-btn nav-tab-nueva px-2.5 sm:px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer flex-1 lg:flex-initial">
+            <i class="fa-solid fa-clipboard-check text-xs sm:text-sm"></i>
+            <span>1. Nueva Inspección</span>
           </button>
 
-          <!-- 2. Pestaña MAPA DE PLANTA Y SENSORES (Verde Esmeralda Neón) - Visible inmediatamente para QG y Supervisores -->
-          <button type="button" onclick="switchTab('mapa')" id="tab-btn-mapa" class="tab-btn nav-tab-btn nav-tab-mapa px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer shadow-md">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-90"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
-            </span>
-            <i class="fa-solid fa-map-location-dot text-sm"></i>
-            <span>MAPA DE PLANTA (SENSORES)</span>
-            <span id="badge-mapa-alert-count" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-emerald-400 text-slate-950 border border-slate-950 font-mono shadow-sm">3</span>
-          </button>
-
-          <!-- 3. Pestaña LÍNEAS QUE REQUIEREN QG (Rojo Escarlata / Alerta Crítica) -->
-          <button type="button" onclick="switchTab('cabinas')" id="tab-btn-cabinas" class="tab-btn nav-tab-btn nav-tab-cabinas px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
+          <!-- 2. Líneas que Requieren QG (Paso 2: Atender Urgencias en Línea) -->
+          <button type="button" onclick="switchTab('cabinas')" id="tab-btn-cabinas" class="tab-btn nav-tab-btn nav-tab-cabinas px-2.5 sm:px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer flex-1 lg:flex-initial">
             <span class="relative flex h-2 w-2" id="cabinas-ping-container">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-90"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500 shadow-[0_0_8px_#ef4444]"></span>
             </span>
-            <i class="fa-solid fa-truck-pickup text-sm"></i>
-            <span>LÍNEAS QUE REQUIEREN QG</span>
+            <i class="fa-solid fa-truck-pickup text-xs sm:text-sm"></i>
+            <span>2. Líneas que Requieren QG</span>
             <span id="badge-cabinas-count" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-amber-400 text-slate-950 border border-slate-950 font-mono shadow-sm">3</span>
           </button>
 
-          <!-- 4. Pestaña Traspaso de Turno (Ámbar / Dorado Industrial) -->
-          <button onclick="switchTab('traspaso')" id="tab-btn-traspaso" class="tab-btn nav-tab-btn nav-tab-traspaso px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-clock-rotate-left text-sm"></i>
-            <span>Traspaso de Turno</span>
-            <span id="badge-incompletas" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-amber-400 text-slate-950 border border-slate-950 shadow-sm">0</span>
+          <!-- 3. Mapa de Planta y Sensores (Paso 3: Ubicación en Vivo FABS / Edificio K) -->
+          <button type="button" onclick="switchTab('mapa')" id="tab-btn-mapa" class="tab-btn nav-tab-btn nav-tab-mapa px-2.5 sm:px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer shadow-md flex-1 lg:flex-initial">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-90"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_#34d399]"></span>
+            </span>
+            <i class="fa-solid fa-map-location-dot text-xs sm:text-sm"></i>
+            <span>3. Mapa de Planta (Sensores)</span>
+            <span id="badge-mapa-alert-count" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-emerald-400 text-slate-950 border border-slate-950 font-mono shadow-sm">3</span>
           </button>
 
-          <!-- 5. Pestaña Unificada: Dashboard, Producción y Defectos (Cyan / Turquesa Tecnológico) -->
-          <button onclick="switchTab('gerente')" id="tab-btn-gerente" class="tab-btn nav-tab-btn nav-tab-gerente px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-chart-line text-sm"></i>
-            <span>Dashboard, Producción y Defectos</span>
+          <!-- 4. Traspaso de Turno (Paso 4: Continuidad entre Turnos) -->
+          <button type="button" onclick="switchTab('traspaso')" id="tab-btn-traspaso" class="tab-btn nav-tab-btn nav-tab-traspaso px-2.5 sm:px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer flex-1 lg:flex-initial">
+            <i class="fa-solid fa-clock-rotate-left text-xs sm:text-sm"></i>
+            <span>4. Traspaso de Turno</span>
+            <span id="badge-incompletas" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-amber-400 text-slate-950 border border-slate-950 font-mono shadow-sm">0</span>
+          </button>
+
+          <!-- 5. Dashboard, Producción y Defectos (Paso 5: Métricas y Reportes) -->
+          <button type="button" onclick="switchTab('gerente')" id="tab-btn-gerente" class="tab-btn nav-tab-btn nav-tab-gerente px-2.5 sm:px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer flex-1 lg:flex-initial">
+            <i class="fa-solid fa-chart-line text-xs sm:text-sm"></i>
+            <span>5. Dashboard, Producción y Defectos</span>
             <span id="badge-total-defectos" class="px-2 py-0.5 text-[10px] font-black rounded-full bg-rose-500 text-white border border-white font-mono shadow-sm">0</span>
           </button>
           <!-- Aliases ocultos para compatibilidad -->
           <span id="tab-btn-dashboard" class="hidden" style="display:none;"></span>
           <span id="tab-btn-defectos" class="hidden" style="display:none;"></span>
 
-          <!-- 6. Pestaña Registro de Modificaciones (Índigo / Púrpura Seguridad) -->
-          <button onclick="switchTab('auditoria')" id="tab-btn-auditoria" class="tab-btn nav-tab-btn nav-tab-auditoria px-3 py-1.5 text-xs sm:text-[13px] flex items-center space-x-1.5 whitespace-nowrap cursor-pointer">
-            <i class="fa-solid fa-shield-halved text-sm"></i>
-            <span>Registro de Modificaciones</span>
+          <!-- 6. Registro de Modificaciones (Paso 6: Historial y Auditoría) -->
+          <button type="button" onclick="switchTab('auditoria')" id="tab-btn-auditoria" class="tab-btn nav-tab-btn nav-tab-auditoria px-2.5 sm:px-3 py-1.5 text-xs flex items-center justify-center space-x-1.5 whitespace-nowrap cursor-pointer flex-1 lg:flex-initial">
+            <i class="fa-solid fa-shield-halved text-xs sm:text-sm"></i>
+            <span>6. Registro de Modificaciones</span>
           </button>
 
           <span id="btn-cabinas-coordinador" class="hidden" style="display:none;"></span>
@@ -665,9 +665,9 @@
                     <option value="COBOT">COBOT</option>
                   </optgroup>
                   <optgroup label="Área PINTURA (3 Líneas)">
-                    <option value="Carga Paint">Carga Paint</option>
-                    <option value="Sellado Paint">Sellado Paint</option>
-                    <option value="Preparacion Paint">Preparacion Paint</option>
+                    <option value="Preparacion Paint">1. Preparación Paint</option>
+                    <option value="Sellado Paint">2. Sellado Paint</option>
+                    <option value="Carga Paint">3. Carga Paint</option>
                   </optgroup>
                 </select>
               </div>
@@ -692,22 +692,22 @@
                 </label>
                 <select id="input-area" onchange="handleAreaChange()" required class="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
                   <option value="">-- Seleccionar Área / Ubicación --</option>
-                  <optgroup label="🔥 SOLDADURA">
+                  <optgroup label="🔥 1. SOLDADURA (Fabricación)">
                     <option value="SOLDADURA">SOLDADURA (General)</option>
                     <option value="FABS">FABS</option>
                     <option value="EDIFICIO K">EDIFICIO K</option>
                   </optgroup>
-                  <optgroup label="🎨 PINTURA">
+                  <optgroup label="🎨 2. PINTURA (Recubrimiento)">
                     <option value="PINTURA">PINTURA (General)</option>
-                                        <option value="Carga Paint">Carga Paint</option>
-                    <option value="Sellado Paint">Sellado Paint</option>
-                    <option value="Preparacion Paint">Preparacion Paint</option>
+                                        <option value="Preparacion Paint">1. Preparación Paint</option>
+                    <option value="Sellado Paint">2. Sellado Paint</option>
+                    <option value="Carga Paint">3. Carga Paint</option>
                   </optgroup>
-                  <optgroup label="🔩 ENSAMBLE">
-                    <option value="ENSAMBLE">ENSAMBLE</option>
+                  <optgroup label="🔩 3. ENSAMBLE (Integración)">
+                    <option value="ENSAMBLE">🔩 3. ENSAMBLE (Integración)</option>
                   </optgroup>
-                  <optgroup label="📦 FOS">
-                    <option value="FOS">FOS</option>
+                  <optgroup label="📦 4. FOS (Entrega Final)">
+                    <option value="FOS">📦 4. FOS (Entrega Final)</option>
                   </optgroup>
                 </select>
               </div>
@@ -1180,14 +1180,14 @@
             <span class="text-xs font-bold text-slate-950">Filtrar por Área:</span>
             <select id="filter-traspaso-area" onchange="renderTraspasoList()" class="bg-slate-950 border-2 border-slate-950 text-amber-300 rounded-lg px-2.5 py-1.5 text-xs font-bold focus:outline-none shadow">
               <option value="">Todas las Áreas</option>
-              <optgroup label="🔥 SOLDADURA">
+              <optgroup label="🔥 1. SOLDADURA (Fabricación)">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
                   <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                   <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
               <option value="PINTURA">PINTURA</option>
-              <option value="ENSAMBLE">ENSAMBLE</option>
-              <option value="FOS">FOS</option>
+              <option value="ENSAMBLE">🔩 3. ENSAMBLE (Integración)</option>
+              <option value="FOS">📦 4. FOS (Entrega Final)</option>
             </select>
           </div>
         </div>
@@ -1283,19 +1283,19 @@
               <span class="text-[10px] uppercase font-bold text-cyan-300">Área:</span>
               <select id="gerente-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
                 <option value="all" class="bg-slate-900 text-white" selected>Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
                   <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-                <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
               </select>
             </div>
 
@@ -1640,19 +1640,19 @@
             <label class="block text-xs font-semibold text-slate-400 mb-1">Área / Nave</label>
             <select id="dash-filter-area" onchange="syncModuleAreaFilter(this.value)" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
                 <option value="">Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
                   <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                   <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
-                <optgroup label="🎨 PINTURA">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)">
                   <option value="PINTURA">PINTURA (Completa)</option>
                   <option value="Carga Paint">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE">ENSAMBLE</option>
-                <option value="FOS">FOS</option>
+                <option value="ENSAMBLE">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS">📦 4. FOS (Entrega Final)</option>
               </select>
           </div>
           <!-- Filtro Faltantes -->
@@ -1781,19 +1781,19 @@
                 <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
                 <select id="diaria-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
                   <option value="all" class="bg-slate-900">Todas las Áreas</option>
-                  <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                  <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                  <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                  <optgroup label="🎨 2. PINTURA (Recubrimiento)" class="bg-slate-900 text-cyan-300 font-bold">
                     <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
                     <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
                     <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
                     <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                   </optgroup>
-                  <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-                  <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+                  <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+                  <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
                 </select>
               </div>
               <span class="text-[10px]" id="label-toggle-gerente-diaria">Contraer</span>
@@ -1887,19 +1887,19 @@
               <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
               <select id="metas-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
                 <option value="all" class="bg-slate-900">Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
                   <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-                <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
               </select>
             </div>
             <span class="text-[10px]" id="label-toggle-gerente-metas">Contraer</span>
@@ -1958,19 +1958,19 @@
               <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
               <select id="turnos-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
                 <option value="all" class="bg-slate-900">Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
                   <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-                <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
               </select>
             </div>
             <span class="text-[10px]" id="label-toggle-gerente-turnos">Contraer</span>
@@ -2060,19 +2060,19 @@
                 <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
                 <select id="modelos-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
                   <option value="all" class="bg-slate-900">Todas las Áreas</option>
-                  <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                  <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                  <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                  <optgroup label="🎨 2. PINTURA (Recubrimiento)" class="bg-slate-900 text-cyan-300 font-bold">
                     <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
                     <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
                     <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
                     <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                   </optgroup>
-                  <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-                  <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+                  <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+                  <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
                 </select>
               </div>
               <span class="text-[10px]" id="label-toggle-gerente-donut">Contraer</span>
@@ -2114,19 +2114,19 @@
               <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
               <select id="naves-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
                 <option value="all" class="bg-slate-900">Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
-                <optgroup label="🎨 PINTURA" class="bg-slate-900 text-cyan-300 font-bold">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)" class="bg-slate-900 text-cyan-300 font-bold">
                   <option value="PINTURA" class="bg-slate-900 text-cyan-300 font-bold">PINTURA (Completa)</option>
                   <option value="Carga Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint" class="bg-slate-900 text-cyan-200">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-                <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+                <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
               </select>
             </div>
             <span class="text-[10px]" id="label-toggle-gerente-naves">Contraer</span>
@@ -2160,14 +2160,14 @@
             <span class="text-[10px] font-bold text-slate-400 uppercase">Área:</span>
             <select id="calidad-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-transparent text-xs text-white font-bold focus:outline-none cursor-pointer">
               <option value="all" class="bg-slate-900">Todas las Áreas</option>
-              <optgroup label="🔥 SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">
+              <optgroup label="🔥 1. SOLDADURA (Fabricación)" class="bg-slate-900 text-amber-300 font-bold">
                     <option value="SOLDADURA" class="bg-slate-900 text-amber-300 font-bold">SOLDADURA (Todas)</option>
                     <option value="FABS" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                     <option value="EDIFICIO K" class="bg-slate-900 text-amber-200">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                   </optgroup>
               <option value="PINTURA" class="bg-slate-900 text-cyan-300">PINTURA</option>
-              <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">ENSAMBLE</option>
-              <option value="FOS" class="bg-slate-900 text-purple-300">FOS</option>
+              <option value="ENSAMBLE" class="bg-slate-900 text-emerald-300">🔩 3. ENSAMBLE (Integración)</option>
+              <option value="FOS" class="bg-slate-900 text-purple-300">📦 4. FOS (Entrega Final)</option>
             </select>
           </div>
           <span class="text-[10px]" id="label-toggle-gerente-kpis">Contraer</span>
@@ -2306,19 +2306,19 @@
               <label class="block text-xs font-semibold text-slate-400 mb-1">Área / Nave Principal</label>
               <select id="defectos-filter-area" onchange="syncModuleAreaFilter(this.value)" class="w-full bg-slate-900 border border-slate-600 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
                 <option value="">Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
                   <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                   <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
-                <optgroup label="🎨 PINTURA">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)">
                   <option value="PINTURA">PINTURA (Completa)</option>
                   <option value="Carga Paint">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE">ENSAMBLE</option>
-                <option value="FOS">FOS</option>
+                <option value="ENSAMBLE">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS">📦 4. FOS (Entrega Final)</option>
               </select>
             </div>
 
@@ -2871,19 +2871,19 @@
             <!-- Filtro de Área -->
               <select id="personal-filter-area" onchange="syncModuleAreaFilter(this.value)" class="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-amber-300 font-bold focus:outline-none">
                 <option value="all">Todas las Áreas</option>
-                <optgroup label="🔥 SOLDADURA">
+                <optgroup label="🔥 1. SOLDADURA (Fabricación)">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
                   <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                   <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
-                <optgroup label="🎨 PINTURA">
+                <optgroup label="🎨 2. PINTURA (Recubrimiento)">
                   <option value="PINTURA">PINTURA (Completa)</option>
                   <option value="Carga Paint">&nbsp;&nbsp;↳ Carga Paint</option>
                   <option value="Sellado Paint">&nbsp;&nbsp;↳ Sellado Paint</option>
                   <option value="Preparacion Paint">&nbsp;&nbsp;↳ Preparacion Paint</option>
                 </optgroup>
-                <option value="ENSAMBLE">ENSAMBLE</option>
-                <option value="FOS">FOS</option>
+                <option value="ENSAMBLE">🔩 3. ENSAMBLE (Integración)</option>
+                <option value="FOS">📦 4. FOS (Entrega Final)</option>
               </select>
 
               <select id="filtro-personal-linea" onchange="applyPersonalRetroalimentacionFilters()" class="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-slate-200 focus:outline-none">
@@ -3053,9 +3053,9 @@
                     <option value="COBOT">COBOT</option>
                   </optgroup>
                   <optgroup label="🎨 Área PINTURA (4 Líneas)">
-                                        <option value="Carga Paint">Carga Paint</option>
-                    <option value="Sellado Paint">Sellado Paint</option>
-                    <option value="Preparacion Paint">Preparacion Paint</option>
+                                        <option value="Preparacion Paint">1. Preparación Paint</option>
+                    <option value="Sellado Paint">2. Sellado Paint</option>
+                    <option value="Carga Paint">3. Carga Paint</option>
                   </optgroup>
               </select>
             </div>
@@ -4804,9 +4804,9 @@
                 <option value="COBOT">COBOT</option>
               </optgroup>
               <optgroup label="Área PINTURA (3 Líneas)">
-                <option value="Carga Paint">Carga Paint</option>
-                <option value="Sellado Paint">Sellado Paint</option>
-                <option value="Preparacion Paint">Preparacion Paint</option>
+                <option value="Preparacion Paint">1. Preparación Paint</option>
+                    <option value="Sellado Paint">2. Sellado Paint</option>
+                    <option value="Carga Paint">3. Carga Paint</option>
               </optgroup>
             </select>
           </div>
@@ -4821,14 +4821,14 @@
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Área / Nave <span class="text-red-400">*</span>:</label>
             <select id="super-input-area" onchange="handleSuperAreaChange()" required class="w-full bg-slate-900 border border-slate-600 rounded-lg p-2.5 text-xs text-white focus:outline-none">
-              <optgroup label="🔥 SOLDADURA">
+              <optgroup label="🔥 1. SOLDADURA (Fabricación)">
                   <option value="SOLDADURA">SOLDADURA (Todas)</option>
                   <option value="FABS">&nbsp;&nbsp;↳ FABS (10 Líneas)</option>
                   <option value="EDIFICIO K">&nbsp;&nbsp;↳ EDIFICIO K (3 Líneas)</option>
                 </optgroup>
               <option value="PINTURA">PINTURA</option>
-              <option value="ENSAMBLE">ENSAMBLE</option>
-              <option value="FOS">FOS</option>
+              <option value="ENSAMBLE">🔩 3. ENSAMBLE (Integración)</option>
+              <option value="FOS">📦 4. FOS (Entrega Final)</option>
             </select>
           </div>
 

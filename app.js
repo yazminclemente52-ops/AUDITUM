@@ -1613,9 +1613,9 @@ function updateModelosByArea(modeloSelectId, parteSelectId, selectedArea) {
   const currentVal = selModelo.value;
   selModelo.innerHTML = '<option value="">-- Seleccionar Modelo / L\u00EDnea --</option>';
 
-  const fabsLines = ["LTTT", "MTTT", "MG", "WTS", "LWL 988", "LWL 990", "MWL", "PUERTAS", "OHT", "LMT"];
+  const fabsLines = ["LTTT", "MTTT", "LWL 988", "LWL 990", "MWL", "MG", "WTS", "OHT", "LMT", "PUERTAS"];
   const kLines = ["LOW VOLUME", "LMT K", "COBOT"];
-  const paintLines = ["Carga Paint", "Sellado Paint", "Preparacion Paint"];
+  const paintLines = ["Preparacion Paint", "Sellado Paint", "Carga Paint"];
 
   const areaUpper = (selectedArea || "").toUpperCase().trim();
 
@@ -1765,9 +1765,9 @@ function handleSuperAreaChange() {
 // Actualizar filtros secundarios de Líneas en Defectos y Personal al cambiar de Área
 function updateFilterLineasOptions(selectedArea) {
   const f = (selectedArea || "").toUpperCase().trim();
-  const fabsLines = ["LTTT", "MTTT", "MG", "WTS", "LWL 988", "LWL 990", "MWL", "PUERTAS", "OHT", "LMT"];
+  const fabsLines = ["LTTT", "MTTT", "LWL 988", "LWL 990", "MWL", "MG", "WTS", "OHT", "LMT", "PUERTAS"];
   const kLines = ["LOW VOLUME", "LMT K", "COBOT"];
-  const paintLines = ["Carga Paint", "Sellado Paint", "Preparacion Paint"];
+  const paintLines = ["Preparacion Paint", "Sellado Paint", "Carga Paint"];
 
   // 1. Selector de Modelo en pestaña de Defectos (#defectos-filter-modelo)
   const selDef = document.getElementById("defectos-filter-modelo");
