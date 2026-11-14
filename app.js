@@ -4807,10 +4807,8 @@ function handleLoginSubmit(event) {
   }
 
   try {
-    if (user.rol === "gerente" || user.rol === "supervisor_linea") {
-      switchTab("gerente");
-    } else {
-      switchTab("nueva");
+    if (!checkUrlTabAndAreaParams()) {
+      switchTab("home");
     }
   } catch(e) {
     console.warn("switchTab error:", e);
@@ -11240,3 +11238,375 @@ window.darRetroalimentacionDesdeSensor = darRetroalimentacionDesdeSensor;
 
 
 
+
+
+// ==================== MÓDULO HOME Y PESTAÑAS POR ÁREA ====================
+const HOME_TAB_TITLES = {
+  home: "HOME — Menú Principal",
+  nueva: "1. Nueva Inspección",
+  traspaso: "2. Traspaso de Turno",
+  cabinas: "3. Líneas que Requieren QG",
+  mapa: "4. Mapa de Planta (Sensores)",
+  auditoria: "5. Registro de Modificaciones",
+  gerente: "6. Dashboard, Producción y Defectos",
+  "area-planta": "Información Detallada por Área de Planta"
+};
+
+let currentActiveAreaPlanta = "FABS";
+
+function updateHomeDashboardCards() {
+  const u = appState.currentUser;
+  const greetingEl = document.getElementById("home-user-greeting");
+  if (greetingEl && u) {
+    greetingEl.innerText = `${u.nombre} (Nómina ${u.nomina})`;
+  }
+
+  // Contadores en vivo para las tarjetas del HOME
+  const incompletas = (appState.inspecciones || []).filter(i => i.estatus === "En Proceso" || i.estatus === "Pausado").length;
+  const bTraspaso = document.getElementById("home-badge-traspaso");
+  if (bTraspaso) {
+    bTraspaso.innerText = `${incompletas} Pendiente${incompletas === 1 ? "" : "s"}`;
+  }
+
+  const cabinasPend = (appState.cabinasCoordinador || []).filter(c => c.estatus === "Esperando Coordinador").length;
+  const bCabinas = document.getElementById("home-badge-cabinas");
+  if (bCabinas) {
+    bCabinas.innerText = `${cabinasPend} en Espera`;
+  }
+
+  const bMapa = document.getElementById("home-badge-mapa");
+  if (bMapa) {
+    bMapa.innerText = `${cabinasPend} Alerta${cabinasPend === 1 ? "" : "s"} / 13 Líneas`;
+  }
+
+  const totalAud = (appState.auditoria || []).length;
+  const bAud = document.getElementById("home-badge-auditoria");
+  if (bAud) {
+    bAud.innerText = `${totalAud} Registro${totalAud === 1 ? "" : "s"}`;
+  }
+
+  const totalInsp = (appState.inspecciones || []).length;
+  const bGerente = document.getElementById("home-badge-gerente");
+  if (bGerente) {
+    bGerente.innerText = `${totalInsp} Inspecciones`;
+  }
+
+  // Mostrar/ocultar tarjetas en HOME según rol si aplica
+  const isGerente = u && u.rol === "gerente";
+  const isSupLinea = u && u.rol === "supervisor_linea";
+  const cardNueva = document.getElementById("home-card-nueva");
+  const cardTraspaso = document.getElementById("home-card-traspaso");
+  const cardAuditoria = document.getElementById("home-card-auditoria");
+
+  if (cardNueva) cardNueva.style.display = (isGerente || isSupLinea) ? "none" : "";
+  if (cardTraspaso) cardTraspaso.style.display = (isGerente || isSupLinea) ? "none" : "";
+  if (cardAuditoria) cardAuditoria.style.display = isSupLinea ? "none" : "";
+}
+window.updateHomeDashboardCards = updateHomeDashboardCards;
+
+function abrirModuloHome(tabId) {
+  switchTab(tabId);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+window.abrirModuloHome = abrirModuloHome;
+
+function abrirModuloEnNuevaPestana(tabId, event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  const url = `${window.location.pathname}?tab=${encodeURIComponent(tabId)}`;
+  window.open(url, "_blank");
+}
+window.abrirModuloEnNuevaPestana = abrirModuloEnNuevaPestana;
+
+function abrirAreaEnNuevaPestana(areaKey, event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  const url = `${window.location.pathname}?area=${encodeURIComponent(areaKey)}`;
+  window.open(url, "_blank");
+}
+window.abrirAreaEnNuevaPestana = abrirAreaEnNuevaPestana;
+
+function abrirPestanaActualEnNuevaVentana() {
+  const activeTab = localStorage.getItem("auditum_active_tab") || "home";
+  if (activeTab === "area-planta") {
+    abrirAreaEnNuevaPestana(currentActiveAreaPlanta);
+  } else {
+    abrirModuloEnNuevaPestana(activeTab);
+  }
+}
+window.abrirPestanaActualEnNuevaVentana = abrirPestanaActualEnNuevaVentana;
+
+function abrirPestanaAreaPlanta(areaKey) {
+  currentActiveAreaPlanta = areaKey || "FABS";
+
+  document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
+  document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+
+  const sec = document.getElementById("tab-area-planta");
+  if (sec) sec.classList.remove("hidden");
+
+  const returnBar = document.getElementById("subtab-return-home-bar");
+  const returnTitle = document.getElementById("subtab-active-title");
+  if (returnBar) returnBar.classList.remove("hidden");
+  if (returnTitle) returnTitle.innerText = `Área de Planta: ${currentActiveAreaPlanta}`;
+
+  try {
+    localStorage.setItem("auditum_active_tab", "area-planta");
+    localStorage.setItem("auditum_active_area_planta", currentActiveAreaPlanta);
+  } catch (e) {}
+
+  renderVistaAreaPlanta(currentActiveAreaPlanta);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+window.abrirPestanaAreaPlanta = abrirPestanaAreaPlanta;
+
+function renderVistaAreaPlanta(areaKey) {
+  const titleEl = document.getElementById("area-view-title");
+  const subEl = document.getElementById("area-view-subtitle");
+  const bodyEl = document.getElementById("area-view-body");
+  if (!bodyEl) return;
+
+  const areaConfig = {
+    "FABS": {
+      titulo: "🔥 Etapa 1A: Área de Soldadura — Nave FABS (Planta 3)",
+      subtitulo: "10 Líneas de Fabricación y Soldadura Estructural en Planta 3",
+      lineas: ["LTTT", "MTTT", "LWL 988", "LWL 990", "MWL", "MG", "WTS", "OHT", "LMT", "PUERTAS"],
+      color: "amber"
+    },
+    "EDIFICIO K": {
+      titulo: "⚡ Etapa 1B: Área de Soldadura — Nave Edificio K",
+      subtitulo: "3 Líneas de Robótica Colaborativa, Sub-ensambles y Bajo Volumen",
+      lineas: ["LOW VOLUME", "LMT K", "COBOT"],
+      color: "orange"
+    },
+    "PINTURA": {
+      titulo: "🎨 Etapa 2: Área de Pintura y Recubrimiento",
+      subtitulo: "Proceso Secuencial: 1. Preparación Paint → 2. Sellado Paint → 3. Carga Paint",
+      lineas: ["Preparacion Paint", "Sellado Paint", "Carga Paint"],
+      color: "cyan"
+    },
+    "ENSAMBLE": {
+      titulo: "🔩 Etapa 3: Área de Ensamble General",
+      subtitulo: "Integración de Componentes, Vestido de Cabinas, Torqueo y Acabados",
+      lineas: ["ENSAMBLE"],
+      color: "emerald"
+    },
+    "FOS": {
+      titulo: "📦 Etapa 4: Área FOS (Factory Outlet Store — Entrega Final)",
+      subtitulo: "Inspección Final de Salida, Liberación a Cliente y Embarque",
+      lineas: ["FOS"],
+      color: "purple"
+    }
+  };
+
+  const cfg = areaConfig[areaKey] || areaConfig["FABS"];
+  if (titleEl) titleEl.innerText = cfg.titulo;
+  if (subEl) subEl.innerText = cfg.subtitulo;
+
+  // Filtrar inspecciones pertenecientes a esta área
+  const allInsp = appState.inspecciones || [];
+  const areaInsp = allInsp.filter(item => {
+    const u = (item.area_ubicacion || "").toUpperCase();
+    const m = (item.modelo || "");
+    if (areaKey === "FABS") {
+      return u === "FABS" || cfg.lineas.includes(m);
+    } else if (areaKey === "EDIFICIO K") {
+      return u === "EDIFICIO K" || cfg.lineas.includes(m);
+    } else if (areaKey === "PINTURA") {
+      return u === "PINTURA" || cfg.lineas.includes(m) || cfg.lineas.includes(item.area_ubicacion);
+    } else {
+      return u === areaKey;
+    }
+  });
+
+  const liberadas = areaInsp.filter(i => i.estatus === "Liberado").length;
+  const enProceso = areaInsp.filter(i => i.estatus === "En Proceso" || i.estatus === "Pausado").length;
+  const conDefectos = areaInsp.filter(i => {
+    const defs = typeof getDefectosInfo === "function" ? getDefectosInfo(i) : [];
+    return defs.length > 0 || i.tiene_faltantes === "SI" || i.estatus === "Rechazado";
+  }).length;
+
+  const cabinasPend = (appState.cabinasCoordinador || []).filter(c => {
+    if (c.estatus !== "Esperando Coordinador") return false;
+    if (areaKey === "FABS") return c.area === "FABS" || cfg.lineas.includes(c.linea);
+    if (areaKey === "EDIFICIO K") return c.area === "EDIFICIO K" || cfg.lineas.includes(c.linea);
+    return c.area === areaKey || cfg.lineas.includes(c.linea);
+  });
+
+  // Tarjetas de líneas pertenecientes al área
+  const lineasCardsHtml = cfg.lineas.map((lin, idx) => {
+    const sup = (typeof SUPERVISORES_POR_LINEA !== "undefined" && SUPERVISORES_POR_LINEA[lin])
+      ? SUPERVISORES_POR_LINEA[lin]
+      : { nombre: `Responsable de ${lin}`, nomina: 4000 + idx };
+    const linInspCount = areaInsp.filter(i => i.modelo === lin || i.area_ubicacion === lin).length;
+    const linCabina = cabinasPend.find(c => c.linea === lin);
+
+    return `
+      <div class="bg-slate-900 border ${linCabina ? 'border-red-500 shadow-lg shadow-red-500/15' : 'border-slate-800'} rounded-xl p-3.5 flex flex-col justify-between gap-2.5">
+        <div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-black text-white">${idx + 1}. ${lin === 'Preparacion Paint' ? 'Preparación Paint' : lin}</span>
+            ${linCabina
+              ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-red-600 text-white animate-pulse">Esperando QG</span>`
+              : `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Al Día</span>`
+            }
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">${sup.nombre}</div>
+          <div class="text-[11px] text-cyan-300 font-mono mt-0.5">${linInspCount} inspección(es) registrada(s)</div>
+        </div>
+        <div class="pt-2 border-t border-slate-800 flex items-center gap-1.5">
+          ${(areaKey === "FABS" || areaKey === "EDIFICIO K") ? `
+            <button type="button" onclick="switchTab('mapa'); setNaveMapa('${areaKey === 'EDIFICIO K' ? 'k' : 'fabs'}'); filtrarPorLineaMapa('${lin}');" class="flex-1 px-2 py-1 rounded bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/40 text-[10px] font-bold transition cursor-pointer">
+              <i class="fa-solid fa-map-location-dot mr-1"></i> Mapa
+            </button>
+          ` : ''}
+          <button type="button" onclick="switchTab('gerente'); syncModuleAreaFilter('${areaKey}');" class="flex-1 px-2 py-1 rounded bg-cyan-600/20 hover:bg-cyan-600 text-cyan-300 hover:text-white border border-cyan-500/40 text-[10px] font-bold transition cursor-pointer">
+            <i class="fa-solid fa-chart-line mr-1"></i> Métricas
+          </button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // Tabla de inspecciones recientes del área
+  const rowsHtml = areaInsp.length === 0
+    ? `<tr><td colspan="6" class="p-6 text-center text-slate-400 text-xs">No hay inspecciones registradas aún para esta área.</td></tr>`
+    : areaInsp.slice(0, 15).map(item => {
+        const badgeColor = item.estatus === "Liberado"
+          ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+          : item.estatus === "Rechazado"
+          ? "bg-rose-500/20 text-rose-300 border-rose-500/40"
+          : "bg-amber-500/20 text-amber-300 border-amber-500/40";
+        return `
+          <tr class="hover:bg-slate-800/60 border-b border-slate-800/80 text-xs">
+            <td class="p-3 font-mono font-bold text-cyan-300">${item.id_inspeccion || "-"}</td>
+            <td class="p-3 font-bold text-white">${item.modelo || item.area_ubicacion || "-"}</td>
+            <td class="p-3 font-mono text-amber-300">${item.numero_serie || "-"}</td>
+            <td class="p-3 text-slate-300">${item.nombre_inspector || "-"}</td>
+            <td class="p-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeColor}">${item.estatus || "En Proceso"}</span></td>
+            <td class="p-3 text-right">
+              <button type="button" onclick="openDetailModal('${item.id_inspeccion}')" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-bold cursor-pointer">
+                Ver Detalle
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+  bodyEl.innerHTML = `
+    <!-- KPIs del Área -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4">
+        <div class="text-[11px] text-slate-400 font-bold uppercase">Total Inspecciones (${areaKey})</div>
+        <div class="text-2xl font-black text-white mt-1 font-mono">${areaInsp.length}</div>
+      </div>
+      <div class="bg-slate-900 border border-emerald-500/40 rounded-xl p-4">
+        <div class="text-[11px] text-emerald-300 font-bold uppercase">Piezas Liberadas</div>
+        <div class="text-2xl font-black text-emerald-400 mt-1 font-mono">${liberadas}</div>
+      </div>
+      <div class="bg-slate-900 border border-amber-500/40 rounded-xl p-4">
+        <div class="text-[11px] text-amber-300 font-bold uppercase">En Traspaso / Proceso</div>
+        <div class="text-2xl font-black text-amber-400 mt-1 font-mono">${enProceso}</div>
+      </div>
+      <div class="bg-slate-900 border border-rose-500/40 rounded-xl p-4">
+        <div class="text-[11px] text-rose-300 font-bold uppercase">Con Defectos / Faltantes</div>
+        <div class="text-2xl font-black text-rose-400 mt-1 font-mono">${conDefectos}</div>
+      </div>
+    </div>
+
+    <!-- Accesos Rápidos del Área -->
+    <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
+      <div class="text-xs font-bold text-slate-300">
+        Acciones directas para <strong class="text-amber-300">${areaKey}</strong>:
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" onclick="switchTab('nueva'); const el=document.getElementById('input-area'); if(el){el.value='${areaKey}'; handleAreaChange();}" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold cursor-pointer flex items-center gap-1.5">
+          <i class="fa-solid fa-clipboard-check"></i> 1. Nueva Inspección en ${areaKey}
+        </button>
+        ${(areaKey === "FABS" || areaKey === "EDIFICIO K") ? `
+          <button type="button" onclick="switchTab('mapa'); setNaveMapa('${areaKey === 'EDIFICIO K' ? 'k' : 'fabs'}');" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold cursor-pointer flex items-center gap-1.5">
+            <i class="fa-solid fa-map-location-dot"></i> 4. Ver Mapa de ${areaKey}
+          </button>
+        ` : ''}
+        <button type="button" onclick="switchTab('gerente'); syncModuleAreaFilter('${areaKey}');" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold cursor-pointer flex items-center gap-1.5">
+          <i class="fa-solid fa-chart-line"></i> 6. Ver Dashboard de ${areaKey}
+        </button>
+      </div>
+    </div>
+
+    <!-- Líneas pertenecientes a esta Área -->
+    <div>
+      <h3 class="text-xs font-black uppercase tracking-wider text-amber-300 mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-layer-group"></i> Líneas y Estaciones Pertenecientes a ${areaKey} (${cfg.lineas.length})
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        ${lineasCardsHtml}
+      </div>
+    </div>
+
+    <!-- Historial de Inspecciones Pertenecientes a esta Área -->
+    <div>
+      <h3 class="text-xs font-black uppercase tracking-wider text-cyan-300 mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-list-check"></i> Inspecciones Registradas en ${areaKey}
+      </h3>
+      <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/90">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-950 text-slate-400 text-[11px] uppercase border-b border-slate-800">
+              <th class="p-3">Folio</th>
+              <th class="p-3">Línea / Modelo</th>
+              <th class="p-3">Serie</th>
+              <th class="p-3">Inspector</th>
+              <th class="p-3">Estatus</th>
+              <th class="p-3 text-right">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+window.renderVistaAreaPlanta = renderVistaAreaPlanta;
+
+// Procesar parámetros ?tab=... o ?area=... si se abrió en una nueva pestaña del navegador
+function checkUrlTabAndAreaParams() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get("tab");
+    const areaParam = params.get("area");
+    if (!tabParam && !areaParam) return false;
+
+    // Si el usuario ya tenía sesión iniciada en localStorage, autenticar automáticamente en la nueva pestaña
+    const savedNomina = localStorage.getItem("auditum_current_user");
+    const wasLoggedIn = localStorage.getItem("auditum_logged_in") === "true";
+    if (wasLoggedIn && savedNomina) {
+      const u = (appState.usuarios || []).find(x => String(x.nomina) === String(savedNomina)) || appState.usuarios[0];
+      if (u) {
+        appState.currentUser = u;
+        appState.isAuthenticated = true;
+        hideLoginModal();
+        updateUserHeader();
+      }
+    }
+
+    if (areaParam) {
+      abrirPestanaAreaPlanta(areaParam);
+      return true;
+    }
+    if (tabParam) {
+      switchTab(tabParam);
+      return true;
+    }
+  } catch (e) {
+    console.warn("checkUrlTabAndAreaParams error:", e);
+  }
+  return false;
+}
+window.checkUrlTabAndAreaParams = checkUrlTabAndAreaParams;
