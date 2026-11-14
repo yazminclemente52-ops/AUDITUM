@@ -10332,10 +10332,10 @@ function setNaveMapa(nave) {
     if (vFabs) vFabs.classList.remove("hidden");
     if (vK) vK.classList.add("hidden");
     if (btnFabs) {
-      btnFabs.className = "px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer bg-blue-600 text-white shadow-md shadow-blue-600/30";
+      btnFabs.className = "w-full px-3 py-2 rounded-lg text-xs font-bold transition flex items-center justify-between gap-2 cursor-pointer bg-blue-600 text-white shadow-md shadow-blue-600/30";
     }
     if (btnK) {
-      btnK.className = "px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800";
+      btnK.className = "w-full px-3 py-2 rounded-lg text-xs font-bold transition flex items-center justify-between gap-2 cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800";
     }
     if (badgeNave) {
       badgeNave.innerText = "Área FABS (Planta 3)";
@@ -10345,10 +10345,10 @@ function setNaveMapa(nave) {
     if (vFabs) vFabs.classList.add("hidden");
     if (vK) vK.classList.remove("hidden");
     if (btnFabs) {
-      btnFabs.className = "px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800";
+      btnFabs.className = "w-full px-3 py-2 rounded-lg text-xs font-bold transition flex items-center justify-between gap-2 cursor-pointer text-slate-300 hover:text-white hover:bg-slate-800";
     }
     if (btnK) {
-      btnK.className = "px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 cursor-pointer bg-indigo-600 text-white shadow-md shadow-indigo-600/30";
+      btnK.className = "w-full px-3 py-2 rounded-lg text-xs font-bold transition flex items-center justify-between gap-2 cursor-pointer bg-indigo-600 text-white shadow-md shadow-indigo-600/30";
     }
     if (badgeNave) {
       badgeNave.innerText = "Edificio K (Robótica y Especiales)";
@@ -10383,16 +10383,16 @@ function filtrarSensoresMapa(filtro) {
     if (!b) return;
     if (key === filtro) {
       if (key === "espera") {
-        b.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-amber-400 text-slate-950 border-2 border-amber-300 shadow-md shadow-amber-400/30 cursor-pointer transition flex items-center gap-1.5";
+        b.className = "w-full px-3 py-2 rounded-lg text-xs font-black bg-amber-400 text-slate-950 border-2 border-amber-300 shadow-md shadow-amber-400/30 cursor-pointer transition flex items-center justify-between";
       } else if (key === "defectos") {
-        b.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-rose-600 text-white border-2 border-rose-400 shadow-md shadow-rose-600/30 cursor-pointer transition flex items-center gap-1.5";
+        b.className = "w-full px-3 py-2 rounded-lg text-xs font-black bg-rose-600 text-white border-2 border-rose-400 shadow-md shadow-rose-600/30 cursor-pointer transition flex items-center justify-between";
       } else if (key === "liberadas") {
-        b.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-emerald-600 text-white border-2 border-emerald-400 shadow-md shadow-emerald-600/30 cursor-pointer transition flex items-center gap-1.5";
+        b.className = "w-full px-3 py-2 rounded-lg text-xs font-black bg-emerald-600 text-white border-2 border-emerald-400 shadow-md shadow-emerald-600/30 cursor-pointer transition flex items-center justify-between";
       } else {
-        b.className = "px-3 py-1.5 rounded-lg text-xs font-black bg-blue-600 text-white border-2 border-blue-400 shadow-md shadow-blue-600/30 cursor-pointer transition flex items-center gap-1.5";
+        b.className = "w-full px-3 py-2 rounded-lg text-xs font-black bg-blue-600 text-white border-2 border-blue-400 shadow-md shadow-blue-600/30 cursor-pointer transition flex items-center justify-between";
       }
     } else {
-      b.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-700 hover:bg-slate-800 cursor-pointer transition flex items-center gap-1.5";
+      b.className = "w-full px-3 py-2 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 border border-slate-800 hover:bg-slate-800 cursor-pointer transition flex items-center justify-between";
     }
   });
 
